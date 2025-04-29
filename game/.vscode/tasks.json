@@ -1,0 +1,60 @@
+{
+	"version": "2.0.0",
+	"inputs": [
+        {
+            "id": "appNameInput",
+            "type": "promptString",
+            "description": "Enter the App Name:",
+            "default": "MyApp"
+        },
+        {
+            "id": "appBundleIdInput",
+            "type": "promptString",
+            "description": "Enter the App Bundle Id:",
+            "default": "com.myapp"
+        }
+    ],
+	"tasks": [
+			
+		{
+			"type": "shell",
+    		"command": "./tools/zip.sh",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": [],
+			"label": "Archive Project",
+			"detail": ""
+		},
+		{
+            "label": "Rename",
+            "type": "shell",
+            "command": "sh",
+            "args": [
+                "./tools/rename.sh",
+                "${input:appNameInput}"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Change Bundel Id",
+            "type": "shell",
+            "command": "sh",
+            "args": [
+                "./tools/change_bundelId.sh",
+                "${input:appBundleIdInput}"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+		
+	]
+}
