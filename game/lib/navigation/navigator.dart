@@ -9,5 +9,19 @@ final class AppNavigator {
 
   AppNavigator._();
 
-  
+  static void openHome() {
+    _context.goNamed(RoutesName.home.name);
+  }
+
+  static void openLevels() {
+    _context.goNamed(RoutesName.levels.name);
+  }
+
+  static void openStatistic() {
+    _context.goNamed(RoutesName.statistic.name);
+  }
+
+  static void openSettings() {
+    _context.goNamed(RoutesName.settings.name);
+  }
 }

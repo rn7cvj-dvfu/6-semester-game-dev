@@ -2,6 +2,12 @@ final class RoutesName {
   RoutesName._();
 
   static Route home = Route('/home', 'home');
+
+  static Route levels = Route('levels', 'levels');
+
+  static Route statistic = Route('statistic', 'statistic');
+
+  static Route settings = Route('settings', 'settings');
 }
 
 final class Route {
