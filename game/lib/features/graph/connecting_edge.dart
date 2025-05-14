@@ -4,12 +4,12 @@ import 'package:flame/components.dart';
 
 import 'dot.dart';
 
-class ConnectingEdge extends Component {
+class ConnectingEdgeComponent extends Component {
   final DotComponent from;
   final DotComponent to;
   final Color color;
 
-  ConnectingEdge({
+  ConnectingEdgeComponent({
     required this.from,
     required this.to,
     required this.color,

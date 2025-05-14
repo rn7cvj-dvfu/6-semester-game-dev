@@ -4,10 +4,10 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/services.dart';
 
-import 'game.dart';
+import 'widget.dart';
 
 class DotComponent extends PositionComponent
-    with DragCallbacks, HoverCallbacks, HasGameReference<GraphGame> {
+    with DragCallbacks, HoverCallbacks, HasGameReference<GraphWidget> {
   final Color color;
   final double radius;
   bool _dragging = false;

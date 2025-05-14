@@ -20,6 +20,7 @@ class LevelsPage extends StatelessWidget {
                   child: ListView(
                     padding: EdgeInsets.symmetric(vertical: 16 + 16 + 16),
                     shrinkWrap: true,
+                    primary: false,
                     children: [
                       _LevelCard(
                         index: 1,
