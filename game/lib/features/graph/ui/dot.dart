@@ -9,14 +9,17 @@ import 'widget.dart';
 class DotComponent extends PositionComponent
     with DragCallbacks, HoverCallbacks, HasGameReference<GraphWidget> {
   final Color color;
+  final Color blendColor;
   final double radius;
   bool _dragging = false;
   bool _isHovered = false;
 
   DotComponent({
     required this.color,
+    required this.blendColor,
     required this.radius,
     required Vector2 position,
+    super.priority = 1,
   }) {
     this.position = position;
     size = Vector2.all(radius * 2);
@@ -26,7 +29,7 @@ class DotComponent extends PositionComponent
   @override
   void render(Canvas canvas) {
     final paint = Paint()
-      ..color = _isHovered ? color.withValues(alpha: 0.7) : color;
+      ..color = _isHovered ? Color.lerp(color, blendColor, 0.5)! : color;
     canvas.drawCircle(Offset(radius, radius), radius, paint);
   }
 
