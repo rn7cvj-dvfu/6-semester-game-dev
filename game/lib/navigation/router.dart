@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../pages/home.dart';
+import '../pages/level.dart';
 import '../pages/levels.dart';
 import '../pages/settings.dart';
 import '../pages/statistic.dart';
 import 'fade_transition.dart';
+import 'path_name.dart';
 import 'routes_name.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -24,6 +26,32 @@ GoRouter router = GoRouter(
     //   navigatorKey: shellNavigatorKey,
     //   builder: (context, state, child) => child,
     //   routes: [
+    GoRoute(
+      path: "${RoutesName.level.path}/:${PathName.levelId}",
+      name: RoutesName.level.name,
+      redirect: (context, state) {
+        final redirectPath =
+            "${RoutesName.home.path}/${RoutesName.levels.path}";
+
+        final levelId = state.pathParameters[PathName.levelId];
+        if (levelId == null) {
+          return redirectPath;
+        }
+        if (int.tryParse(levelId) == null) {
+          return redirectPath;
+        }
+        return null;
+      },
+      pageBuilder: (context, state) {
+        final levelId = state.pathParameters[PathName.levelId]!;
+
+        return FadeTransitionPage(
+          child: LevelPage(
+            levelId: int.parse(levelId),
+          ),
+        );
+      },
+    ),
     GoRoute(
       path: RoutesName.home.path,
       name: RoutesName.home.name,

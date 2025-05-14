@@ -49,7 +49,10 @@ class _LevelCard extends StatelessWidget {
   final String title;
   final int index;
 
-  const _LevelCard({super.key, required this.title, required this.index});
+  const _LevelCard({
+    required this.title,
+    required this.index,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +61,7 @@ class _LevelCard extends StatelessWidget {
       child: SizedBox(
         width: 384,
         child: InkWell(
-          onTap: () {},
+          onTap: () => AppNavigator.openLevel(index),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Row(

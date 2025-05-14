@@ -3,6 +3,8 @@ final class RoutesName {
 
   static Route home = Route('/home', 'home');
 
+  static Route level = Route('/level', 'level');
+
   static Route levels = Route('levels', 'levels');
 
   static Route statistic = Route('statistic', 'statistic');

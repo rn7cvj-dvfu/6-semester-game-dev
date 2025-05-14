@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'path_name.dart';
 import 'router.dart';
 import 'routes_name.dart';
 
@@ -15,6 +16,12 @@ final class AppNavigator {
 
   static void openLevels() {
     _context.goNamed(RoutesName.levels.name);
+  }
+
+  static void openLevel(int levelId) {
+    _context.goNamed(RoutesName.level.name, pathParameters: {
+      PathName.levelId: levelId.toString(),
+    });
   }
 
   static void openStatistic() {
