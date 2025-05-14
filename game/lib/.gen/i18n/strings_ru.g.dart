@@ -49,6 +49,8 @@ class _TranslationsStringsRu implements TranslationsStringsEn {
 	@override String get settings => 'Настройки';
 	@override String get statistic => 'Статистика';
 	@override String get back => 'Назад';
+	@override String get useDarkTheme => 'Темная тема';
+	@override String get useSeedColor => 'Основной цвет';
 }
 
 /// Flat map(s) containing all translations.
@@ -59,6 +61,8 @@ extension on TranslationsRu {
 			case 'strings.settings': return 'Настройки';
 			case 'strings.statistic': return 'Статистика';
 			case 'strings.back': return 'Назад';
+			case 'strings.useDarkTheme': return 'Темная тема';
+			case 'strings.useSeedColor': return 'Основной цвет';
 			default: return null;
 		}
 	}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../.gen/i18n/strings.g.dart';
+import '../features/theme/togglers.dart';
 import '../navigation/navigator.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -30,6 +31,7 @@ class SettingsPage extends StatelessWidget {
                       ),
                     ],
                   ),
+                  ThemeModelToggle(),
                 ],
               ),
             ),

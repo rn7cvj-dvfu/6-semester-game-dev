@@ -52,6 +52,8 @@ class TranslationsStringsEn {
 	String get settings => 'Settings';
 	String get statistic => 'Statistics';
 	String get back => 'Back';
+	String get useDarkTheme => 'Темная тема';
+	String get useSeedColor => 'Основной цвет';
 }
 
 /// Flat map(s) containing all translations.
@@ -62,6 +64,8 @@ extension on Translations {
 			case 'strings.settings': return 'Settings';
 			case 'strings.statistic': return 'Statistics';
 			case 'strings.back': return 'Back';
+			case 'strings.useDarkTheme': return 'Темная тема';
+			case 'strings.useSeedColor': return 'Основной цвет';
 			default: return null;
 		}
 	}

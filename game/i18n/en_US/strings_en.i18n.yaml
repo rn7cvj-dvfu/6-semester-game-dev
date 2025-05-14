@@ -1,3 +1,5 @@
 settings: Settings
 statistic: Statistics
 back: Back
+useDarkTheme: Темная тема
+useSeedColor: Основной цвет
