@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'features/theme/widget.dart';
 import 'navigation/router.dart';
 
-class App extends ConsumerWidget {
+class App extends StatelessWidget {
   final Color seedColor = const Color(0xFFFFFFFF);
 
   const App({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final theme = GTheme.of(context);
 
     return MaterialApp.router(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class GTheme extends InheritedWidget {
   final ThemeMode themeMode;
   final Color seedColor;
+
   final void Function(ThemeMode newThemeMode) toggleThemeMode;
   final void Function(Color newSeedColor) toggleSeedColor;
 

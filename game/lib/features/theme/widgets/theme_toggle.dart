@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../.gen/i18n/strings.g.dart';
-import 'widget.dart';
+import '../../../.gen/i18n/strings.g.dart';
+import '../widget.dart';
 
 class ThemeModelToggle extends StatelessWidget {
   const ThemeModelToggle({super.key});
@@ -22,3 +22,5 @@ class ThemeModelToggle extends StatelessWidget {
     );
   }
 }
+
+

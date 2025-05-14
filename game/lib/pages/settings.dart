@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../.gen/i18n/strings.g.dart';
-import '../features/theme/togglers.dart';
+import '../features/theme/widgets/color_toggle.dart';
+import '../features/theme/widgets/theme_toggle.dart';
 import '../navigation/navigator.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -32,6 +33,8 @@ class SettingsPage extends StatelessWidget {
                     ],
                   ),
                   ThemeModelToggle(),
+                  const Divider(),
+                  SeedColorToggle(),
                 ],
               ),
             ),
