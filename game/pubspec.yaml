@@ -73,6 +73,7 @@ dependencies:
   biometric_storage: ^5.1.1-dev.1
   flutter_localizations:
     sdk: flutter
+  collection: ^1.19.1
 
 dev_dependencies:
   flutter_test:

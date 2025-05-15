@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../features/graph/ui/info_card.dart';
 import '../../features/ui/back_button.dart';
 import '../../navigation/navigator.dart';
