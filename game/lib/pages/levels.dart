@@ -34,7 +34,7 @@ class LevelsPage extends StatelessWidget {
                       const SizedBox(height: 16),
                       _LevelCard(
                         index: 2,
-                        title: 'Первые алгоритмы',
+                        title: 'Компоненты связанности',
                       ),
                     ],
                   ),

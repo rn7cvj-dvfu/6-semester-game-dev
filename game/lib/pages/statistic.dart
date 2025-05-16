@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../.gen/i18n/strings.g.dart';
+import '../features/settings.dart';
 import '../navigation/navigator.dart';
 
 class StatisticPage extends StatelessWidget {
@@ -11,7 +12,7 @@ class StatisticPage extends StatelessWidget {
     return Material(
       child: Center(
         child: SizedBox.square(
-          dimension: 384,
+          dimension: GSettings.maxDialogWidth,
           child: Card(
             child: Padding(
               padding: const EdgeInsets.all(16),
