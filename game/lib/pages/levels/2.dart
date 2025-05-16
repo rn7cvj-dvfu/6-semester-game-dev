@@ -101,8 +101,8 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
 
   @override
   Widget build(BuildContext context) {
+    final currentStageData = _stages[_currentStageIndex];
     const transitionDuration = Duration(milliseconds: 500);
-    // final currentStageData = _stages[_currentStageIndex];
 
     return Material(
       child: Stack(
@@ -151,10 +151,11 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
                     totalStages: _stages.length,
                     onBack: _currentStageIndex == 0 ? null : _previousStage,
                     onNext: switch (_currentStageIndex) {
-                      3 => _enteredConnectivityComponents == null
-                          ? null
-                          : _nextStage,
-                      _ => _nextStage
+                      3 =>
+                        _enteredConnectivityComponents == null
+                            ? null
+                            : _nextStage,
+                      _ => _nextStage,
                     },
                   ),
                   if (_currentStageIndex == 3)

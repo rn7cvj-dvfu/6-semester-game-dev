@@ -6,7 +6,7 @@ import '../../settings.dart';
 class StepButton extends StatelessWidget {
   final int currentStage;
   final int totalStages;
-
+k
   final VoidCallback? onBack;
   final VoidCallback? onNext;
 
@@ -24,19 +24,36 @@ class StepButton extends StatelessWidget {
       constraints: BoxConstraints(maxWidth: GSettings.maxDialogWidth),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        spacing: 8,
         children: [
           Expanded(
             child: ElevatedButton(
               onPressed: onBack,
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12), // как у Card
+                ),
+              ),
               child: Text(context.t.strings.common.back),
             ),
           ),
-          const SizedBox(width: 8),
-          Text('${currentStage + 1} / $totalStages'),
-          const SizedBox(width: 8),
+
+          Card(
+            margin: EdgeInsets.zero,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+              child: Text('${currentStage + 1} / $totalStages'),
+            ),
+          ),
+
           Expanded(
             child: ElevatedButton(
               onPressed: onNext,
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12), // как у Card
+                ),
+              ),
               child: Text(
                 currentStage == totalStages - 1
                     ? context.t.strings.common.finish

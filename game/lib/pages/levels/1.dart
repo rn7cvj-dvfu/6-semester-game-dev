@@ -5,6 +5,7 @@ import '../../.gen/i18n/strings.g.dart';
 import '../../features/graph/bloc/model.dart';
 import '../../features/graph/ui/adjacency_matrix_editor.dart';
 import '../../features/graph/ui/info_card.dart';
+import '../../features/graph/ui/step_button.dart';
 import '../../features/graph/ui/widget.dart';
 import '../../features/ui/back_button.dart';
 import '../../navigation/navigator.dart';
@@ -137,40 +138,19 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
-                spacing: 16,
+                spacing: 8,
                 children: [
                   InfoCardWidget(
                     title: currentStageData.infoTitle,
                     text: currentStageData.infoText,
                   ),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 384),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      spacing: 8,
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: _currentStageIndex > 0
-                                ? _previousStage
-                                : null,
-                            child: Text(context.t.strings.common.back),
-                          ),
-                        ),
-                        Text('${_currentStageIndex + 1} / ${_stages.length}'),
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: _nextStage,
-                            child: Text(
-                              _currentStageIndex < _stages.length - 1
-                                  ? context.t.strings.common.next
-                                  : context.t.strings.common.finish,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  StepButton(
+                    currentStage: _currentStageIndex,
+                    totalStages: _stages.length,
+                    onBack: _currentStageIndex > 0 ? _previousStage : null,
+                    onNext: _nextStage,
                   ),
+
                   if (isLastStage)
                     AdjacencyMatrixEditor(
                       initialGraph: currentStageData.graphModel,
