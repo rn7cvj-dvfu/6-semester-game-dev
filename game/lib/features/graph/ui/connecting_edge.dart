@@ -1,19 +1,23 @@
 import 'dart:ui';
 
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 
 import 'dot.dart';
 
-class ConnectingEdgeComponent extends Component {
+class ConnectingEdgeComponent extends Component with TapCallbacks {
   final DotComponent from;
   final DotComponent to;
   final Color color;
+
+  final VoidCallback? onClick;
 
   ConnectingEdgeComponent({
     required this.from,
     required this.to,
     required this.color,
+    this.onClick,
     super.priority = 0,
   });
 
@@ -45,5 +49,11 @@ class ConnectingEdgeComponent extends Component {
       ..close();
 
     canvas.drawPath(path, paint);
+  }
+
+  @override
+  void onTapDown(TapDownEvent event) {
+    super.onTapDown(event);
+    onClick?.call();
   }
 }

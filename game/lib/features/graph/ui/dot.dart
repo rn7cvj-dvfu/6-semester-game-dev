@@ -6,18 +6,28 @@ import 'package:flame/events.dart';
 import 'widget.dart';
 
 class DotComponent extends PositionComponent
-    with DragCallbacks, HoverCallbacks, HasGameReference<GraphWidget> {
+    with
+        DragCallbacks,
+        HoverCallbacks,
+        TapCallbacks,
+        HasGameReference<GraphWidget> {
   final Color color;
   final Color blendColor;
   final double radius;
+
   bool _dragging = false;
   bool _isHovered = false;
+
+  final bool movable;
+  final VoidCallback? onClick;
 
   DotComponent({
     required this.color,
     required this.blendColor,
     required this.radius,
     required Vector2 position,
+    this.movable = true,
+    this.onClick,
     super.priority = 1,
   }) {
     this.position = position;
@@ -35,12 +45,20 @@ class DotComponent extends PositionComponent
   @override
   void onDragStart(DragStartEvent event) {
     super.onDragStart(event);
+
+    if (!movable) {
+      return;
+    }
+
     _dragging = true;
     event.continuePropagation = true;
   }
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
+    if (!movable) {
+      return;
+    }
     if (_dragging) {
       position += event.deviceDelta;
     }
@@ -49,6 +67,10 @@ class DotComponent extends PositionComponent
   @override
   void onDragEnd(DragEndEvent event) {
     super.onDragEnd(event);
+
+    if (!movable) {
+      return;
+    }
     _dragging = false;
   }
 
@@ -60,11 +82,33 @@ class DotComponent extends PositionComponent
 
   @override
   void onHoverEnter() {
+    if (!movable) {
+      return;
+    }
+
+    if (onClick == null) {
+      return;
+    }
+
     _isHovered = true;
   }
 
   @override
   void onHoverExit() {
+    if (!movable) {
+      return;
+    }
+
+    if (onClick == null) {
+      return;
+    }
+
     _isHovered = false;
+  }
+
+  @override
+  void onTapDown(TapDownEvent event) {
+    super.onTapDown(event);
+    onClick?.call();
   }
 }
