@@ -6,7 +6,7 @@ import '../../settings.dart';
 class StepButton extends StatelessWidget {
   final int currentStage;
   final int totalStages;
-k
+
   final VoidCallback? onBack;
   final VoidCallback? onNext;
 
