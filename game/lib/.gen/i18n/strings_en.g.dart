@@ -51,8 +51,9 @@ class TranslationsStringsEn {
 	// Translations
 	String get settings => 'Settings';
 	String get statistic => 'Statistics';
-	String get useDarkTheme => 'Темная тема';
-	String get useSeedColor => 'Основной цвет';
+	String get useDarkTheme => 'Dark theme';
+	String get useSeedColor => 'Seed color';
+	String get useLangue => 'Language';
 	late final TranslationsStringsLevelsEn levels = TranslationsStringsLevelsEn._(_root);
 	String get enterNumberOfConnectivityComponents => 'Enter the number of connected components';
 	late final TranslationsStringsCommonEn common = TranslationsStringsCommonEn._(_root);
@@ -212,8 +213,9 @@ extension on Translations {
 		switch (path) {
 			case 'strings.settings': return 'Settings';
 			case 'strings.statistic': return 'Statistics';
-			case 'strings.useDarkTheme': return 'Темная тема';
-			case 'strings.useSeedColor': return 'Основной цвет';
+			case 'strings.useDarkTheme': return 'Dark theme';
+			case 'strings.useSeedColor': return 'Seed color';
+			case 'strings.useLangue': return 'Language';
 			case 'strings.levels.k1.name': return 'Basics';
 			case 'strings.levels.k1.stages.k1.title': return 'Stage 1: Dot';
 			case 'strings.levels.k1.stages.k1.text': return 'This is a dot. It\'s just a single dot on a blank canvas. Move on.';

@@ -28,7 +28,7 @@ class SeedColorToggle extends StatelessWidget {
         return Column(
           children: [
             ListTile(
-              title: Text(t.strings.useSeedColor),
+              title: Text(context.t.strings.useSeedColor),
             ),
             Row(
               children: List.generate(

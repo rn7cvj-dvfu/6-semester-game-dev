@@ -48,9 +48,9 @@ class _TranslationsStringsRu implements TranslationsStringsEn {
 	// Translations
 	@override String get settings => 'Настройки';
 	@override String get statistic => 'Статистика';
-	@override String get back => 'Назад';
 	@override String get useDarkTheme => 'Темная тема';
 	@override String get useSeedColor => 'Основной цвет';
+	@override String get useLangue => 'Язык';
 	@override late final _TranslationsStringsLevelsRu levels = _TranslationsStringsLevelsRu._(_root);
 	@override String get enterNumberOfConnectivityComponents => 'Введите количество компонент связности';
 	@override late final _TranslationsStringsCommonRu common = _TranslationsStringsCommonRu._(_root);
@@ -210,9 +210,9 @@ extension on TranslationsRu {
 		switch (path) {
 			case 'strings.settings': return 'Настройки';
 			case 'strings.statistic': return 'Статистика';
-			case 'strings.back': return 'Назад';
 			case 'strings.useDarkTheme': return 'Темная тема';
 			case 'strings.useSeedColor': return 'Основной цвет';
+			case 'strings.useLangue': return 'Язык';
 			case 'strings.levels.k1.name': return 'Основы';
 			case 'strings.levels.k1.stages.k1.title': return 'Этап 1: Точка';
 			case 'strings.levels.k1.stages.k1.text': return 'Это точка. Просто одинокая точка на чистом холсте. Идите дальше.';

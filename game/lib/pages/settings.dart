@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../.gen/i18n/strings.g.dart';
+import '../features/language/widgets/toggle.dart';
 import '../features/settings.dart';
 import '../features/theme/widgets/color_toggle.dart';
 import '../features/theme/widgets/theme_toggle.dart';
@@ -24,7 +25,7 @@ class SettingsPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        t.strings.settings,
+                        context.t.strings.settings,
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       IconButton(
@@ -36,6 +37,7 @@ class SettingsPage extends StatelessWidget {
                   ThemeModelToggle(),
                   const Divider(),
                   SeedColorToggle(),
+                  LanguageToggle(),
                 ],
               ),
             ),

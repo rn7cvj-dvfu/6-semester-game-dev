@@ -11,7 +11,8 @@ class ThemeModelToggle extends StatelessWidget {
     final theme = GTheme.of(context);
 
     return SwitchListTile(
-      title: Text(t.strings.useDarkTheme),
+      // key:
+      title: Text(context.t.strings.useDarkTheme),
       value: theme.themeMode == ThemeMode.dark,
       onChanged: (value) => theme.toggleThemeMode(
         value ? ThemeMode.dark : ThemeMode.light,
@@ -22,5 +23,3 @@ class ThemeModelToggle extends StatelessWidget {
     );
   }
 }
-
-

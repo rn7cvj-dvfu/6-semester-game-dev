@@ -1,8 +1,9 @@
 settings: Settings
 statistic: Statistics
 
-useDarkTheme: Темная тема
-useSeedColor: Основной цвет
+useDarkTheme: Dark theme
+useSeedColor: Seed color
+useLangue: Language
 
 levels:
   1:

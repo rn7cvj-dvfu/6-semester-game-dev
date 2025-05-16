@@ -18,6 +18,7 @@ class GraphModel with _$GraphModel {
     List<List<int>> matrix, {
     bool movable = false,
     bool clickable = false,
+    bool edgeColorLerp = false,
     Color Function(int nodeIndex)? nodeColor,
     Color Function(int firstNodeIndex, int secondNodeIndex)? edgeColor,
   }) {
@@ -54,6 +55,7 @@ class GraphModel with _$GraphModel {
     return GraphModel(
       nodes: nodes,
       edges: edges,
+      edgeColorLerp: edgeColorLerp,
       movable: movable,
       clickable: clickable,
     );
