@@ -1,5 +1,6 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import '../../.gen/i18n/strings.g.dart';
 import '../../features/graph/bloc/model.dart';
 import '../../features/graph/ui/info_card.dart';
 import '../../features/graph/ui/widget.dart';
@@ -88,25 +89,48 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
 
   @override
   Widget build(BuildContext context) {
-    final currentStage = _stages[_currentStageIndex];
+    // Ensure _stages is initialized before accessing it.
+    // This is crucial because didChangeDependencies might be called after the first build in some scenarios.
+    if (_stages == null) {
+      // If _stages is still null, it means didChangeDependencies hasn't run or completed.
+      // Call it here to ensure initialization. This might happen if context wasn't fully ready.
+      // Or, show a loading indicator until it's ready.
+      didChangeDependencies(); // Attempt to initialize if null.
+      // If it's still null after attempting, show loading.
+      // This might occur if Translations.of(context) isn't ready.
+      if (_stages == null) {
+        return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      }
+    }
+
+    // At this point, _stages should not be null. Use ! to assert non-null.
+    final currentStageData = _stages![_currentStageIndex];
+    const transitionDuration = Duration(milliseconds: 300);
+    final t =
+        Translations.of(context); // Get translations instance for build method
 
     return Material(
       child: Stack(
         children: [
-          Positioned.fill(
-            child: GameWidget(
-              game: GraphWidget(
-                graphModel: currentStage.graphModel,
-                backgroundColorValue: Theme.of(context).scaffoldBackgroundColor,
-                dotColorValue: Theme.of(context).colorScheme.primary,
-                connectionEdgeColorValue:
-                    Theme.of(context).colorScheme.primaryContainer,
-                onNodeClick: (nodeId) {
-                  // print('Node $nodeId clicked');
-                },
-                onEdgeClick: (edgeId) {
-                  // print('Edge $edgeId clicked');
-                },
+          AnimatedSwitcher(
+            duration: Duration(milliseconds: 500),
+            child: Positioned.fill(
+              key: ValueKey(currentStageData.graphModel),
+              child: GameWidget(
+                game: GraphWidget(
+                  graphModel: currentStageData.graphModel,
+                  backgroundColorValue:
+                      Theme.of(context).scaffoldBackgroundColor,
+                  dotColorValue: Theme.of(context).colorScheme.primary,
+                  connectionEdgeColorValue:
+                      Theme.of(context).colorScheme.primaryContainer,
+                  onNodeClick: (nodeId) {
+                    // print('Node $nodeId clicked');
+                  },
+                  onEdgeClick: (edgeId) {
+                    // print('Edge $edgeId clicked');
+                  },
+                ),
               ),
             ),
           ),
@@ -120,44 +144,47 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
           Positioned(
             top: 16,
             right: 16,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              spacing: 8,
-              children: [
-                InfoCardWidget(
-                  title: currentStage.infoTitle,
-                  text: currentStage.infoText,
-                ),
-                ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxWidth: 384,
+            child: AnimatedSwitcher(
+              duration: transitionDuration,
+              key: ValueKey('ui_stage_$_currentStageIndex'),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                spacing: 8,
+                children: [
+                  InfoCardWidget(
+                    title: currentStageData.infoTitle,
+                    text: currentStageData.infoText,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed:
-                              _currentStageIndex > 0 ? _previousStage : null,
-                          child: const Text("Назад"),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxWidth: 384,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      spacing: 8,
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed:
+                                _currentStageIndex > 0 ? _previousStage : null,
+                            child: Text(t.strings.back),
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      Text('${_currentStageIndex + 1} / ${_stages.length}'),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: _nextStage,
-                          child: Text(_currentStageIndex < _stages.length - 1
-                              ? "Далее"
-                              : "Завершить"),
+                        Text('${_currentStageIndex + 1} / ${_stages!.length}'),
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: _nextStage,
+                            child: Text(_currentStageIndex < _stages!.length - 1
+                                ? t.strings.common.next
+                                : t.strings.common.finish),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           )
         ],

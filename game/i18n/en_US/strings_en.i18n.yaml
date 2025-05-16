@@ -3,3 +3,20 @@ statistic: Statistics
 back: Back
 useDarkTheme: Темная тема
 useSeedColor: Основной цвет
+
+levels:
+  1:
+    stages:
+      1: 
+        title: "Stage 1: Introduction"
+        text: "This is the first stage. Look at the graph. It consists of two dots and one connection."
+      2: 
+        title: "Stage 2: More Dots"
+        text: "Now there are three dots, and they are connected in a circle."
+      3: 
+        title: "Stage 3: Isolated Dot"
+        text: "In this stage, one of the dots has no connections."
+
+common:
+  next: "Далее"
+  finish: "Завершить"

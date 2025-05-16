@@ -25,6 +25,7 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
         maxHeight: 384,
       ),
       child: Card(
+        margin: EdgeInsets.zero,
         child: Padding(
           padding: const EdgeInsets.only(
             top: 16,
@@ -56,28 +57,23 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
               ),
               Flexible(
                 child: AnimatedSize(
-                  duration: Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 500),
                   child: _isExpanded
                       ? Column(
                           mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Divider(),
-                            Flexible(
-                              child: SingleChildScrollView(
-                                primary: false,
-                                padding: EdgeInsets.only(
-                                  right: 16,
-                                  bottom: 16,
-                                ),
-                                child: Text(widget.text),
+                            const Divider(),
+                            SingleChildScrollView(
+                              primary: false,
+                              padding: const EdgeInsets.only(
+                                bottom: 16,
                               ),
+                              child: Text(widget.text),
                             ),
                           ],
                         )
-                      : SizedBox(
-                          height: 16,
-                          width: double.infinity,
-                        ),
+                      : const SizedBox.shrink(),
                 ),
               ),
             ],

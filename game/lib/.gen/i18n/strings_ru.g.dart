@@ -51,6 +51,84 @@ class _TranslationsStringsRu implements TranslationsStringsEn {
 	@override String get back => 'Назад';
 	@override String get useDarkTheme => 'Темная тема';
 	@override String get useSeedColor => 'Основной цвет';
+	@override late final _TranslationsStringsLevelsRu levels = _TranslationsStringsLevelsRu._(_root);
+	@override late final _TranslationsStringsCommonRu common = _TranslationsStringsCommonRu._(_root);
+}
+
+// Path: strings.levels
+class _TranslationsStringsLevelsRu implements TranslationsStringsLevelsEn {
+	_TranslationsStringsLevelsRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsStringsLevelsK1Ru k1 = _TranslationsStringsLevelsK1Ru._(_root);
+}
+
+// Path: strings.common
+class _TranslationsStringsCommonRu implements TranslationsStringsCommonEn {
+	_TranslationsStringsCommonRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get next => 'Далее';
+	@override String get finish => 'Завершить';
+}
+
+// Path: strings.levels.k1
+class _TranslationsStringsLevelsK1Ru implements TranslationsStringsLevelsK1En {
+	_TranslationsStringsLevelsK1Ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsStringsLevelsK1StagesRu stages = _TranslationsStringsLevelsK1StagesRu._(_root);
+}
+
+// Path: strings.levels.k1.stages
+class _TranslationsStringsLevelsK1StagesRu implements TranslationsStringsLevelsK1StagesEn {
+	_TranslationsStringsLevelsK1StagesRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsStringsLevelsK1StagesK1Ru k1 = _TranslationsStringsLevelsK1StagesK1Ru._(_root);
+	@override late final _TranslationsStringsLevelsK1StagesK2Ru k2 = _TranslationsStringsLevelsK1StagesK2Ru._(_root);
+	@override late final _TranslationsStringsLevelsK1StagesK3Ru k3 = _TranslationsStringsLevelsK1StagesK3Ru._(_root);
+}
+
+// Path: strings.levels.k1.stages.k1
+class _TranslationsStringsLevelsK1StagesK1Ru implements TranslationsStringsLevelsK1StagesK1En {
+	_TranslationsStringsLevelsK1StagesK1Ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Этап 1: Знакомство';
+	@override String get text => 'Это первый этап. Посмотрите на граф. Он состоит из двух точек и одной связи.';
+}
+
+// Path: strings.levels.k1.stages.k2
+class _TranslationsStringsLevelsK1StagesK2Ru implements TranslationsStringsLevelsK1StagesK2En {
+	_TranslationsStringsLevelsK1StagesK2Ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Этап 2: Больше точек';
+	@override String get text => 'Теперь точек три, и они соединены по кругу.';
+}
+
+// Path: strings.levels.k1.stages.k3
+class _TranslationsStringsLevelsK1StagesK3Ru implements TranslationsStringsLevelsK1StagesK3En {
+	_TranslationsStringsLevelsK1StagesK3Ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Этап 3: Изолированная точка';
+	@override String get text => 'На этом этапе одна из точек не имеет связей.';
 }
 
 /// Flat map(s) containing all translations.
@@ -63,6 +141,14 @@ extension on TranslationsRu {
 			case 'strings.back': return 'Назад';
 			case 'strings.useDarkTheme': return 'Темная тема';
 			case 'strings.useSeedColor': return 'Основной цвет';
+			case 'strings.levels.k1.stages.k1.title': return 'Этап 1: Знакомство';
+			case 'strings.levels.k1.stages.k1.text': return 'Это первый этап. Посмотрите на граф. Он состоит из двух точек и одной связи.';
+			case 'strings.levels.k1.stages.k2.title': return 'Этап 2: Больше точек';
+			case 'strings.levels.k1.stages.k2.text': return 'Теперь точек три, и они соединены по кругу.';
+			case 'strings.levels.k1.stages.k3.title': return 'Этап 3: Изолированная точка';
+			case 'strings.levels.k1.stages.k3.text': return 'На этом этапе одна из точек не имеет связей.';
+			case 'strings.common.next': return 'Далее';
+			case 'strings.common.finish': return 'Завершить';
 			default: return null;
 		}
 	}
