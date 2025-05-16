@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$GraphModel {
   List<NodeModel> get nodes => throw _privateConstructorUsedError;
   List<EdgeModel> get edges => throw _privateConstructorUsedError;
+  bool get edgeColorLerp => throw _privateConstructorUsedError;
   bool get movable => throw _privateConstructorUsedError;
   bool get clickable => throw _privateConstructorUsedError;
 
@@ -37,6 +38,7 @@ abstract class $GraphModelCopyWith<$Res> {
   $Res call(
       {List<NodeModel> nodes,
       List<EdgeModel> edges,
+      bool edgeColorLerp,
       bool movable,
       bool clickable});
 }
@@ -58,6 +60,7 @@ class _$GraphModelCopyWithImpl<$Res, $Val extends GraphModel>
   $Res call({
     Object? nodes = null,
     Object? edges = null,
+    Object? edgeColorLerp = null,
     Object? movable = null,
     Object? clickable = null,
   }) {
@@ -70,6 +73,10 @@ class _$GraphModelCopyWithImpl<$Res, $Val extends GraphModel>
           ? _value.edges
           : edges // ignore: cast_nullable_to_non_nullable
               as List<EdgeModel>,
+      edgeColorLerp: null == edgeColorLerp
+          ? _value.edgeColorLerp
+          : edgeColorLerp // ignore: cast_nullable_to_non_nullable
+              as bool,
       movable: null == movable
           ? _value.movable
           : movable // ignore: cast_nullable_to_non_nullable
@@ -93,6 +100,7 @@ abstract class _$$GraphModelImplCopyWith<$Res>
   $Res call(
       {List<NodeModel> nodes,
       List<EdgeModel> edges,
+      bool edgeColorLerp,
       bool movable,
       bool clickable});
 }
@@ -112,6 +120,7 @@ class __$$GraphModelImplCopyWithImpl<$Res>
   $Res call({
     Object? nodes = null,
     Object? edges = null,
+    Object? edgeColorLerp = null,
     Object? movable = null,
     Object? clickable = null,
   }) {
@@ -124,6 +133,10 @@ class __$$GraphModelImplCopyWithImpl<$Res>
           ? _value._edges
           : edges // ignore: cast_nullable_to_non_nullable
               as List<EdgeModel>,
+      edgeColorLerp: null == edgeColorLerp
+          ? _value.edgeColorLerp
+          : edgeColorLerp // ignore: cast_nullable_to_non_nullable
+              as bool,
       movable: null == movable
           ? _value.movable
           : movable // ignore: cast_nullable_to_non_nullable
@@ -142,6 +155,7 @@ class _$GraphModelImpl implements _GraphModel {
   _$GraphModelImpl(
       {required final List<NodeModel> nodes,
       required final List<EdgeModel> edges,
+      this.edgeColorLerp = false,
       this.movable = false,
       this.clickable = false})
       : _nodes = nodes,
@@ -165,6 +179,9 @@ class _$GraphModelImpl implements _GraphModel {
 
   @override
   @JsonKey()
+  final bool edgeColorLerp;
+  @override
+  @JsonKey()
   final bool movable;
   @override
   @JsonKey()
@@ -172,7 +189,7 @@ class _$GraphModelImpl implements _GraphModel {
 
   @override
   String toString() {
-    return 'GraphModel(nodes: $nodes, edges: $edges, movable: $movable, clickable: $clickable)';
+    return 'GraphModel(nodes: $nodes, edges: $edges, edgeColorLerp: $edgeColorLerp, movable: $movable, clickable: $clickable)';
   }
 
   @override
@@ -182,6 +199,8 @@ class _$GraphModelImpl implements _GraphModel {
             other is _$GraphModelImpl &&
             const DeepCollectionEquality().equals(other._nodes, _nodes) &&
             const DeepCollectionEquality().equals(other._edges, _edges) &&
+            (identical(other.edgeColorLerp, edgeColorLerp) ||
+                other.edgeColorLerp == edgeColorLerp) &&
             (identical(other.movable, movable) || other.movable == movable) &&
             (identical(other.clickable, clickable) ||
                 other.clickable == clickable));
@@ -192,6 +211,7 @@ class _$GraphModelImpl implements _GraphModel {
       runtimeType,
       const DeepCollectionEquality().hash(_nodes),
       const DeepCollectionEquality().hash(_edges),
+      edgeColorLerp,
       movable,
       clickable);
 
@@ -208,6 +228,7 @@ abstract class _GraphModel implements GraphModel {
   factory _GraphModel(
       {required final List<NodeModel> nodes,
       required final List<EdgeModel> edges,
+      final bool edgeColorLerp,
       final bool movable,
       final bool clickable}) = _$GraphModelImpl;
 
@@ -215,6 +236,8 @@ abstract class _GraphModel implements GraphModel {
   List<NodeModel> get nodes;
   @override
   List<EdgeModel> get edges;
+  @override
+  bool get edgeColorLerp;
   @override
   bool get movable;
   @override

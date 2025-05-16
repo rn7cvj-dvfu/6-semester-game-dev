@@ -112,7 +112,8 @@ class GraphWidget extends FlameGame {
 
       Color edgeColor = edgeColorValue;
 
-      if (firstNodeColor != null || secondNodeColor != null) {
+      if ((firstNodeColor != null || secondNodeColor != null) &&
+          graphModel.edgeColorLerp) {
         final tempColor = Color.lerp(
           firstNodeColor ?? nodeColorValue,
           secondNodeColor ?? nodeColorValue,

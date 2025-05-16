@@ -9,6 +9,7 @@ class GraphModel with _$GraphModel {
   factory GraphModel({
     required List<NodeModel> nodes,
     required List<EdgeModel> edges,
+    @Default(false) bool edgeColorLerp,
     @Default(false) bool movable,
     @Default(false) bool clickable,
   }) = _GraphModel;
