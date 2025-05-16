@@ -17,9 +17,9 @@ final class ThemeStorage {
         orElse: () => ThemeMode.light,
       );
 
-      final seedColor = Color(int.parse(
-        seedColorString ?? Colors.white.toARGB32().toString(),
-      ));
+      final seedColor = Color(
+        int.parse(seedColorString ?? Colors.white.toARGB32().toString()),
+      );
       return (themeMode, seedColor);
     } catch (e) {
       return (ThemeMode.light, Colors.white);

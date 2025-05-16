@@ -4,10 +4,7 @@ import 'package:intl/intl.dart';
 import '../.gen/i18n/strings.g.dart';
 
 // ignore: non_constant_identifier_names
-String CFDateFormatter(
-  String dateFormatPattern,
-  DateTime date,
-) {
+String CFDateFormatter(String dateFormatPattern, DateTime date) {
   return DateFormat(
     dateFormatPattern,
     LocaleSettings.currentLocale.languageCode,
@@ -15,9 +12,7 @@ String CFDateFormatter(
 }
 
 // ignore: non_constant_identifier_names
-String CFApiDateFormatter(
-  DateTime date,
-) {
+String CFApiDateFormatter(DateTime date) {
   return DateFormat('yyyy-MM-ddTHH:mm:ss').format(date);
 }
 
@@ -147,8 +142,9 @@ final class DateTimeCalculator {
     int newYear =
         date.year + count ~/ 12 + ((date.month + count % 12) > 12 ? 1 : 0);
 
-    int newMonth =
-        (date.month + count) % 12 == 0 ? 12 : (date.month + count) % 12;
+    int newMonth = (date.month + count) % 12 == 0
+        ? 12
+        : (date.month + count) % 12;
 
     DateTime newData = DateTime(newYear, newMonth, date.day);
 
@@ -161,8 +157,9 @@ final class DateTimeCalculator {
     int newYear =
         date.year + count ~/ 12 + ((date.month + count % 12) > 12 ? 1 : 0);
 
-    int newMonth =
-        (date.month + count) % 12 == 0 ? 12 : (date.month + count) % 12;
+    int newMonth = (date.month + count) % 12 == 0
+        ? 12
+        : (date.month + count) % 12;
 
     DateTime newData = DateTime(newYear, newMonth, date.day);
 

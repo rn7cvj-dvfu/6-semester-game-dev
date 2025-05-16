@@ -23,35 +23,29 @@ class SeedColorToggle extends StatelessWidget {
         final padding = 16.0;
         final dimension =
             (constraints.maxWidth - padding * (_colors.length - 1)) /
-                _colors.length;
+            _colors.length;
 
         return Column(
           children: [
-            ListTile(
-              title: Text(context.t.strings.useSeedColor),
-            ),
+            ListTile(title: Text(context.t.strings.useSeedColor)),
             Row(
-              children: List.generate(
-                _colors.length,
-                (index) {
-                  final color = _colors[index];
-                  final isSelected = theme.seedColor == color;
+              children: List.generate(_colors.length, (index) {
+                final color = _colors[index];
+                final isSelected = theme.seedColor == color;
 
-                  return Padding(
-                    padding: EdgeInsets.only(
-                      right: index == _colors.length - 1 ? 0 : padding,
-                    ),
-                    child: _ColorCard(
-                      color: color,
-                      checkColor:
-                          isSelected ? Colors.black : Colors.transparent,
-                      onTap: () => theme.toggleSeedColor(color),
-                      dimension: dimension,
-                    ),
-                  );
-                },
-              ),
-            )
+                return Padding(
+                  padding: EdgeInsets.only(
+                    right: index == _colors.length - 1 ? 0 : padding,
+                  ),
+                  child: _ColorCard(
+                    color: color,
+                    checkColor: isSelected ? Colors.black : Colors.transparent,
+                    onTap: () => theme.toggleSeedColor(color),
+                    dimension: dimension,
+                  ),
+                );
+              }),
+            ),
           ],
         );
       },
@@ -83,11 +77,7 @@ class _ColorCard extends StatelessWidget {
         child: SizedBox.square(
           dimension: dimension,
           child: Center(
-            child: Icon(
-              Icons.check,
-              color: checkColor,
-              size: dimension / 2,
-            ),
+            child: Icon(Icons.check, color: checkColor, size: dimension / 2),
           ),
         ),
       ),

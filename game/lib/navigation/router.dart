@@ -16,11 +16,7 @@ final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>();
 
-final _levels = {
-  0: DemoLevelPage(),
-  1: FirstLevelPage(),
-  2: SecondLevelPage(),
-};
+final _levels = {0: DemoLevelPage(), 1: FirstLevelPage(), 2: SecondLevelPage()};
 
 GoRouter router = GoRouter(
   initialLocation: RoutesName.home.path,
@@ -58,43 +54,35 @@ GoRouter router = GoRouter(
             final levelId = state.pathParameters[PathName.levelId]!;
             final level = _levels[int.parse(levelId)]!;
 
-            return FadeTransitionPage(
-              child: level,
-            );
+            return FadeTransitionPage(child: level);
           },
         ),
         GoRoute(
           path: RoutesName.home.path,
           name: RoutesName.home.name,
-          pageBuilder: (context, state) => FadeTransitionPage(
-            child: HomePage(),
-          ),
+          pageBuilder: (context, state) =>
+              FadeTransitionPage(child: HomePage()),
           routes: [
             GoRoute(
               path: RoutesName.levels.path,
               name: RoutesName.levels.name,
-              pageBuilder: (context, state) => FadeTransitionPage(
-                child: LevelsPage(),
-              ),
+              pageBuilder: (context, state) =>
+                  FadeTransitionPage(child: LevelsPage()),
             ),
             GoRoute(
               path: RoutesName.statistic.path,
               name: RoutesName.statistic.name,
-              pageBuilder: (context, state) => MaterialPage(
-                fullscreenDialog: true,
-                child: StatisticPage(),
-              ),
+              pageBuilder: (context, state) =>
+                  MaterialPage(fullscreenDialog: true, child: StatisticPage()),
             ),
             GoRoute(
               path: RoutesName.settings.path,
               name: RoutesName.settings.name,
-              pageBuilder: (context, state) => MaterialPage(
-                fullscreenDialog: true,
-                child: SettingsPage(),
-              ),
+              pageBuilder: (context, state) =>
+                  MaterialPage(fullscreenDialog: true, child: SettingsPage()),
             ),
           ],
-        )
+        ),
       ],
     ),
   ],

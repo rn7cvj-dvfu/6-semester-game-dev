@@ -42,9 +42,7 @@ class LevelsPage extends StatelessWidget {
                 ),
               ),
             ),
-            GBackButton(
-              onTap: AppNavigator.openHome,
-            ),
+            GBackButton(onTap: AppNavigator.openHome),
           ],
         ),
       ),
@@ -56,10 +54,7 @@ class _LevelCard extends StatelessWidget {
   final String title;
   final int index;
 
-  const _LevelCard({
-    required this.title,
-    required this.index,
-  });
+  const _LevelCard({required this.title, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -74,15 +69,9 @@ class _LevelCard extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  Icons.play_arrow_rounded,
-                  size: 32,
-                ),
+                Icon(Icons.play_arrow_rounded, size: 32),
                 const SizedBox(width: 16),
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
+                Text(title, style: Theme.of(context).textTheme.headlineSmall),
               ],
             ),
           ),

@@ -19,10 +19,7 @@ class App extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
-        Locale('en', 'US'),
-        Locale('ru', 'RU'),
-      ],
+      supportedLocales: [Locale('en', 'US'), Locale('ru', 'RU')],
       themeMode: theme.themeMode,
       debugShowCheckedModeBanner: false,
       routerConfig: router,

@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 
 class AnimatedBranchContainer extends StatefulWidget {
   /// Creates a AnimatedBranchContainer
-  const AnimatedBranchContainer(
-      {super.key, required this.currentIndex, required this.children});
+  const AnimatedBranchContainer({
+    super.key,
+    required this.currentIndex,
+    required this.children,
+  });
 
   /// The index (in [children]) of the branch Navigator to display.
   final int currentIndex;
@@ -83,30 +86,25 @@ class _AnimatedBranchContainerState extends State<AnimatedBranchContainer>
     // );
 
     return Stack(
-      children: widget.children.mapIndexed(
-        (int index, Widget navigator) {
-          return _branchNavigatorWrapper(
-            index,
-            RepaintBoundary(
-              child: SharedAxisTransition(
-                animation: _controllers[index].$1,
-                secondaryAnimation: _controllers[index].$2,
-                transitionType: SharedAxisTransitionType.horizontal,
-                fillColor: Colors.transparent,
-                child: navigator,
-              ),
+      children: widget.children.mapIndexed((int index, Widget navigator) {
+        return _branchNavigatorWrapper(
+          index,
+          RepaintBoundary(
+            child: SharedAxisTransition(
+              animation: _controllers[index].$1,
+              secondaryAnimation: _controllers[index].$2,
+              transitionType: SharedAxisTransitionType.horizontal,
+              fillColor: Colors.transparent,
+              child: navigator,
             ),
-          );
-        },
-      ).toList(),
+          ),
+        );
+      }).toList(),
     );
   }
 
   Widget _branchNavigatorWrapper(int index, Widget navigator) => IgnorePointer(
-        ignoring: index != widget.currentIndex,
-        child: TickerMode(
-          enabled: index == widget.currentIndex,
-          child: navigator,
-        ),
-      );
+    ignoring: index != widget.currentIndex,
+    child: TickerMode(enabled: index == widget.currentIndex, child: navigator),
+  );
 }

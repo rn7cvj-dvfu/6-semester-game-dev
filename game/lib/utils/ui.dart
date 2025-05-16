@@ -5,10 +5,13 @@ Future<void> setUpSystemUIOverlay() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Setting SysemUIOverlay
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
       systemStatusBarContrastEnforced: false,
       systemNavigationBarColor: Colors.transparent,
-      systemNavigationBarDividerColor: Colors.transparent));
+      systemNavigationBarDividerColor: Colors.transparent,
+    ),
+  );
   // Setting SystmeUIMode
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 }

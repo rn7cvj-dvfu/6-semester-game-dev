@@ -47,34 +47,26 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
       infoTitle: context.t.strings.levels.k1.stages.k1.title,
       infoText: context.t.strings.levels.k1.stages.k1.text,
       graphModel: GraphModel(
-        nodes: [
-          NodeModel(id: 'hui', preferredPosition: (0, 0)),
-        ],
+        nodes: [NodeModel(id: 'hui', preferredPosition: (0, 0))],
         edges: [],
       ),
     ),
     _SubStage(
       infoTitle: context.t.strings.levels.k1.stages.k2.title,
       infoText: context.t.strings.levels.k1.stages.k2.text,
-      graphModel: GraphModel.fromAdjacencyMatrix(
-        [
-          [0, 1],
-          [1, 0],
-        ],
-        nodeColor: (nodeIndex) => nodeColors[nodeIndex % nodeColors.length],
-      ),
+      graphModel: GraphModel.fromAdjacencyMatrix([
+        [0, 1],
+        [1, 0],
+      ], nodeColor: (nodeIndex) => nodeColors[nodeIndex % nodeColors.length]),
     ),
     _SubStage(
       infoTitle: context.t.strings.levels.k1.stages.k3.title,
       infoText: context.t.strings.levels.k1.stages.k3.text,
-      graphModel: GraphModel.fromAdjacencyMatrix(
-        [
-          [0, 1, 1],
-          [1, 0, 1],
-          [1, 1, 0],
-        ],
-        nodeColor: (nodeIndex) => nodeColors[nodeIndex % nodeColors.length],
-      ),
+      graphModel: GraphModel.fromAdjacencyMatrix([
+        [0, 1, 1],
+        [1, 0, 1],
+        [1, 1, 0],
+      ], nodeColor: (nodeIndex) => nodeColors[nodeIndex % nodeColors.length]),
     ),
   ];
 
@@ -115,11 +107,13 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
                 key: ValueKey(currentStageData.graphModel),
                 game: GraphWidget(
                   graphModel: displayGraphModel,
-                  backgroundColorValue:
-                      Theme.of(context).scaffoldBackgroundColor,
+                  backgroundColorValue: Theme.of(
+                    context,
+                  ).scaffoldBackgroundColor,
                   nodeColorValue: Theme.of(context).colorScheme.primary,
-                  edgeColorValue:
-                      Theme.of(context).colorScheme.primaryContainer,
+                  edgeColorValue: Theme.of(
+                    context,
+                  ).colorScheme.primaryContainer,
                   onNodeClick: (nodeId) {
                     // print('Node $nodeId clicked');
                   },
@@ -133,9 +127,7 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
           Positioned(
             top: 16,
             left: 16,
-            child: GBackButton(
-              onTap: AppNavigator.openLevels,
-            ),
+            child: GBackButton(onTap: AppNavigator.openLevels),
           ),
           Positioned(
             top: 16,
@@ -153,17 +145,16 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
                     text: currentStageData.infoText,
                   ),
                   ConstrainedBox(
-                    constraints: const BoxConstraints(
-                      maxWidth: 384,
-                    ),
+                    constraints: const BoxConstraints(maxWidth: 384),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       spacing: 8,
                       children: [
                         Expanded(
                           child: ElevatedButton(
-                            onPressed:
-                                _currentStageIndex > 0 ? _previousStage : null,
+                            onPressed: _currentStageIndex > 0
+                                ? _previousStage
+                                : null,
                             child: Text(context.t.strings.common.back),
                           ),
                         ),
@@ -171,9 +162,11 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: _nextStage,
-                            child: Text(_currentStageIndex < _stages.length - 1
-                                ? context.t.strings.common.next
-                                : context.t.strings.common.finish),
+                            child: Text(
+                              _currentStageIndex < _stages.length - 1
+                                  ? context.t.strings.common.next
+                                  : context.t.strings.common.finish,
+                            ),
                           ),
                         ),
                       ],
@@ -184,8 +177,9 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
                       initialGraph: currentStageData.graphModel,
                       onMatrixChanged: (newMatrix) {
                         setState(() {
-                          _stages.last.graphModel =
-                              GraphModel.fromAdjacencyMatrix(
+                          _stages
+                              .last
+                              .graphModel = GraphModel.fromAdjacencyMatrix(
                             newMatrix,
                             clickable: currentStageData.graphModel.clickable,
                             movable: currentStageData.graphModel.movable,
@@ -198,7 +192,7 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

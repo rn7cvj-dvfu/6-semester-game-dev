@@ -19,9 +19,10 @@ final class AppNavigator {
   }
 
   static void openLevel(int levelId) {
-    _context.goNamed(RoutesName.level.name, pathParameters: {
-      PathName.levelId: levelId.toString(),
-    });
+    _context.goNamed(
+      RoutesName.level.name,
+      pathParameters: {PathName.levelId: levelId.toString()},
+    );
   }
 
   static void openStatistic() {

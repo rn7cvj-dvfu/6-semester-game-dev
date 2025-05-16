@@ -38,55 +38,47 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
     _SubStage(
       infoTitle: context.t.strings.levels.k2.stages.k1.title,
       infoText: context.t.strings.levels.k2.stages.k1.text,
-      graphModel: GraphModel.fromAdjacencyMatrix(
-        [
-          [0, 1, 1, 0],
-          [1, 0, 0, 1],
-          [1, 0, 0, 1],
-          [0, 1, 1, 0],
-        ],
-      ),
+      graphModel: GraphModel.fromAdjacencyMatrix([
+        [0, 1, 1, 0],
+        [1, 0, 0, 1],
+        [1, 0, 0, 1],
+        [0, 1, 1, 0],
+      ]),
     ),
     _SubStage(
       infoTitle: context.t.strings.levels.k2.stages.k2.title,
       infoText: context.t.strings.levels.k2.stages.k2.text,
-      graphModel: GraphModel.fromAdjacencyMatrix(
-        [
-          [0, 1, 0, 0],
-          [1, 0, 0, 0],
-          [0, 0, 0, 1],
-          [0, 0, 1, 0],
-        ],
-      ),
+      graphModel: GraphModel.fromAdjacencyMatrix([
+        [0, 1, 0, 0],
+        [1, 0, 0, 0],
+        [0, 0, 0, 1],
+        [0, 0, 1, 0],
+      ]),
     ),
     _SubStage(
       infoTitle: context.t.strings.levels.k2.stages.k3.title,
       infoText: context.t.strings.levels.k2.stages.k3.text,
-      graphModel: GraphModel.fromAdjacencyMatrix(
-        [
-          [0, 1, 0, 0, 0],
-          [1, 0, 0, 0, 0],
-          [0, 0, 0, 1, 0],
-          [0, 0, 1, 0, 0],
-          [0, 0, 0, 0, 0],
-        ],
-      ),
+      graphModel: GraphModel.fromAdjacencyMatrix([
+        [0, 1, 0, 0, 0],
+        [1, 0, 0, 0, 0],
+        [0, 0, 0, 1, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0],
+      ]),
     ),
     _SubStage(
       infoTitle: context.t.strings.levels.k2.stages.k4.title,
       infoText: context.t.strings.levels.k2.stages.k4.text,
-      graphModel: GraphModel.fromAdjacencyMatrix(
-        [
-          [0, 1, 0, 0, 0, 0, 0, 0],
-          [1, 0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 1, 0, 0, 0, 0],
-          [0, 0, 1, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 1, 0, 0],
-          [0, 0, 0, 0, 1, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0, 0],
-        ],
-      ),
+      graphModel: GraphModel.fromAdjacencyMatrix([
+        [0, 1, 0, 0, 0, 0, 0, 0],
+        [1, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 1, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+      ]),
     ),
   ];
 
@@ -122,11 +114,13 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
               child: GameWidget(
                 game: GraphWidget(
                   graphModel: currentStageData.graphModel,
-                  backgroundColorValue:
-                      Theme.of(context).scaffoldBackgroundColor,
+                  backgroundColorValue: Theme.of(
+                    context,
+                  ).scaffoldBackgroundColor,
                   nodeColorValue: Theme.of(context).colorScheme.primary,
-                  edgeColorValue:
-                      Theme.of(context).colorScheme.primaryContainer,
+                  edgeColorValue: Theme.of(
+                    context,
+                  ).colorScheme.primaryContainer,
                   onNodeClick: (nodeId) {},
                   onEdgeClick: (edgeId) {},
                 ),
@@ -136,9 +130,7 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
           Positioned(
             top: 16,
             left: 16,
-            child: GBackButton(
-              onTap: AppNavigator.openLevels,
-            ),
+            child: GBackButton(onTap: AppNavigator.openLevels),
           ),
           Positioned(
             top: 16,
@@ -184,12 +176,15 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
                                 _enteredConnectivityComponents = null;
                                 return;
                               }
-                              _enteredConnectivityComponents =
-                                  int.tryParse(value);
+                              _enteredConnectivityComponents = int.tryParse(
+                                value,
+                              );
                               setState(() {});
                             },
                             decoration: InputDecoration(
-                              labelText: context.t.strings
+                              labelText: context
+                                  .t
+                                  .strings
                                   .enterNumberOfConnectivityComponents,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
@@ -198,11 +193,11 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
                           ),
                         ),
                       ),
-                    )
+                    ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

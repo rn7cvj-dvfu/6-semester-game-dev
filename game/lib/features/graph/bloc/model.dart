@@ -26,10 +26,7 @@ class GraphModel with _$GraphModel {
     final edges = <EdgeModel>[];
 
     for (int i = 0; i < matrix.length; i++) {
-      nodes.add(NodeModel(
-        id: 'node_$i',
-        preferredColor: nodeColor?.call(i),
-      ));
+      nodes.add(NodeModel(id: 'node_$i', preferredColor: nodeColor?.call(i)));
     }
 
     for (int i = 0; i < matrix.length; i++) {
@@ -44,12 +41,14 @@ class GraphModel with _$GraphModel {
           continue;
         }
 
-        edges.add(EdgeModel(
-          id: 'edge_${i}_$j',
-          firstNodeId: 'node_$i',
-          secondNodeId: 'node_$j',
-          preferredColor: edgeColor?.call(i, j),
-        ));
+        edges.add(
+          EdgeModel(
+            id: 'edge_${i}_$j',
+            firstNodeId: 'node_$i',
+            secondNodeId: 'node_$j',
+            preferredColor: edgeColor?.call(i, j),
+          ),
+        );
       }
     }
     return GraphModel(

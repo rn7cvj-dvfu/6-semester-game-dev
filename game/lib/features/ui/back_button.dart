@@ -5,10 +5,7 @@ import '../../.gen/i18n/strings.g.dart';
 class GBackButton extends StatelessWidget {
   final VoidCallback onTap;
 
-  const GBackButton({
-    super.key,
-    required this.onTap,
-  });
+  const GBackButton({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +18,8 @@ class GBackButton extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                Icons.arrow_back_ios_new,
-                size: 16,
-              ),
-              Text(
-                context.t.strings.common.back,
-              )
+              Icon(Icons.arrow_back_ios_new, size: 16),
+              Text(context.t.strings.common.back),
             ],
           ),
         ),

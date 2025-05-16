@@ -10,9 +10,7 @@ class LanguageToggle extends StatelessWidget {
     final locale = LocaleSettings.currentLocale;
     return Column(
       children: [
-        ListTile(
-          title: Text(context.t.strings.useLangue),
-        ),
+        ListTile(title: Text(context.t.strings.useLangue)),
         SegmentedButton<AppLocale>(
           segments: const [
             ButtonSegment(

@@ -58,17 +58,16 @@ class DemoLevelPage extends StatelessWidget {
           Positioned(
             top: 16,
             left: 16,
-            child: GBackButton(
-              onTap: AppNavigator.openLevels,
-            ),
+            child: GBackButton(onTap: AppNavigator.openLevels),
           ),
           Positioned(
             bottom: 16,
             right: 16,
             child: InfoCardWidget(
-                title: "Информация о уровне",
-                text: "Это демонстрационный уровень с отобрженим графа "),
-          )
+              title: "Информация о уровне",
+              text: "Это демонстрационный уровень с отобрженим графа ",
+            ),
+          ),
         ],
       ),
     );

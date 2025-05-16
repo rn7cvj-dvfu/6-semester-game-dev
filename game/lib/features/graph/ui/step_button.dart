@@ -28,9 +28,7 @@ class StepButton extends StatelessWidget {
           Expanded(
             child: ElevatedButton(
               onPressed: onBack,
-              child: Text(
-                context.t.strings.common.back,
-              ),
+              child: Text(context.t.strings.common.back),
             ),
           ),
           const SizedBox(width: 8),

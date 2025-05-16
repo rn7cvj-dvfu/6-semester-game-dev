@@ -22,9 +22,7 @@ Future<void> main() async {
     ThemeManager(
       initialThemeMode: themeMode,
       initialSeedColor: seedColor,
-      child: TranslationProvider(
-        child: App(),
-      ),
+      child: TranslationProvider(child: App()),
     ),
   );
 }

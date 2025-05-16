@@ -35,20 +35,14 @@ class _ThemeManagerState extends State<ThemeManager> {
     _themeMode = newThemeMode;
     setState(() {});
 
-    ThemeStorage.saveTheme(
-      _themeMode,
-      _seedColor,
-    );
+    ThemeStorage.saveTheme(_themeMode, _seedColor);
   }
 
   void toggleSeedColor(Color newSeedColor) {
     _seedColor = newSeedColor;
     setState(() {});
 
-    ThemeStorage.saveTheme(
-      _themeMode,
-      _seedColor,
-    );
+    ThemeStorage.saveTheme(_themeMode, _seedColor);
   }
 
   @override

@@ -6,11 +6,7 @@ class InfoCardWidget extends StatefulWidget {
   final String title;
   final String text;
 
-  const InfoCardWidget({
-    super.key,
-    required this.title,
-    required this.text,
-  });
+  const InfoCardWidget({super.key, required this.title, required this.text});
 
   @override
   State<InfoCardWidget> createState() => _InfoCardWidgetState();
@@ -29,11 +25,7 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
       child: Card(
         margin: EdgeInsets.zero,
         child: Padding(
-          padding: const EdgeInsets.only(
-            top: 16,
-            left: 16,
-            right: 16,
-          ),
+          padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -68,9 +60,7 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
                             const Divider(),
                             SingleChildScrollView(
                               primary: false,
-                              padding: const EdgeInsets.only(
-                                bottom: 16,
-                              ),
+                              padding: const EdgeInsets.only(bottom: 16),
                               child: Text(
                                 widget.text,
                                 style: Theme.of(context).textTheme.bodyMedium,

@@ -14,9 +14,7 @@ final class LanguageStorage {
 
     try {
       final language = AppLocale.values
-          .where(
-            (e) => e.toString() == languageString,
-          )
+          .where((e) => e.toString() == languageString)
           .firstOrNull;
 
       return language;

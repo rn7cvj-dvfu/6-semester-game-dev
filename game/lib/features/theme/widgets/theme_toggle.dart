@@ -14,12 +14,9 @@ class ThemeModelToggle extends StatelessWidget {
       // key:
       title: Text(context.t.strings.useDarkTheme),
       value: theme.themeMode == ThemeMode.dark,
-      onChanged: (value) => theme.toggleThemeMode(
-        value ? ThemeMode.dark : ThemeMode.light,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
+      onChanged: (value) =>
+          theme.toggleThemeMode(value ? ThemeMode.dark : ThemeMode.light),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     );
   }
 }

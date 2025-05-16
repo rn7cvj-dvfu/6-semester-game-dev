@@ -63,9 +63,7 @@ class _AdjacencyMatrixEditorState extends State<AdjacencyMatrixEditor> {
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
       child: ConstrainedBox(
-        constraints: const BoxConstraints(
-          maxWidth: 384,
-        ),
+        constraints: const BoxConstraints(maxWidth: 384),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -81,7 +79,9 @@ class _AdjacencyMatrixEditorState extends State<AdjacencyMatrixEditor> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: _size + 1, childAspectRatio: 2),
+                      crossAxisCount: _size + 1,
+                      childAspectRatio: 2,
+                    ),
                     itemCount: (_size + 1) * (_size + 1),
                     itemBuilder: (context, index) {
                       final col = index % (_size + 1);
@@ -126,8 +126,11 @@ class _AdjacencyMatrixEditorState extends State<AdjacencyMatrixEditor> {
                               ? null // Disable checkbox for diagonal elements
                               : (bool? newValue) {
                                   if (newValue != null) {
-                                    _updateMatrixValue(rowIndex, columnIndex,
-                                        newValue ? 1 : 0);
+                                    _updateMatrixValue(
+                                      rowIndex,
+                                      columnIndex,
+                                      newValue ? 1 : 0,
+                                    );
                                   }
                                 },
                           visualDensity: VisualDensity.compact,
@@ -146,8 +149,9 @@ class _AdjacencyMatrixEditorState extends State<AdjacencyMatrixEditor> {
                 TextButton.icon(
                   icon: const Icon(Icons.remove),
                   label: const Text("Remove Last Node"),
-                  onPressed:
-                      _size > 3 ? _removeLastNode : null, // Disable if no nodes
+                  onPressed: _size > 3
+                      ? _removeLastNode
+                      : null, // Disable if no nodes
                 ),
                 TextButton.icon(
                   icon: const Icon(Icons.add),
@@ -165,8 +169,10 @@ class _AdjacencyMatrixEditorState extends State<AdjacencyMatrixEditor> {
 
   void _addNode() {
     final newSize = _size + 1;
-    final newMatrix =
-        List.generate(newSize, (_) => List.generate(newSize, (_) => 0));
+    final newMatrix = List.generate(
+      newSize,
+      (_) => List.generate(newSize, (_) => 0),
+    );
 
     // Copy old values
     for (int i = 0; i < _size; i++) {
@@ -185,8 +191,10 @@ class _AdjacencyMatrixEditorState extends State<AdjacencyMatrixEditor> {
     final newSize = _size - 1;
     if (newSize < 0) return; // Should not happen if button is disabled
 
-    final newMatrix =
-        List.generate(newSize, (_) => List.generate(newSize, (_) => 0));
+    final newMatrix = List.generate(
+      newSize,
+      (_) => List.generate(newSize, (_) => 0),
+    );
 
     // Copy old values for the smaller matrix
     for (int i = 0; i < newSize; i++) {
