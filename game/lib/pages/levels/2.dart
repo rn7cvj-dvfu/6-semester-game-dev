@@ -101,17 +101,18 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
 
   @override
   Widget build(BuildContext context) {
-    final currentStageData = _stages[_currentStageIndex];
     const transitionDuration = Duration(milliseconds: 500);
+    // final currentStageData = _stages[_currentStageIndex];
 
     return Material(
       child: Stack(
         children: [
           Positioned.fill(
             child: AnimatedSwitcher(
-              key: ValueKey(currentStageData.graphModel),
               duration: transitionDuration,
+              reverseDuration: transitionDuration,
               child: GameWidget(
+                key: ValueKey(_currentStageIndex),
                 game: GraphWidget(
                   graphModel: currentStageData.graphModel,
                   backgroundColorValue: Theme.of(
@@ -142,14 +143,19 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
                 spacing: 8,
                 children: [
                   InfoCardWidget(
-                    title: currentStageData.infoTitle,
-                    text: currentStageData.infoText,
+                    title: _stages[_currentStageIndex].infoTitle,
+                    text: _stages[_currentStageIndex].infoText,
                   ),
                   StepButton(
                     currentStage: _currentStageIndex,
                     totalStages: _stages.length,
                     onBack: _currentStageIndex == 0 ? null : _previousStage,
-                    onNext: _nextStage,
+                    onNext: switch (_currentStageIndex) {
+                      3 => _enteredConnectivityComponents == null
+                          ? null
+                          : _nextStage,
+                      _ => _nextStage
+                    },
                   ),
                   if (_currentStageIndex == 3)
                     ConstrainedBox(
@@ -174,6 +180,7 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
                             onChanged: (value) {
                               if (value.isEmpty) {
                                 _enteredConnectivityComponents = null;
+
                                 return;
                               }
                               _enteredConnectivityComponents = int.tryParse(
