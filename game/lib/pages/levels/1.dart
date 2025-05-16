@@ -30,10 +30,10 @@ class FirstLevelPage extends StatefulWidget {
 class _FirstLevelPageState extends State<FirstLevelPage> {
   int _currentStageIndex = 0;
 
-  final List<_SubStage> _stages = [
+  late final List<_SubStage> _stages = [
     _SubStage(
-      infoTitle: t.strings.levels.k1.stages.k1.title,
-      infoText: t.strings.levels.k1.stages.k1.text,
+      infoTitle: context.t.strings.levels.k1.stages.k1.title,
+      infoText: context.t.strings.levels.k1.stages.k1.text,
       graphModel: GraphModel(
         nodes: [
           NodeModel(id: 'hui', preferredPosition: (0, 0)),
@@ -42,8 +42,8 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
       ),
     ),
     _SubStage(
-      infoTitle: t.strings.levels.k1.stages.k2.title,
-      infoText: t.strings.levels.k1.stages.k2.text,
+      infoTitle: context.t.strings.levels.k1.stages.k2.title,
+      infoText: context.t.strings.levels.k1.stages.k2.text,
       graphModel: GraphModel.fromAdjacencyMatrix(
         [
           [0, 1],
@@ -54,8 +54,8 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
       ),
     ),
     _SubStage(
-      infoTitle: t.strings.levels.k1.stages.k3.title,
-      infoText: t.strings.levels.k1.stages.k3.text,
+      infoTitle: context.t.strings.levels.k1.stages.k3.title,
+      infoText: context.t.strings.levels.k1.stages.k3.text,
       graphModel: GraphModel.fromAdjacencyMatrix(
         [
           [0, 1, 1],
@@ -90,7 +90,7 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
   Widget build(BuildContext context) {
     final currentStageData = _stages[_currentStageIndex];
     const transitionDuration = Duration(milliseconds: 500);
-    final t = Translations.of(context);
+    Translations.of(context);
 
     return Material(
       child: Stack(
@@ -104,8 +104,8 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
                   graphModel: currentStageData.graphModel,
                   backgroundColorValue:
                       Theme.of(context).scaffoldBackgroundColor,
-                  dotColorValue: Theme.of(context).colorScheme.primary,
-                  connectionEdgeColorValue:
+                  nodeColorValue: Theme.of(context).colorScheme.primary,
+                  edgeColorValue:
                       Theme.of(context).colorScheme.primaryContainer,
                   onNodeClick: (nodeId) {
                     // print('Node $nodeId clicked');
@@ -148,16 +148,16 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
                         child: ElevatedButton(
                           onPressed:
                               _currentStageIndex > 0 ? _previousStage : null,
-                          child: Text(t.strings.back),
+                          child: Text(context.t.strings.common.back),
                         ),
                       ),
-                      Text('${_currentStageIndex + 1} / ${_stages!.length}'),
+                      Text('${_currentStageIndex + 1} / ${_stages.length}'),
                       Expanded(
                         child: ElevatedButton(
                           onPressed: _nextStage,
-                          child: Text(_currentStageIndex < _stages!.length - 1
-                              ? t.strings.common.next
-                              : t.strings.common.finish),
+                          child: Text(_currentStageIndex < _stages.length - 1
+                              ? context.t.strings.common.next
+                              : context.t.strings.common.finish),
                         ),
                       ),
                     ],

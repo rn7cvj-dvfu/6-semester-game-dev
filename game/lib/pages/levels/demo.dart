@@ -20,12 +20,15 @@ class DemoLevelPage extends StatelessWidget {
             child: GameWidget(
               game: GraphWidget(
                 backgroundColorValue: theme.scaffoldBackgroundColor,
-                dotColorValue: theme.colorScheme.primary,
-                connectionEdgeColorValue: theme.colorScheme.primaryContainer,
+                nodeColorValue: theme.colorScheme.primary,
+                edgeColorValue: theme.colorScheme.primaryContainer,
                 graphModel: GraphModel(
                   nodes: [
                     NodeModel(id: "1", preferredPosition: (0, 0)),
-                    NodeModel(id: "2"),
+                    NodeModel(
+                      id: "2",
+                      preferredColor: Theme.of(context).colorScheme.tertiary,
+                    ),
                     NodeModel(id: "3"),
                     NodeModel(id: "4"),
                     NodeModel(id: "5"),
@@ -37,7 +40,12 @@ class DemoLevelPage extends StatelessWidget {
                     EdgeModel(id: "4", firstNodeId: "1", secondNodeId: "5"),
                     EdgeModel(id: "5", firstNodeId: "2", secondNodeId: "3"),
                     EdgeModel(id: "6", firstNodeId: "3", secondNodeId: "4"),
-                    EdgeModel(id: "7", firstNodeId: "4", secondNodeId: "5"),
+                    EdgeModel(
+                      id: "7",
+                      firstNodeId: "4",
+                      secondNodeId: "5",
+                      preferredColor: Theme.of(context).colorScheme.tertiary,
+                    ),
                   ],
                   movable: true,
                   clickable: false,

@@ -1,22 +1,40 @@
 settings: Settings
 statistic: Statistics
-back: Back
+
 useDarkTheme: Темная тема
 useSeedColor: Основной цвет
 
 levels:
   1:
+    name: "Basics"
     stages:
-      1: 
+      1:
         title: "Stage 1: Dot"
         text: "This is a dot. It's just a single dot on a blank canvas. Move on."
-      2: 
+      2:
         title: "Stage 2: Edge"
         text: "There are more dots now. They are connected by an edge. From it Adam.. stop"
-      3: 
+      3:
         title: "Stage 3: Graph"
         text: "When there are many connected dots, they form a graph."
+  2:
+    name: "Connectivity components"
+    stages:
+      1:
+        title: "Stage 1: Connected graph"
+        text: "This graph is connected. It means you can reach any vertex from any other by following the edges."
+      2:
+        title: "Stage 2: Disconnected graph"
+        text: "This graph is not connected. It consists of two separate parts, called connected components. You cannot move from one part to another."
+      3:
+        title: "Stage 3: Connected components"
+        text: "Here are three connected components. Each component is a maximal connected subgraph. Inside each component, all vertices are connected, but there are no connections between different components."
+      4:
+        title: "Stage 4: How many connected components?"
+        text: "Here is a graph with several connected components. How many are there?"
 
+enterNumberOfConnectivityComponents: Enter the number of connected components
 common:
+  back: Back
   next: "Далее"
   finish: "Завершить"

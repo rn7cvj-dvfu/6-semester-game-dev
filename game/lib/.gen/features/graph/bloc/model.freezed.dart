@@ -230,8 +230,9 @@ abstract class _GraphModel implements GraphModel {
 
 /// @nodoc
 mixin _$NodeModel {
-  String get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError; // (0, 0) - screen center
   (double, double)? get preferredPosition => throw _privateConstructorUsedError;
+  Color? get preferredColor => throw _privateConstructorUsedError;
 
   /// Create a copy of NodeModel
   /// with the given fields replaced by the non-null parameter values.
@@ -245,7 +246,8 @@ abstract class $NodeModelCopyWith<$Res> {
   factory $NodeModelCopyWith(NodeModel value, $Res Function(NodeModel) then) =
       _$NodeModelCopyWithImpl<$Res, NodeModel>;
   @useResult
-  $Res call({String id, (double, double)? preferredPosition});
+  $Res call(
+      {String id, (double, double)? preferredPosition, Color? preferredColor});
 }
 
 /// @nodoc
@@ -265,6 +267,7 @@ class _$NodeModelCopyWithImpl<$Res, $Val extends NodeModel>
   $Res call({
     Object? id = null,
     Object? preferredPosition = freezed,
+    Object? preferredColor = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -275,6 +278,10 @@ class _$NodeModelCopyWithImpl<$Res, $Val extends NodeModel>
           ? _value.preferredPosition
           : preferredPosition // ignore: cast_nullable_to_non_nullable
               as (double, double)?,
+      preferredColor: freezed == preferredColor
+          ? _value.preferredColor
+          : preferredColor // ignore: cast_nullable_to_non_nullable
+              as Color?,
     ) as $Val);
   }
 }
@@ -287,7 +294,8 @@ abstract class _$$NodeModelImplCopyWith<$Res>
       __$$NodeModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, (double, double)? preferredPosition});
+  $Res call(
+      {String id, (double, double)? preferredPosition, Color? preferredColor});
 }
 
 /// @nodoc
@@ -305,6 +313,7 @@ class __$$NodeModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? preferredPosition = freezed,
+    Object? preferredColor = freezed,
   }) {
     return _then(_$NodeModelImpl(
       id: null == id
@@ -315,6 +324,10 @@ class __$$NodeModelImplCopyWithImpl<$Res>
           ? _value.preferredPosition
           : preferredPosition // ignore: cast_nullable_to_non_nullable
               as (double, double)?,
+      preferredColor: freezed == preferredColor
+          ? _value.preferredColor
+          : preferredColor // ignore: cast_nullable_to_non_nullable
+              as Color?,
     ));
   }
 }
@@ -322,16 +335,20 @@ class __$$NodeModelImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$NodeModelImpl implements _NodeModel {
-  _$NodeModelImpl({required this.id, this.preferredPosition});
+  _$NodeModelImpl(
+      {required this.id, this.preferredPosition, this.preferredColor});
 
   @override
   final String id;
+// (0, 0) - screen center
   @override
   final (double, double)? preferredPosition;
+  @override
+  final Color? preferredColor;
 
   @override
   String toString() {
-    return 'NodeModel(id: $id, preferredPosition: $preferredPosition)';
+    return 'NodeModel(id: $id, preferredPosition: $preferredPosition, preferredColor: $preferredColor)';
   }
 
   @override
@@ -341,11 +358,14 @@ class _$NodeModelImpl implements _NodeModel {
             other is _$NodeModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.preferredPosition, preferredPosition) ||
-                other.preferredPosition == preferredPosition));
+                other.preferredPosition == preferredPosition) &&
+            (identical(other.preferredColor, preferredColor) ||
+                other.preferredColor == preferredColor));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, preferredPosition);
+  int get hashCode =>
+      Object.hash(runtimeType, id, preferredPosition, preferredColor);
 
   /// Create a copy of NodeModel
   /// with the given fields replaced by the non-null parameter values.
@@ -359,12 +379,15 @@ class _$NodeModelImpl implements _NodeModel {
 abstract class _NodeModel implements NodeModel {
   factory _NodeModel(
       {required final String id,
-      final (double, double)? preferredPosition}) = _$NodeModelImpl;
+      final (double, double)? preferredPosition,
+      final Color? preferredColor}) = _$NodeModelImpl;
 
   @override
-  String get id;
+  String get id; // (0, 0) - screen center
   @override
   (double, double)? get preferredPosition;
+  @override
+  Color? get preferredColor;
 
   /// Create a copy of NodeModel
   /// with the given fields replaced by the non-null parameter values.
@@ -379,6 +402,7 @@ mixin _$EdgeModel {
   String get id => throw _privateConstructorUsedError;
   String get firstNodeId => throw _privateConstructorUsedError;
   String get secondNodeId => throw _privateConstructorUsedError;
+  Color? get preferredColor => throw _privateConstructorUsedError;
 
   /// Create a copy of EdgeModel
   /// with the given fields replaced by the non-null parameter values.
@@ -392,7 +416,11 @@ abstract class $EdgeModelCopyWith<$Res> {
   factory $EdgeModelCopyWith(EdgeModel value, $Res Function(EdgeModel) then) =
       _$EdgeModelCopyWithImpl<$Res, EdgeModel>;
   @useResult
-  $Res call({String id, String firstNodeId, String secondNodeId});
+  $Res call(
+      {String id,
+      String firstNodeId,
+      String secondNodeId,
+      Color? preferredColor});
 }
 
 /// @nodoc
@@ -413,6 +441,7 @@ class _$EdgeModelCopyWithImpl<$Res, $Val extends EdgeModel>
     Object? id = null,
     Object? firstNodeId = null,
     Object? secondNodeId = null,
+    Object? preferredColor = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -427,6 +456,10 @@ class _$EdgeModelCopyWithImpl<$Res, $Val extends EdgeModel>
           ? _value.secondNodeId
           : secondNodeId // ignore: cast_nullable_to_non_nullable
               as String,
+      preferredColor: freezed == preferredColor
+          ? _value.preferredColor
+          : preferredColor // ignore: cast_nullable_to_non_nullable
+              as Color?,
     ) as $Val);
   }
 }
@@ -439,7 +472,11 @@ abstract class _$$EdgeModelImplCopyWith<$Res>
       __$$EdgeModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String firstNodeId, String secondNodeId});
+  $Res call(
+      {String id,
+      String firstNodeId,
+      String secondNodeId,
+      Color? preferredColor});
 }
 
 /// @nodoc
@@ -458,6 +495,7 @@ class __$$EdgeModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? firstNodeId = null,
     Object? secondNodeId = null,
+    Object? preferredColor = freezed,
   }) {
     return _then(_$EdgeModelImpl(
       id: null == id
@@ -472,6 +510,10 @@ class __$$EdgeModelImplCopyWithImpl<$Res>
           ? _value.secondNodeId
           : secondNodeId // ignore: cast_nullable_to_non_nullable
               as String,
+      preferredColor: freezed == preferredColor
+          ? _value.preferredColor
+          : preferredColor // ignore: cast_nullable_to_non_nullable
+              as Color?,
     ));
   }
 }
@@ -482,7 +524,8 @@ class _$EdgeModelImpl implements _EdgeModel {
   _$EdgeModelImpl(
       {required this.id,
       required this.firstNodeId,
-      required this.secondNodeId});
+      required this.secondNodeId,
+      this.preferredColor});
 
   @override
   final String id;
@@ -490,10 +533,12 @@ class _$EdgeModelImpl implements _EdgeModel {
   final String firstNodeId;
   @override
   final String secondNodeId;
+  @override
+  final Color? preferredColor;
 
   @override
   String toString() {
-    return 'EdgeModel(id: $id, firstNodeId: $firstNodeId, secondNodeId: $secondNodeId)';
+    return 'EdgeModel(id: $id, firstNodeId: $firstNodeId, secondNodeId: $secondNodeId, preferredColor: $preferredColor)';
   }
 
   @override
@@ -505,11 +550,14 @@ class _$EdgeModelImpl implements _EdgeModel {
             (identical(other.firstNodeId, firstNodeId) ||
                 other.firstNodeId == firstNodeId) &&
             (identical(other.secondNodeId, secondNodeId) ||
-                other.secondNodeId == secondNodeId));
+                other.secondNodeId == secondNodeId) &&
+            (identical(other.preferredColor, preferredColor) ||
+                other.preferredColor == preferredColor));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, firstNodeId, secondNodeId);
+  int get hashCode =>
+      Object.hash(runtimeType, id, firstNodeId, secondNodeId, preferredColor);
 
   /// Create a copy of EdgeModel
   /// with the given fields replaced by the non-null parameter values.
@@ -524,7 +572,8 @@ abstract class _EdgeModel implements EdgeModel {
   factory _EdgeModel(
       {required final String id,
       required final String firstNodeId,
-      required final String secondNodeId}) = _$EdgeModelImpl;
+      required final String secondNodeId,
+      final Color? preferredColor}) = _$EdgeModelImpl;
 
   @override
   String get id;
@@ -532,6 +581,8 @@ abstract class _EdgeModel implements EdgeModel {
   String get firstNodeId;
   @override
   String get secondNodeId;
+  @override
+  Color? get preferredColor;
 
   /// Create a copy of EdgeModel
   /// with the given fields replaced by the non-null parameter values.

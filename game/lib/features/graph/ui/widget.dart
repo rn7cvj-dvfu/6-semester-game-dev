@@ -14,8 +14,8 @@ class GraphWidget extends FlameGame {
   final void Function(String edgeId) onEdgeClick;
 
   final Color backgroundColorValue;
-  final Color dotColorValue;
-  final Color connectionEdgeColorValue;
+  final Color nodeColorValue;
+  final Color edgeColorValue;
 
   // late DotComponent dot1;
   // late DotComponent dot2;
@@ -25,8 +25,8 @@ class GraphWidget extends FlameGame {
     required this.onNodeClick,
     required this.onEdgeClick,
     required this.backgroundColorValue,
-    required this.dotColorValue,
-    required this.connectionEdgeColorValue,
+    required this.nodeColorValue,
+    required this.edgeColorValue,
   }) {
     final nodesIds = graphModel.nodes.map((e) => e.id).toList();
     final edgesIds = graphModel.edges.map((e) => e.id).toList();
@@ -81,8 +81,8 @@ class GraphWidget extends FlameGame {
         }
 
         return DotComponent(
-          color: dotColorValue,
-          blendColor: connectionEdgeColorValue,
+          color: node.preferredColor ?? nodeColorValue,
+          blendColor: edgeColorValue,
           radius: 20,
           position: Vector2(x, y),
           movable: graphModel.movable,
@@ -102,10 +102,27 @@ class GraphWidget extends FlameGame {
           .indexWhere((element) => element.id == edge.secondNodeId);
 
       final firstDot = dots[firstNodeIndex];
+      final firstNode = graphModel.nodes[firstNodeIndex];
+
       final secondDot = dots[secondNodeIndex];
+      final secondNode = graphModel.nodes[secondNodeIndex];
+
+      final firstNodeColor = firstNode.preferredColor;
+      final secondNodeColor = secondNode.preferredColor;
+
+      Color edgeColor = edgeColorValue;
+
+      if (firstNodeColor != null || secondNodeColor != null) {
+        final tempColor = Color.lerp(
+          firstNodeColor ?? nodeColorValue,
+          secondNodeColor ?? nodeColorValue,
+          0.5,
+        )!;
+        edgeColor = Color.lerp(edgeColor, tempColor, 0.9)!;
+      }
 
       final edgeComponent = ConnectingEdgeComponent(
-        color: connectionEdgeColorValue,
+        color: edge.preferredColor ?? edgeColor,
         from: firstDot,
         to: secondDot,
         onClick: graphModel.clickable ? () => onEdgeClick(edge.id) : null,

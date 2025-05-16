@@ -26,7 +26,7 @@ class GBackButton extends StatelessWidget {
                 size: 16,
               ),
               Text(
-                t.strings.back,
+                context.t.strings.common.back,
               )
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../.gen/i18n/strings.g.dart';
 import '../features/ui/back_button.dart';
 import '../navigation/navigator.dart';
 
@@ -29,12 +30,12 @@ class LevelsPage extends StatelessWidget {
                       // const SizedBox(height: 16),
                       _LevelCard(
                         index: 1,
-                        title: 'Основы',
+                        title: context.t.strings.levels.k1.name,
                       ),
                       const SizedBox(height: 16),
                       _LevelCard(
                         index: 2,
-                        title: 'Компоненты связанности',
+                        title: context.t.strings.levels.k2.name,
                       ),
                     ],
                   ),

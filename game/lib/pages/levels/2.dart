@@ -1,6 +1,8 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
+import '../../.gen/i18n/strings.g.dart';
 import '../../features/graph/bloc/model.dart';
 import '../../features/graph/ui/info_card.dart';
 import '../../features/graph/ui/step_button.dart';
@@ -33,9 +35,8 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
 
   late final List<_SubStage> _stages = [
     _SubStage(
-      infoTitle: "Этап 1: Связный граф",
-      infoText:
-          "Этот граф является связным. Это означает, что из любой вершины можно достичь любую другую вершину, двигаясь по ребрам.",
+      infoTitle: context.t.strings.levels.k2.stages.k1.title,
+      infoText: context.t.strings.levels.k2.stages.k1.text,
       graphModel: GraphModel.fromAdjacencyMatrix(
         [
           [0, 1, 1, 0],
@@ -46,9 +47,8 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
       ),
     ),
     _SubStage(
-      infoTitle: "Этап 2: Несвязный граф",
-      infoText:
-          "Этот граф не является связным. Он состоит из двух отдельных частей, называемых компонентами связности. Нельзя перейти из одной части в другую.",
+      infoTitle: context.t.strings.levels.k2.stages.k2.title,
+      infoText: context.t.strings.levels.k2.stages.k2.text,
       graphModel: GraphModel.fromAdjacencyMatrix(
         [
           [0, 1, 0, 0],
@@ -59,37 +59,30 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
       ),
     ),
     _SubStage(
-      infoTitle: "Этап 3: Компоненты связности",
-      infoText:
-          "Здесь три компоненты связности. Каждая компонента - это максимальный связный подграф. То есть, внутри каждой компоненты все вершины связаны, но нет связей между разными компонентами.",
+      infoTitle: context.t.strings.levels.k2.stages.k3.title,
+      infoText: context.t.strings.levels.k2.stages.k3.text,
       graphModel: GraphModel.fromAdjacencyMatrix(
         [
           [0, 1, 0, 0, 0],
           [1, 0, 0, 0, 0],
           [0, 0, 0, 1, 0],
           [0, 0, 1, 0, 0],
-          [0, 0, 0, 0, 0], // Изолированная вершина - тоже компонента
+          [0, 0, 0, 0, 0],
         ],
       ),
     ),
     _SubStage(
-      infoTitle: "Этап 4: Сколько компонент связности?",
-      infoText:
-          "Перед вами граф с несколькими компонентами связности. Сколько их?",
+      infoTitle: context.t.strings.levels.k2.stages.k4.title,
+      infoText: context.t.strings.levels.k2.stages.k4.text,
       graphModel: GraphModel.fromAdjacencyMatrix(
         [
-          // Компонента 1 (0-1)
           [0, 1, 0, 0, 0, 0, 0, 0],
           [1, 0, 0, 0, 0, 0, 0, 0],
-          // Компонента 2 (2-3)
           [0, 0, 0, 1, 0, 0, 0, 0],
           [0, 0, 1, 0, 0, 0, 0, 0],
-          // Компонента 3 (4-5)
           [0, 0, 0, 0, 0, 1, 0, 0],
           [0, 0, 0, 0, 1, 0, 0, 0],
-          // Компонента 4 (6)
           [0, 0, 0, 0, 0, 0, 0, 0],
-          // Компонента 4 (7)
           [0, 0, 0, 0, 0, 0, 0, 0],
         ],
       ),
@@ -130,8 +123,8 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
                   graphModel: currentStageData.graphModel,
                   backgroundColorValue:
                       Theme.of(context).scaffoldBackgroundColor,
-                  dotColorValue: Theme.of(context).colorScheme.primary,
-                  connectionEdgeColorValue:
+                  nodeColorValue: Theme.of(context).colorScheme.primary,
+                  edgeColorValue:
                       Theme.of(context).colorScheme.primaryContainer,
                   onNodeClick: (nodeId) {},
                   onEdgeClick: (edgeId) {},
@@ -173,11 +166,18 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
                       child: Card(
                         margin: EdgeInsets.zero,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 8,
-                            horizontal: 16,
+                          padding: const EdgeInsets.only(
+                            top: 16,
+                            left: 8,
+                            right: 8,
+                            bottom: 8,
                           ),
                           child: TextField(
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                RegExp(r'[0-9]'),
+                              ),
+                            ],
                             decoration: InputDecoration(
                               labelText:
                                   "Введите количество компонент связности",

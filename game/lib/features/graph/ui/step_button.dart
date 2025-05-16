@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../.gen/i18n/strings.g.dart';
 import '../../settings.dart';
 
 class StepButton extends StatelessWidget {
@@ -27,7 +28,9 @@ class StepButton extends StatelessWidget {
           Expanded(
             child: ElevatedButton(
               onPressed: onBack,
-              child: const Text("Назад"),
+              child: Text(
+                context.t.strings.common.back,
+              ),
             ),
           ),
           const SizedBox(width: 8),
@@ -36,8 +39,11 @@ class StepButton extends StatelessWidget {
           Expanded(
             child: ElevatedButton(
               onPressed: onNext,
-              child:
-                  Text(currentStage == totalStages - 1 ? "Завершить" : "Далее"),
+              child: Text(
+                currentStage == totalStages - 1
+                    ? context.t.strings.common.finish
+                    : context.t.strings.common.next,
+              ),
             ),
           ),
         ],

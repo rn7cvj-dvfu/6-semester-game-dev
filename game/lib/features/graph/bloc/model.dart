@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part '../../../.gen/features/graph/bloc/model.freezed.dart';
@@ -56,8 +58,8 @@ class NodeModel with _$NodeModel {
   factory NodeModel({
     required String id,
     // (0, 0) - screen center
-    
     (double x, double y)? preferredPosition,
+    Color? preferredColor,
   }) = _NodeModel;
 }
 
@@ -67,5 +69,6 @@ class EdgeModel with _$EdgeModel {
     required String id,
     required String firstNodeId,
     required String secondNodeId,
+    Color? preferredColor,
   }) = _EdgeModel;
 }
