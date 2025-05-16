@@ -1,5 +1,8 @@
 {
   "dart.flutterSdkPath": "/Users/vsevolodpanteleev/.puro/envs/stable/flutter",
   "dart.sdkPath": "/Users/vsevolodpanteleev/.puro/envs/stable/flutter/bin/cache/dart-sdk",
-  "cSpell.words": ["Graphica"]
+  "cSpell.words": [
+    "Graphica",
+    "prefs"
+  ]
 }
