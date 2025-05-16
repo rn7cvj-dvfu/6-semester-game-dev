@@ -22,11 +22,11 @@ class LevelsPage extends StatelessWidget {
                     shrinkWrap: true,
                     primary: false,
                     children: [
-                      _LevelCard(
-                        index: 0,
-                        title: 'Демо Уровень',
-                      ),
-                      const SizedBox(height: 16),
+                      // _LevelCard(
+                      //   index: 0,
+                      //   title: 'Демо Уровень',
+                      // ),
+                      // const SizedBox(height: 16),
                       _LevelCard(
                         index: 1,
                         title: 'Основы',

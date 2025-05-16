@@ -71,7 +71,10 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
                               padding: const EdgeInsets.only(
                                 bottom: 16,
                               ),
-                              child: Text(widget.text),
+                              child: Text(
+                                widget.text,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
                             ),
                           ],
                         )

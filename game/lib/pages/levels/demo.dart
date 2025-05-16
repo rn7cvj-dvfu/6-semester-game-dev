@@ -39,7 +39,7 @@ class DemoLevelPage extends StatelessWidget {
                     EdgeModel(id: "6", firstNodeId: "3", secondNodeId: "4"),
                     EdgeModel(id: "7", firstNodeId: "4", secondNodeId: "5"),
                   ],
-                  movable: false,
+                  movable: true,
                   clickable: false,
                 ),
                 onNodeClick: (nodeId) {},
