@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../settings.dart';
+
 class InfoCardWidget extends StatefulWidget {
   final String title;
   final String text;
@@ -21,8 +23,8 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
-        maxWidth: 384,
-        maxHeight: 384,
+        maxWidth: GSettings.maxDialogWidth,
+        maxHeight: GSettings.maxDialogHeight,
       ),
       child: Card(
         margin: EdgeInsets.zero,
