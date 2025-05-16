@@ -17,14 +17,14 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: "stable"
+          channel: "master"
 
       - name: Install dependencies
         run: flutter pub get
         working-directory: game
 
       - name: Build web
-        run: flutter build web --release --base-href /6-semester-game-dev/
+        run: dart run build_runner build -d && dart run slang && flutter build web --release --base-href /6-semester-game-dev/
         working-directory: game
 
       - name: Deploy to GitHub Pages
