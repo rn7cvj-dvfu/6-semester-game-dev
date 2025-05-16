@@ -37,5 +37,5 @@ levels:
 enterNumberOfConnectivityComponents: Enter the number of connected components
 common:
   back: Back
-  next: "Далее"
-  finish: "Завершить"
+  next: Next
+  finish: Finish

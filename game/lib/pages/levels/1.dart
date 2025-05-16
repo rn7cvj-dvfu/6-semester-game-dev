@@ -95,11 +95,11 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
     return Material(
       child: Stack(
         children: [
-          AnimatedSwitcher(
-            duration: transitionDuration,
-            child: Positioned.fill(
-              key: ValueKey(currentStageData.graphModel),
+          Positioned.fill(
+            child: AnimatedSwitcher(
+              duration: transitionDuration,
               child: GameWidget(
+                key: ValueKey(currentStageData.graphModel),
                 game: GraphWidget(
                   graphModel: currentStageData.graphModel,
                   backgroundColorValue:

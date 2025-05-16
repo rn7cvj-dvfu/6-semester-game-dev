@@ -78,8 +78,8 @@ class TranslationsStringsCommonEn {
 
 	// Translations
 	String get back => 'Back';
-	String get next => 'Далее';
-	String get finish => 'Завершить';
+	String get next => 'Next';
+	String get finish => 'Finish';
 }
 
 // Path: strings.levels.k1
@@ -234,8 +234,8 @@ extension on Translations {
 			case 'strings.levels.k2.stages.k4.text': return 'Here is a graph with several connected components. How many are there?';
 			case 'strings.enterNumberOfConnectivityComponents': return 'Enter the number of connected components';
 			case 'strings.common.back': return 'Back';
-			case 'strings.common.next': return 'Далее';
-			case 'strings.common.finish': return 'Завершить';
+			case 'strings.common.next': return 'Next';
+			case 'strings.common.finish': return 'Finish';
 			default: return null;
 		}
 	}

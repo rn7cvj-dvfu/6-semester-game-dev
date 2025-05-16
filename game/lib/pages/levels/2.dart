@@ -32,6 +32,7 @@ class SecondLevelPage extends StatefulWidget {
 
 class _SecondLevelPageState extends State<SecondLevelPage> {
   int _currentStageIndex = 0;
+  int? _enteredConnectivityComponents;
 
   late final List<_SubStage> _stages = [
     _SubStage(
@@ -114,10 +115,10 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
     return Material(
       child: Stack(
         children: [
-          AnimatedSwitcher(
-            duration: transitionDuration,
-            child: Positioned.fill(
+          Positioned.fill(
+            child: AnimatedSwitcher(
               key: ValueKey(currentStageData.graphModel),
+              duration: transitionDuration,
               child: GameWidget(
                 game: GraphWidget(
                   graphModel: currentStageData.graphModel,
@@ -178,9 +179,18 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
                                 RegExp(r'[0-9]'),
                               ),
                             ],
+                            onChanged: (value) {
+                              if (value.isEmpty) {
+                                _enteredConnectivityComponents = null;
+                                return;
+                              }
+                              _enteredConnectivityComponents =
+                                  int.tryParse(value);
+                              setState(() {});
+                            },
                             decoration: InputDecoration(
-                              labelText:
-                                  "Введите количество компонент связности",
+                              labelText: context.t.strings
+                                  .enterNumberOfConnectivityComponents,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
