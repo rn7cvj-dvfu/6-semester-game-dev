@@ -100,14 +100,15 @@ class _AdjacencyMatrixEditorState extends State<AdjacencyMatrixEditor> {
                       if (row == 0 || col == 0) {
                         final nodeIndex = row == 0 ? col - 1 : row - 1;
 
-                        return Container(
-                          height: 16,
-                          width: 16,
-                          margin: const EdgeInsets.all(16),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: nodeColors[nodeIndex % nodeColors.length],
+                        return Center(
+                          child: Container(
+                            height: 16,
+                            width: 16,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: nodeColors[nodeIndex % nodeColors.length],
+                            ),
                           ),
                         );
                       }
@@ -121,6 +122,7 @@ class _AdjacencyMatrixEditorState extends State<AdjacencyMatrixEditor> {
                         width: 32,
                         alignment: Alignment.center,
                         child: Checkbox(
+                          key: ValueKey('checkbox_${rowIndex}_${columnIndex}'),
                           value: _matrix[rowIndex][columnIndex] == 1,
                           onChanged: rowIndex == columnIndex
                               ? null // Disable checkbox for diagonal elements

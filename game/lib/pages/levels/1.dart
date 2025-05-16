@@ -130,10 +130,9 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
             child: GBackButton(onTap: AppNavigator.openLevels),
           ),
           Positioned(
-            top: 16,
             right: 16,
             child: SingleChildScrollView(
-              physics: AlwaysScrollableScrollPhysics(),
+              padding: EdgeInsets.symmetric(vertical: 16),
               primary: false,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
