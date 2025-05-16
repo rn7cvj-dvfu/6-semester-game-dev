@@ -108,8 +108,8 @@ class TranslationsStringsLevelsK1StagesK1En {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get title => 'Stage 1: Introduction';
-	String get text => 'This is the first stage. Look at the graph. It consists of two dots and one connection.';
+	String get title => 'Stage 1: Dot';
+	String get text => 'This is a dot. It\'s just a single dot on a blank canvas. Move on.';
 }
 
 // Path: strings.levels.k1.stages.k2
@@ -119,8 +119,8 @@ class TranslationsStringsLevelsK1StagesK2En {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get title => 'Stage 2: More Dots';
-	String get text => 'Now there are three dots, and they are connected in a circle.';
+	String get title => 'Stage 2: Edge';
+	String get text => 'There are more dots now. They are connected by an edge. From it Adam.. stop';
 }
 
 // Path: strings.levels.k1.stages.k3
@@ -130,8 +130,8 @@ class TranslationsStringsLevelsK1StagesK3En {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get title => 'Stage 3: Isolated Dot';
-	String get text => 'In this stage, one of the dots has no connections.';
+	String get title => 'Stage 3: Graph';
+	String get text => 'When there are many connected dots, they form a graph.';
 }
 
 /// Flat map(s) containing all translations.
@@ -144,12 +144,12 @@ extension on Translations {
 			case 'strings.back': return 'Back';
 			case 'strings.useDarkTheme': return 'Темная тема';
 			case 'strings.useSeedColor': return 'Основной цвет';
-			case 'strings.levels.k1.stages.k1.title': return 'Stage 1: Introduction';
-			case 'strings.levels.k1.stages.k1.text': return 'This is the first stage. Look at the graph. It consists of two dots and one connection.';
-			case 'strings.levels.k1.stages.k2.title': return 'Stage 2: More Dots';
-			case 'strings.levels.k1.stages.k2.text': return 'Now there are three dots, and they are connected in a circle.';
-			case 'strings.levels.k1.stages.k3.title': return 'Stage 3: Isolated Dot';
-			case 'strings.levels.k1.stages.k3.text': return 'In this stage, one of the dots has no connections.';
+			case 'strings.levels.k1.stages.k1.title': return 'Stage 1: Dot';
+			case 'strings.levels.k1.stages.k1.text': return 'This is a dot. It\'s just a single dot on a blank canvas. Move on.';
+			case 'strings.levels.k1.stages.k2.title': return 'Stage 2: Edge';
+			case 'strings.levels.k1.stages.k2.text': return 'There are more dots now. They are connected by an edge. From it Adam.. stop';
+			case 'strings.levels.k1.stages.k3.title': return 'Stage 3: Graph';
+			case 'strings.levels.k1.stages.k3.text': return 'When there are many connected dots, they form a graph.';
 			case 'strings.common.next': return 'Далее';
 			case 'strings.common.finish': return 'Завершить';
 			default: return null;

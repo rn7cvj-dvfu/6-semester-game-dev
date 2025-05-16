@@ -30,16 +30,15 @@ class FirstLevelPage extends StatefulWidget {
 class _FirstLevelPageState extends State<FirstLevelPage> {
   int _currentStageIndex = 0;
 
-  late final List<_SubStage> _stages = [
+  final List<_SubStage> _stages = [
     _SubStage(
       infoTitle: t.strings.levels.k1.stages.k1.title,
       infoText: t.strings.levels.k1.stages.k1.text,
-      graphModel: GraphModel.fromAdjacencyMatrix(
-        [
-          [0, 1],
-          [1, 0],
+      graphModel: GraphModel(
+        nodes: [
+          NodeModel(id: 'hui', preferredPosition: (0, 0)),
         ],
-        clickable: true,
+        edges: [],
       ),
     ),
     _SubStage(
@@ -47,11 +46,11 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
       infoText: t.strings.levels.k1.stages.k2.text,
       graphModel: GraphModel.fromAdjacencyMatrix(
         [
-          [0, 1, 1],
-          [1, 0, 1],
-          [1, 1, 0],
+          [0, 1],
+          [1, 0],
         ],
         clickable: true,
+        movable: true,
       ),
     ),
     _SubStage(
@@ -59,11 +58,12 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
       infoText: t.strings.levels.k1.stages.k3.text,
       graphModel: GraphModel.fromAdjacencyMatrix(
         [
-          [0, 1, 0],
-          [1, 0, 0],
-          [0, 0, 0],
+          [0, 1, 1],
+          [1, 0, 1],
+          [1, 1, 0],
         ],
         clickable: true,
+        movable: true,
       ),
     ),
   ];

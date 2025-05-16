@@ -8,14 +8,14 @@ levels:
   1:
     stages:
       1: 
-        title: "Stage 1: Introduction"
-        text: "This is the first stage. Look at the graph. It consists of two dots and one connection."
+        title: "Stage 1: Dot"
+        text: "This is a dot. It's just a single dot on a blank canvas. Move on."
       2: 
-        title: "Stage 2: More Dots"
-        text: "Now there are three dots, and they are connected in a circle."
+        title: "Stage 2: Edge"
+        text: "There are more dots now. They are connected by an edge. From it Adam.. stop"
       3: 
-        title: "Stage 3: Isolated Dot"
-        text: "In this stage, one of the dots has no connections."
+        title: "Stage 3: Graph"
+        text: "When there are many connected dots, they form a graph."
 
 common:
   next: "Далее"

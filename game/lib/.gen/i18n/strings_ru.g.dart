@@ -105,8 +105,8 @@ class _TranslationsStringsLevelsK1StagesK1Ru implements TranslationsStringsLevel
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Этап 1: Знакомство';
-	@override String get text => 'Это первый этап. Посмотрите на граф. Он состоит из двух точек и одной связи.';
+	@override String get title => 'Этап 1: Точка';
+	@override String get text => 'Это точка. Просто одинокая точка на чистом холсте. Идите дальше.';
 }
 
 // Path: strings.levels.k1.stages.k2
@@ -116,8 +116,8 @@ class _TranslationsStringsLevelsK1StagesK2Ru implements TranslationsStringsLevel
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Этап 2: Больше точек';
-	@override String get text => 'Теперь точек три, и они соединены по кругу.';
+	@override String get title => 'Этап 2: Ребро';
+	@override String get text => 'Точек стало больше. Теперь они соединены ребром. Из него Адам.. так стоп';
 }
 
 // Path: strings.levels.k1.stages.k3
@@ -127,8 +127,8 @@ class _TranslationsStringsLevelsK1StagesK3Ru implements TranslationsStringsLevel
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Этап 3: Изолированная точка';
-	@override String get text => 'На этом этапе одна из точек не имеет связей.';
+	@override String get title => 'Этап 3: Граф';
+	@override String get text => 'Когда соединённых точек много, они образуют граф.';
 }
 
 /// Flat map(s) containing all translations.
@@ -141,12 +141,12 @@ extension on TranslationsRu {
 			case 'strings.back': return 'Назад';
 			case 'strings.useDarkTheme': return 'Темная тема';
 			case 'strings.useSeedColor': return 'Основной цвет';
-			case 'strings.levels.k1.stages.k1.title': return 'Этап 1: Знакомство';
-			case 'strings.levels.k1.stages.k1.text': return 'Это первый этап. Посмотрите на граф. Он состоит из двух точек и одной связи.';
-			case 'strings.levels.k1.stages.k2.title': return 'Этап 2: Больше точек';
-			case 'strings.levels.k1.stages.k2.text': return 'Теперь точек три, и они соединены по кругу.';
-			case 'strings.levels.k1.stages.k3.title': return 'Этап 3: Изолированная точка';
-			case 'strings.levels.k1.stages.k3.text': return 'На этом этапе одна из точек не имеет связей.';
+			case 'strings.levels.k1.stages.k1.title': return 'Этап 1: Точка';
+			case 'strings.levels.k1.stages.k1.text': return 'Это точка. Просто одинокая точка на чистом холсте. Идите дальше.';
+			case 'strings.levels.k1.stages.k2.title': return 'Этап 2: Ребро';
+			case 'strings.levels.k1.stages.k2.text': return 'Точек стало больше. Теперь они соединены ребром. Из него Адам.. так стоп';
+			case 'strings.levels.k1.stages.k3.title': return 'Этап 3: Граф';
+			case 'strings.levels.k1.stages.k3.text': return 'Когда соединённых точек много, они образуют граф.';
 			case 'strings.common.next': return 'Далее';
 			case 'strings.common.finish': return 'Завершить';
 			default: return null;
