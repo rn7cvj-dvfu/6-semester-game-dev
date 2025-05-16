@@ -5,6 +5,7 @@ import '../../features/graph/bloc/model.dart';
 import '../../features/graph/ui/info_card.dart';
 import '../../features/graph/ui/step_button.dart';
 import '../../features/graph/ui/widget.dart';
+import '../../features/settings.dart';
 import '../../features/ui/back_button.dart';
 import '../../navigation/navigator.dart';
 
@@ -114,21 +115,27 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
 
   @override
   Widget build(BuildContext context) {
-    final currentStage = _stages[_currentStageIndex];
+    final currentStageData = _stages[_currentStageIndex];
+    const transitionDuration = Duration(milliseconds: 500);
 
     return Material(
       child: Stack(
         children: [
-          Positioned.fill(
-            child: GameWidget(
-              game: GraphWidget(
-                graphModel: currentStage.graphModel,
-                backgroundColorValue: Theme.of(context).scaffoldBackgroundColor,
-                dotColorValue: Theme.of(context).colorScheme.primary,
-                connectionEdgeColorValue:
-                    Theme.of(context).colorScheme.primaryContainer,
-                onNodeClick: (nodeId) {},
-                onEdgeClick: (edgeId) {},
+          AnimatedSwitcher(
+            duration: transitionDuration,
+            child: Positioned.fill(
+              key: ValueKey(currentStageData.graphModel),
+              child: GameWidget(
+                game: GraphWidget(
+                  graphModel: currentStageData.graphModel,
+                  backgroundColorValue:
+                      Theme.of(context).scaffoldBackgroundColor,
+                  dotColorValue: Theme.of(context).colorScheme.primary,
+                  connectionEdgeColorValue:
+                      Theme.of(context).colorScheme.primaryContainer,
+                  onNodeClick: (nodeId) {},
+                  onEdgeClick: (edgeId) {},
+                ),
               ),
             ),
           ),
@@ -146,19 +153,42 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
               primary: false,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                spacing: 8,
                 children: [
                   InfoCardWidget(
-                    title: currentStage.infoTitle,
-                    text: currentStage.infoText,
+                    title: currentStageData.infoTitle,
+                    text: currentStageData.infoText,
                   ),
-                  SizedBox(height: 8),
                   StepButton(
                     currentStage: _currentStageIndex,
                     totalStages: _stages.length,
                     onBack: _currentStageIndex == 0 ? null : _previousStage,
                     onNext: _nextStage,
                   ),
-                  // if (_currentStageIndex == 3)
+                  if (_currentStageIndex == 3)
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: GSettings.maxDialogWidth,
+                      ),
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 16,
+                          ),
+                          child: TextField(
+                            decoration: InputDecoration(
+                              labelText:
+                                  "Введите количество компонент связности",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
                 ],
               ),
             ),
