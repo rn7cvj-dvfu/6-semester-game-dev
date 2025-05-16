@@ -29,59 +29,42 @@ class FirstLevelPage extends StatefulWidget {
 class _FirstLevelPageState extends State<FirstLevelPage> {
   int _currentStageIndex = 0;
 
-  // Helper function to convert adjacency matrix to GraphModel
-  GraphModel _createGraphModelFromAdjacencyMatrix(List<List<int>> matrix,
-      {bool movable = false, bool clickable = false}) {
-    final nodes = <NodeModel>[];
-    for (int i = 0; i < matrix.length; i++) {
-      nodes.add(NodeModel(id: 'node_$i'));
-    }
-
-    final edges = <EdgeModel>[];
-    for (int i = 0; i < matrix.length; i++) {
-      for (int j = 0; j < matrix[i].length; j++) {
-        if (matrix[i][j] == 1) {
-          // Ensure edges are added once for undirected graphs, typically j > i
-          if (j > i) {
-            edges.add(EdgeModel(
-                id: 'edge_${i}_$j',
-                firstNodeId: 'node_$i',
-                secondNodeId: 'node_$j'));
-          }
-        }
-      }
-    }
-    return GraphModel(
-        nodes: nodes, edges: edges, movable: movable, clickable: clickable);
-  }
-
   late final List<_SubStage> _stages = [
     _SubStage(
       infoTitle: "Этап 1: Знакомство",
       infoText:
           "Это первый этап. Посмотрите на граф. Он состоит из двух точек и одной связи.",
-      graphModel: _createGraphModelFromAdjacencyMatrix([
-        [0, 1],
-        [1, 0],
-      ], clickable: true),
+      graphModel: GraphModel.fromAdjacencyMatrix(
+        [
+          [0, 1],
+          [1, 0],
+        ],
+        clickable: true,
+      ),
     ),
     _SubStage(
       infoTitle: "Этап 2: Больше точек",
       infoText: "Теперь точек три, и они соединены по кругу.",
-      graphModel: _createGraphModelFromAdjacencyMatrix([
-        [0, 1, 1],
-        [1, 0, 1],
-        [1, 1, 0],
-      ], clickable: true),
+      graphModel: GraphModel.fromAdjacencyMatrix(
+        [
+          [0, 1, 1],
+          [1, 0, 1],
+          [1, 1, 0],
+        ],
+        clickable: true,
+      ),
     ),
     _SubStage(
       infoTitle: "Этап 3: Изолированная точка",
       infoText: "На этом этапе одна из точек не имеет связей.",
-      graphModel: _createGraphModelFromAdjacencyMatrix([
-        [0, 1, 0],
-        [1, 0, 0],
-        [0, 0, 0],
-      ], clickable: true),
+      graphModel: GraphModel.fromAdjacencyMatrix(
+        [
+          [0, 1, 0],
+          [1, 0, 0],
+          [0, 0, 0],
+        ],
+        clickable: true,
+      ),
     ),
   ];
 

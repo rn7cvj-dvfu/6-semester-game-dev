@@ -59,6 +59,7 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
                   duration: Duration(milliseconds: 300),
                   child: _isExpanded
                       ? Column(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Divider(),
                             Flexible(
