@@ -18,12 +18,17 @@ class GraphModel with _$GraphModel {
     List<List<int>> matrix, {
     bool movable = false,
     bool clickable = false,
+    Color Function(int nodeIndex)? nodeColor,
+    Color Function(int firstNodeIndex, int secondNodeIndex)? edgeColor,
   }) {
     final nodes = <NodeModel>[];
     final edges = <EdgeModel>[];
 
     for (int i = 0; i < matrix.length; i++) {
-      nodes.add(NodeModel(id: 'node_$i'));
+      nodes.add(NodeModel(
+        id: 'node_$i',
+        preferredColor: nodeColor?.call(i),
+      ));
     }
 
     for (int i = 0; i < matrix.length; i++) {
@@ -42,6 +47,7 @@ class GraphModel with _$GraphModel {
           id: 'edge_${i}_$j',
           firstNodeId: 'node_$i',
           secondNodeId: 'node_$j',
+          preferredColor: edgeColor?.call(i, j),
         ));
       }
     }
