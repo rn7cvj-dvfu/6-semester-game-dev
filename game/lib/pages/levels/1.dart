@@ -32,9 +32,8 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
 
   late final List<_SubStage> _stages = [
     _SubStage(
-      infoTitle: "Этап 1: Знакомство",
-      infoText:
-          "Это первый этап. Посмотрите на граф. Он состоит из двух точек и одной связи.",
+      infoTitle: t.strings.levels.k1.stages.k1.title,
+      infoText: t.strings.levels.k1.stages.k1.text,
       graphModel: GraphModel.fromAdjacencyMatrix(
         [
           [0, 1],
@@ -44,8 +43,8 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
       ),
     ),
     _SubStage(
-      infoTitle: "Этап 2: Больше точек",
-      infoText: "Теперь точек три, и они соединены по кругу.",
+      infoTitle: t.strings.levels.k1.stages.k2.title,
+      infoText: t.strings.levels.k1.stages.k2.text,
       graphModel: GraphModel.fromAdjacencyMatrix(
         [
           [0, 1, 1],
@@ -56,8 +55,8 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
       ),
     ),
     _SubStage(
-      infoTitle: "Этап 3: Изолированная точка",
-      infoText: "На этом этапе одна из точек не имеет связей.",
+      infoTitle: t.strings.levels.k1.stages.k3.title,
+      infoText: t.strings.levels.k1.stages.k3.text,
       graphModel: GraphModel.fromAdjacencyMatrix(
         [
           [0, 1, 0],
@@ -89,31 +88,15 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Ensure _stages is initialized before accessing it.
-    // This is crucial because didChangeDependencies might be called after the first build in some scenarios.
-    if (_stages == null) {
-      // If _stages is still null, it means didChangeDependencies hasn't run or completed.
-      // Call it here to ensure initialization. This might happen if context wasn't fully ready.
-      // Or, show a loading indicator until it's ready.
-      didChangeDependencies(); // Attempt to initialize if null.
-      // If it's still null after attempting, show loading.
-      // This might occur if Translations.of(context) isn't ready.
-      if (_stages == null) {
-        return const Scaffold(body: Center(child: CircularProgressIndicator()));
-      }
-    }
-
-    // At this point, _stages should not be null. Use ! to assert non-null.
-    final currentStageData = _stages![_currentStageIndex];
-    const transitionDuration = Duration(milliseconds: 300);
-    final t =
-        Translations.of(context); // Get translations instance for build method
+    final currentStageData = _stages[_currentStageIndex];
+    const transitionDuration = Duration(milliseconds: 500);
+    final t = Translations.of(context);
 
     return Material(
       child: Stack(
         children: [
           AnimatedSwitcher(
-            duration: Duration(milliseconds: 500),
+            duration: transitionDuration,
             child: Positioned.fill(
               key: ValueKey(currentStageData.graphModel),
               child: GameWidget(
@@ -144,47 +127,43 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
           Positioned(
             top: 16,
             right: 16,
-            child: AnimatedSwitcher(
-              duration: transitionDuration,
-              key: ValueKey('ui_stage_$_currentStageIndex'),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                spacing: 8,
-                children: [
-                  InfoCardWidget(
-                    title: currentStageData.infoTitle,
-                    text: currentStageData.infoText,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              spacing: 8,
+              children: [
+                InfoCardWidget(
+                  title: currentStageData.infoTitle,
+                  text: currentStageData.infoText,
+                ),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxWidth: 384,
                   ),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(
-                      maxWidth: 384,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      spacing: 8,
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed:
-                                _currentStageIndex > 0 ? _previousStage : null,
-                            child: Text(t.strings.back),
-                          ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    spacing: 8,
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed:
+                              _currentStageIndex > 0 ? _previousStage : null,
+                          child: Text(t.strings.back),
                         ),
-                        Text('${_currentStageIndex + 1} / ${_stages!.length}'),
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: _nextStage,
-                            child: Text(_currentStageIndex < _stages!.length - 1
-                                ? t.strings.common.next
-                                : t.strings.common.finish),
-                          ),
+                      ),
+                      Text('${_currentStageIndex + 1} / ${_stages!.length}'),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: _nextStage,
+                          child: Text(_currentStageIndex < _stages!.length - 1
+                              ? t.strings.common.next
+                              : t.strings.common.finish),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           )
         ],
