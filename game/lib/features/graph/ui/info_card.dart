@@ -15,7 +15,7 @@ class InfoCardWidget extends StatefulWidget {
 }
 
 class _InfoCardWidgetState extends State<InfoCardWidget> {
-  bool _isExpanded = false;
+  bool _isExpanded = true;
 
   @override
   Widget build(BuildContext context) {
