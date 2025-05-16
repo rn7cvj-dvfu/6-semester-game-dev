@@ -231,6 +231,7 @@ abstract class _GraphModel implements GraphModel {
 /// @nodoc
 mixin _$NodeModel {
   String get id => throw _privateConstructorUsedError;
+  (double, double)? get preferredPosition => throw _privateConstructorUsedError;
 
   /// Create a copy of NodeModel
   /// with the given fields replaced by the non-null parameter values.
@@ -244,7 +245,7 @@ abstract class $NodeModelCopyWith<$Res> {
   factory $NodeModelCopyWith(NodeModel value, $Res Function(NodeModel) then) =
       _$NodeModelCopyWithImpl<$Res, NodeModel>;
   @useResult
-  $Res call({String id});
+  $Res call({String id, (double, double)? preferredPosition});
 }
 
 /// @nodoc
@@ -263,12 +264,17 @@ class _$NodeModelCopyWithImpl<$Res, $Val extends NodeModel>
   @override
   $Res call({
     Object? id = null,
+    Object? preferredPosition = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      preferredPosition: freezed == preferredPosition
+          ? _value.preferredPosition
+          : preferredPosition // ignore: cast_nullable_to_non_nullable
+              as (double, double)?,
     ) as $Val);
   }
 }
@@ -281,7 +287,7 @@ abstract class _$$NodeModelImplCopyWith<$Res>
       __$$NodeModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id});
+  $Res call({String id, (double, double)? preferredPosition});
 }
 
 /// @nodoc
@@ -298,12 +304,17 @@ class __$$NodeModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? preferredPosition = freezed,
   }) {
     return _then(_$NodeModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      preferredPosition: freezed == preferredPosition
+          ? _value.preferredPosition
+          : preferredPosition // ignore: cast_nullable_to_non_nullable
+              as (double, double)?,
     ));
   }
 }
@@ -311,14 +322,16 @@ class __$$NodeModelImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$NodeModelImpl implements _NodeModel {
-  _$NodeModelImpl({required this.id});
+  _$NodeModelImpl({required this.id, this.preferredPosition});
 
   @override
   final String id;
+  @override
+  final (double, double)? preferredPosition;
 
   @override
   String toString() {
-    return 'NodeModel(id: $id)';
+    return 'NodeModel(id: $id, preferredPosition: $preferredPosition)';
   }
 
   @override
@@ -326,11 +339,13 @@ class _$NodeModelImpl implements _NodeModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NodeModelImpl &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.preferredPosition, preferredPosition) ||
+                other.preferredPosition == preferredPosition));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id);
+  int get hashCode => Object.hash(runtimeType, id, preferredPosition);
 
   /// Create a copy of NodeModel
   /// with the given fields replaced by the non-null parameter values.
@@ -342,10 +357,14 @@ class _$NodeModelImpl implements _NodeModel {
 }
 
 abstract class _NodeModel implements NodeModel {
-  factory _NodeModel({required final String id}) = _$NodeModelImpl;
+  factory _NodeModel(
+      {required final String id,
+      final (double, double)? preferredPosition}) = _$NodeModelImpl;
 
   @override
   String get id;
+  @override
+  (double, double)? get preferredPosition;
 
   /// Create a copy of NodeModel
   /// with the given fields replaced by the non-null parameter values.

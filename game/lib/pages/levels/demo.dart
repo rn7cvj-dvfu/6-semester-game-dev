@@ -24,7 +24,7 @@ class DemoLevelPage extends StatelessWidget {
                 connectionEdgeColorValue: theme.colorScheme.primaryContainer,
                 graphModel: GraphModel(
                   nodes: [
-                    NodeModel(id: "1"),
+                    NodeModel(id: "1", preferredPosition: (0, 0)),
                     NodeModel(id: "2"),
                     NodeModel(id: "3"),
                     NodeModel(id: "4"),

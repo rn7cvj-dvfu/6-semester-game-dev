@@ -68,9 +68,17 @@ class GraphWidget extends FlameGame {
     final dots = List<DotComponent>.generate(
       dotsCount,
       (index) {
+        final node = graphModel.nodes[index];
+
         final angle = (2 * pi * index) / dotsCount;
-        final x = center.x + radius * cos(angle);
-        final y = center.y + radius * sin(angle);
+        double x = center.x + radius * cos(angle);
+        double y = center.y + radius * sin(angle);
+
+        if (node.preferredPosition != null) {
+          x = node.preferredPosition!.$1 * size.x + center.x;
+          ;
+          y = node.preferredPosition!.$2 * size.y + center.y;
+        }
 
         return DotComponent(
           color: dotColorValue,
@@ -78,9 +86,7 @@ class GraphWidget extends FlameGame {
           radius: 20,
           position: Vector2(x, y),
           movable: graphModel.movable,
-          onClick: graphModel.clickable
-              ? () => onNodeClick(graphModel.nodes[index].id)
-              : null,
+          onClick: graphModel.clickable ? () => onNodeClick(node.id) : null,
         );
       },
     );

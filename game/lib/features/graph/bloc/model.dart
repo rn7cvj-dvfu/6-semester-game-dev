@@ -55,6 +55,9 @@ class GraphModel with _$GraphModel {
 class NodeModel with _$NodeModel {
   factory NodeModel({
     required String id,
+    // (0, 0) - screen center
+    
+    (double x, double y)? preferredPosition,
   }) = _NodeModel;
 }
 
