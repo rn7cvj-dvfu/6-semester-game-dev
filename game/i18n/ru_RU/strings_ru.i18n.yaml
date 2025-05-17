@@ -8,13 +8,8 @@ statistics:
   title: Статистика
   totalPlayTime: Общее время в игре
   sessionCount: Количество сессий
-  totalLevelsCompleted: Пройдено уровней
-  levelsTitle: Статистика по уровням
-  level: 'Уровень $levelId'
-  timeSpent: 'Время $time'
-  avgLevelTime: Среднее время / уровень
-  noData: Данные пока отсутствуют
-
+  reset: Сбросить статистику
+  
 useDarkTheme: Темная тема
 useSeedColor: Основной цвет
 useLangue: Язык

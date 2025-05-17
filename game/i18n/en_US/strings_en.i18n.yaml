@@ -8,13 +8,8 @@ statistics:
   title: Statistics
   totalPlayTime: Total Play Time
   sessionCount: Sessions
-  totalLevelsCompleted: Levels Completed
-  levelsTitle: Level Performance
-  level: 'Level $levelId'
-  timeSpent: 'Time $time'
-  avgLevelTime: Avg. Time / Level
-  noData: No data available yet
-
+  reset: Reset statistics
+  
 useDarkTheme: Dark theme
 useSeedColor: Seed color
 useLangue: Language
