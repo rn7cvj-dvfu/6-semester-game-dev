@@ -37,7 +37,7 @@ levels:
 
 noNodesToEdit: "В графе нет вершин для редактирования."
 addNode: "Добавить вершину"
-removeLastNode: "Удалить последнюю вершину"
+removeLastNode: "Удалить вершину"
 enterNumberOfConnectivityComponents: Введите количество компонент связности
 common:
   back: "Назад"

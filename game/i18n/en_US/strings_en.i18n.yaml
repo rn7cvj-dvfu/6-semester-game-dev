@@ -36,7 +36,7 @@ levels:
 
 noNodesToEdit: "Graph has no nodes to edit."
 addNode: "Add Node"
-removeLastNode: "Remove Last Node"
+removeLastNode: "Remove Node"
 
 enterNumberOfConnectivityComponents: Enter the number of connected components
 common:

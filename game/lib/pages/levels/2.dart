@@ -134,10 +134,12 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
             child: GBackButton(onTap: AppNavigator.openLevels),
           ),
           Positioned(
-            top: 16,
+            top: 0,
             right: 16,
+            bottom: 0,
             child: SingleChildScrollView(
               primary: false,
+              padding: EdgeInsets.symmetric(vertical: 16),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 spacing: 8,
