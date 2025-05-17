@@ -1,13 +1,13 @@
-import 'dart:ui';
 
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 
 import 'node.dart';
+import 'widget.dart';
 
 class ConnectingEdgeComponent extends Component
-    with TapCallbacks, HoverCallbacks {
+    with TapCallbacks, HoverCallbacks, HasGameReference<GraphWidget> {
   final NodeComponent from;
   final NodeComponent to;
   final Color color;
@@ -43,7 +43,7 @@ class ConnectingEdgeComponent extends Component
     final p4 = beginCenter - perpendicular * beginRadius;
 
     final paint = Paint()
-      ..color = _isHovered ? Color.lerp(color, blendColor, 0.5)! : color
+      ..color = _isHovered ? Colors.red : color
       ..style = PaintingStyle.fill;
 
     const curveFactor = 20.0; // Adjust for more or less curve

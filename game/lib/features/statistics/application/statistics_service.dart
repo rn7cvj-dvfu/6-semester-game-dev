@@ -33,6 +33,7 @@ class StatisticsService {
   }
 
   final Stopwatch _playTimeStopwatch = Stopwatch();
+  Timer? _periodicSaveTimer;
 
   Future<SharedPreferences> get _prefs async => SharedPreferences.getInstance();
 

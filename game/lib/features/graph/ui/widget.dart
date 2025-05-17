@@ -5,7 +5,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 import '../bloc/model.dart';
-import 'connecting_edge.dart';
+import 'edge.dart';
 import 'node.dart';
 
 class GraphWidget extends FlameGame {

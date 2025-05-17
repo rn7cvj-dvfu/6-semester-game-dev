@@ -6,7 +6,7 @@ import '../../graph/ui/info_card.dart';
 import '../../graph/ui/step_button.dart';
 import '../../settings.dart';
 
-class SecondLevelInfo extends StatefulWidget {
+class ThirdLevelInfo extends StatefulWidget {
   final int initialStageIndex;
   final int totalStages;
 
@@ -17,7 +17,7 @@ class SecondLevelInfo extends StatefulWidget {
   final void Function(int stageIndex) onStageChanged;
   final void Function() onComplete;
 
-  const SecondLevelInfo({
+  const ThirdLevelInfo({
     super.key,
     required this.title,
     this.text,
@@ -29,12 +29,12 @@ class SecondLevelInfo extends StatefulWidget {
   });
 
   @override
-  State<SecondLevelInfo> createState() => _SecondLevelInfoState();
+  State<ThirdLevelInfo> createState() => _ThirdLevelInfoState();
 }
 
-class _SecondLevelInfoState extends State<SecondLevelInfo> {
+class _ThirdLevelInfoState extends State<ThirdLevelInfo> {
   int _currentStageIndex = 0;
-  int? _enteredConnectivityComponents;
+  int? _enteredLenPath;
   String? _errorText;
 
   @override
@@ -60,13 +60,13 @@ class _SecondLevelInfoState extends State<SecondLevelInfo> {
   }
 
   void _finalStage() {
-    if (_enteredConnectivityComponents == null) {
+    if (_enteredLenPath == null) {
       _errorText = context.t.strings.enterNumber;
       setState(() {});
       return;
     }
 
-    if (_enteredConnectivityComponents != 5) {
+    if (_enteredLenPath != 5) {
       _errorText = context.t.strings.wrongAnswer;
       setState(() {});
       return;
@@ -94,11 +94,11 @@ class _SecondLevelInfoState extends State<SecondLevelInfo> {
             totalStages: widget.totalStages,
             onBack: _currentStageIndex == 0 ? null : _previousStage,
             onNext: switch (_currentStageIndex) {
-              3 => _enteredConnectivityComponents == null ? null : _finalStage,
+              3 => _enteredLenPath == null ? null : _finalStage,
               _ => _nextStage,
             },
           ),
-          if (_currentStageIndex == 3)
+          if (_currentStageIndex == 2)
             ConstrainedBox(
               constraints: BoxConstraints(maxWidth: GSettings.maxDialogWidth),
               child: Card(
@@ -118,11 +118,11 @@ class _SecondLevelInfoState extends State<SecondLevelInfo> {
                       _errorText = null;
 
                       if (value.isEmpty) {
-                        _enteredConnectivityComponents = null;
+                        _enteredLenPath = null;
                         setState(() {});
                         return;
                       }
-                      _enteredConnectivityComponents = int.tryParse(value);
+                      _enteredLenPath = int.tryParse(value);
                       setState(() {});
                     },
                     decoration: InputDecoration(

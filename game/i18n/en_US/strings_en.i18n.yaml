@@ -10,6 +10,13 @@ statistics:
   sessionCount: Sessions
   reset: Reset statistics
   
+  totalLevelsCompleted: Levels Completed
+  levelsTitle: Level Performance
+  level: "Level $levelId"
+  timeSpent: "Time $time"
+  avgLevelTime: Avg. Time / Level
+  noData: No data available yet
+
 useDarkTheme: Dark theme
 useSeedColor: Seed color
 useLangue: Language
@@ -47,6 +54,18 @@ levels:
       4:
         title: "Stage 4: How many connected components?"
         text: "Here is a graph with several connected components. How many are there?"
+  3:
+    name: "Find the Path"
+    stages:
+      1:
+        title: "Stage 1: The Path"
+        richText(rich): "A path is a sequence of vertices where each pair of neighboring vertices is connected by an edge. For example, in this graph, there is a path from the ${redNode(red)} vertex to the ${blue(blue)} vertex."
+      2:
+        title: "Stage 2: Path Length"
+        richText(rich): "The length of a path is the number of edges in that path. For example, the length of the path from the ${redNode(red)} vertex to the ${blueNode(blue)} vertex is 2, since there are two edges between them."
+      3:
+        title: "Stage 3: What’s the Length?"
+        richText(rich): "What is the length of the path from the ${redNode(red)} vertex to the ${blueNode(blue)} vertex?"
 
 noNodesToEdit: "Graph has no nodes to edit."
 addNode: "Add Node"

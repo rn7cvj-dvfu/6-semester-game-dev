@@ -5,6 +5,7 @@ import '../pages/home.dart';
 import '../pages/levels.dart';
 import '../pages/levels/1.dart';
 import '../pages/levels/2.dart';
+import '../pages/levels/3.dart';
 import '../pages/levels/demo.dart';
 import '../pages/settings.dart';
 import '../pages/statistic.dart';
@@ -16,7 +17,12 @@ final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>();
 
-final _levels = {0: DemoLevelPage(), 1: FirstLevelPage(), 2: SecondLevelPage()};
+final _levels = {
+  0: DemoLevelPage(),
+  1: FirstLevelPage(),
+  2: SecondLevelPage(),
+  3: ThirdLevelPage(),
+};
 
 GoRouter router = GoRouter(
   initialLocation: RoutesName.home.path,
