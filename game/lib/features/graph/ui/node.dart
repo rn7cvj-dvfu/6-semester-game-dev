@@ -21,6 +21,7 @@ class NodeComponent extends PositionComponent
   bool _isHovered = false;
 
   final bool movable;
+
   final VoidCallback? onClick;
 
   NodeComponent({
@@ -85,7 +86,7 @@ class NodeComponent extends PositionComponent
 
   @override
   void onHoverEnter() {
-    if (!movable) {
+    if (!movable && onClick == null) {
       return;
     }
 
@@ -98,7 +99,7 @@ class NodeComponent extends PositionComponent
 
   @override
   void onHoverExit() {
-    if (!movable) {
+    if (!movable && onClick == null) {
       return;
     }
 

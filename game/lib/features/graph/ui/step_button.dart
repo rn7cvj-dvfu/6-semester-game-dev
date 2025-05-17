@@ -41,7 +41,8 @@ class StepButton extends StatelessWidget {
 
             Card(
               margin: EdgeInsets.zero,
-              child: Padding(
+              child: Container(
+                height: double.infinity,
                 padding: const EdgeInsets.symmetric(
                   vertical: 6,
                   horizontal: 16,

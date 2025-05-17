@@ -29,44 +29,50 @@ class _DemoLevelPageState extends State<DemoLevelPage> {
       child: Stack(
         children: [
           Positioned.fill(
-            child: GameWidget(
-              game: GraphWidget(
-                backgroundColorValue: theme.scaffoldBackgroundColor,
-                nodeColorValue: theme.colorScheme.primary,
-                edgeColorValue: theme.colorScheme.primaryContainer,
-                graphModel: GraphModel(
-                  nodes: [
-                    NodeModel(id: "1", preferredPosition: (0, 0)),
-                    NodeModel(
-                      id: "2",
-                      preferredColor: Theme.of(context).colorScheme.tertiary,
-                    ),
-                    NodeModel(id: "3"),
-                    NodeModel(id: "4"),
-                    NodeModel(id: "5"),
-                  ],
-                  edges: [
-                    EdgeModel(id: "1", firstNodeId: "1", secondNodeId: "2"),
-                    EdgeModel(id: "2", firstNodeId: "1", secondNodeId: "3"),
-                    EdgeModel(id: "3", firstNodeId: "1", secondNodeId: "4"),
-                    EdgeModel(id: "4", firstNodeId: "1", secondNodeId: "5"),
-                    EdgeModel(id: "5", firstNodeId: "2", secondNodeId: "3"),
-                    EdgeModel(id: "6", firstNodeId: "3", secondNodeId: "4"),
-                    EdgeModel(
-                      id: "7",
-                      firstNodeId: "4",
-                      secondNodeId: "5",
-                      preferredColor: Theme.of(context).colorScheme.tertiary,
-                    ),
-                  ],
-                  movable: _movable,
-                  clickable: _clickable,
-                  edgeColorLerp: _edgeColorLerp,
-                  possibleEdgeClickable: _possibleEdgeClickable,
-                  
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              reverseDuration: const Duration(milliseconds: 500),
+              child: GameWidget(
+                key: ValueKey(
+                  "$_movable$_clickable$_edgeColorLerp$_possibleEdgeClickable",
                 ),
-                onNodeClick: (nodeId) {},
-                onEdgeClick: (edgeId) {},
+                game: GraphWidget(
+                  backgroundColorValue: theme.scaffoldBackgroundColor,
+                  nodeColorValue: theme.colorScheme.primary,
+                  edgeColorValue: theme.colorScheme.primaryContainer,
+                  graphModel: GraphModel(
+                    nodes: [
+                      NodeModel(id: "1", preferredPosition: (0, 0)),
+                      NodeModel(
+                        id: "2",
+                        preferredColor: Theme.of(context).colorScheme.tertiary,
+                      ),
+                      NodeModel(id: "3"),
+                      NodeModel(id: "4"),
+                      NodeModel(id: "5"),
+                    ],
+                    edges: [
+                      EdgeModel(id: "1", firstNodeId: "1", secondNodeId: "2"),
+                      EdgeModel(id: "2", firstNodeId: "1", secondNodeId: "3"),
+                      EdgeModel(id: "3", firstNodeId: "1", secondNodeId: "4"),
+                      EdgeModel(id: "4", firstNodeId: "1", secondNodeId: "5"),
+                      EdgeModel(id: "5", firstNodeId: "2", secondNodeId: "3"),
+                      EdgeModel(id: "6", firstNodeId: "3", secondNodeId: "4"),
+                      EdgeModel(
+                        id: "7",
+                        firstNodeId: "4",
+                        secondNodeId: "5",
+                        preferredColor: Theme.of(context).colorScheme.tertiary,
+                      ),
+                    ],
+                    movable: _movable,
+                    clickable: _clickable,
+                    edgeColorLerp: _edgeColorLerp,
+                    possibleEdgeClickable: _possibleEdgeClickable,
+                  ),
+                  onNodeClick: (nodeId) {},
+                  onEdgeClick: (edgeId) {},
+                ),
               ),
             ),
           ),
