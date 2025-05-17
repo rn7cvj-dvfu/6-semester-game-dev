@@ -54,6 +54,9 @@ levels:
         title: "Stage 4: How many connected components?"
         text: "Here is a graph with several connected components. How many are there?"
   3:
+    name: "Connect the graph"
+
+  4:
     name: "Path"
     stages:
       1:

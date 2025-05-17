@@ -33,19 +33,24 @@ class LevelsPage extends StatelessWidget {
                         index: 1,
                         title: context.t.strings.levels.k1.name,
                       ),
-                      // const SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       _LevelCard(
                         index: 2,
                         title: context.t.strings.levels.k2.name,
                       ),
-                      // const SizedBox(height: 16),
+                      const SizedBox(height: 16),
+
                       _LevelCard(
                         index: 3,
                         title: context.t.strings.levels.k3.name,
                       ),
+
                       const SizedBox(height: 16),
-                      _LevelCard(index: 4, title: 'test'),
-                      // const SizedBox(height: 16),
+                      _LevelCard(
+                        index: 4,
+                        title: context.t.strings.levels.k4.name,
+                      ),
+                      const SizedBox(height: 16),
                       _LevelCard(
                         index: 5,
                         title: context.t.strings.levels.k5.name,
