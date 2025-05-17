@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 import '../../.gen/i18n/strings.g.dart';
 import '../../features/graph/bloc/model.dart';
-import '../../features/levels/1/adjacency_matrix_editor.dart';
 import '../../features/graph/ui/info_card.dart';
 import '../../features/graph/ui/step_button.dart';
 import '../../features/graph/ui/widget.dart';
+import '../../features/levels/1/adjacency_matrix_editor.dart';
 import '../../features/ui/back_button.dart';
 import '../../navigation/navigator.dart';
 
@@ -131,7 +131,9 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
             child: GBackButton(onTap: AppNavigator.openLevels),
           ),
           Positioned(
+            top: 0,
             right: 16,
+            bottom: 0,
             child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(vertical: 16),
               primary: false,
