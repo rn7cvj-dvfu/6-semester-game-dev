@@ -4,9 +4,15 @@ import '../../settings.dart';
 
 class InfoCardWidget extends StatefulWidget {
   final String title;
-  final String text;
+  final String? text;
+  final InlineSpan? richText;
 
-  const InfoCardWidget({super.key, required this.title, required this.text});
+  const InfoCardWidget({
+    super.key,
+    required this.title,
+    this.text,
+    this.richText,
+  });
 
   @override
   State<InfoCardWidget> createState() => _InfoCardWidgetState();
@@ -17,6 +23,27 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
 
   @override
   Widget build(BuildContext context) {
+    assert(
+      widget.text != null || widget.richText != null,
+      'Either text or richText must be provided',
+    );
+
+    final textWidget = widget.text == null
+        ? null
+        : Text(
+            widget.text ?? '',
+            style: Theme.of(context).textTheme.bodyMedium,
+          );
+
+    final richTextWidget = widget.richText == null
+        ? null
+        : RichText(
+            text: TextSpan(
+              style: Theme.of(context).textTheme.bodyMedium,
+              children: [widget.richText!],
+            ),
+          );
+
     return ConstrainedBox(
       constraints: const BoxConstraints(
         maxWidth: GSettings.maxDialogWidth,
@@ -52,6 +79,7 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
               Flexible(
                 child: AnimatedSize(
                   duration: const Duration(milliseconds: 300),
+                  alignment: Alignment.topCenter,
                   child: _isExpanded
                       ? Column(
                           mainAxisSize: MainAxisSize.min,
@@ -61,10 +89,10 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
                             SingleChildScrollView(
                               primary: false,
                               padding: const EdgeInsets.only(bottom: 16),
-                              child: Text(
-                                widget.text,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
+                              child:
+                                  textWidget ??
+                                  richTextWidget ??
+                                  const SizedBox.shrink(),
                             ),
                           ],
                         )

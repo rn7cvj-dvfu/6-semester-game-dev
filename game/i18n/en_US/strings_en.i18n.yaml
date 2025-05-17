@@ -20,6 +20,9 @@ useSeedColor: Seed color
 useLangue: Language
 
 levels:
+  0:
+    title: "Demo level"
+    text: "This is a level you can use for testing. It has nothing to do with the game."
   1:
     name: "Basics"
     stages:
@@ -38,9 +41,11 @@ levels:
       1:
         title: "Stage 1: Connected graph"
         text: "This graph is connected. It means you can reach any vertex from any other by following the edges."
+        richText(rich): "This graph is connected. It means you can reach any vertex from any other by following the edges. For example, you can reach the ${redNode(red)} vertex from the ${blueNode(blue)} vertex, and from the ${blueNode(blue)} to the ${greenNode(green)}."
       2:
         title: "Stage 2: Disconnected graph"
         text: "This graph is not connected. It consists of two separate parts, called connected components. You cannot move from one part to another."
+        richText(rich): "This graph is not connected. It consists of two separate parts, called connected components. You cannot move from one part to another. For example, you cannot reach the ${redNode(red)} vertex from the ${blueNode(blue)}."
       3:
         title: "Stage 3: Connected components"
         text: "Here are three connected components. Each component is a maximal connected subgraph. Inside each component, all vertices are connected, but there are no connections between different components."
@@ -53,11 +58,13 @@ addNode: "Add Node"
 removeLastNode: "Remove Node"
 
 enterNumberOfConnectivityComponents: Enter the number of connected components
+enterNumber: "Enter a number"
+wrongAnswer: "Wrong answer :("
 common:
   back: Back
   next: Next
   finish: Finish
-  levelComplete: 'Level Complete!'
-  nextLevelPrompt: 'Choose your fate'
-  toMainMenu: 'Main Menu'
-  nextLevel: 'Next Level'
+  levelComplete: "Level Complete!"
+  nextLevelPrompt: "Choose your fate"
+  toMainMenu: "Main Menu"
+  nextLevel: "Next Level"

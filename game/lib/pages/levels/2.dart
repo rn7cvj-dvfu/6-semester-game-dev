@@ -1,24 +1,24 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../.gen/i18n/strings.g.dart';
 import '../../features/graph/bloc/model.dart';
-import '../../features/graph/ui/info_card.dart';
-import '../../features/graph/ui/step_button.dart';
 import '../../features/graph/ui/widget.dart';
-import '../../features/settings.dart';
+import '../../features/levels/2/level_info.dart';
+import '../../features/levels/finish_level_dialog.dart';
 import '../../features/ui/back_button.dart';
 import '../../navigation/navigator.dart';
 
 class _SubStage {
-  final String infoTitle;
-  final String infoText;
+  final String title;
+  final String? text;
+  final TextSpan? richText;
   final GraphModel graphModel;
 
   _SubStage({
-    required this.infoTitle,
-    required this.infoText,
+    required this.title,
+    this.text,
+    this.richText,
     required this.graphModel,
   });
 }
@@ -32,32 +32,78 @@ class SecondLevelPage extends StatefulWidget {
 
 class _SecondLevelPageState extends State<SecondLevelPage> {
   int _currentStageIndex = 0;
-  int? _enteredConnectivityComponents;
 
   late final List<_SubStage> _stages = [
     _SubStage(
-      infoTitle: context.t.strings.levels.k2.stages.k1.title,
-      infoText: context.t.strings.levels.k2.stages.k1.text,
-      graphModel: GraphModel.fromAdjacencyMatrix([
-        [0, 1, 1, 0],
-        [1, 0, 0, 1],
-        [1, 0, 0, 1],
-        [0, 1, 1, 0],
-      ]),
+      title: context.t.strings.levels.k2.stages.k1.title,
+      richText: context.t.strings.levels.k2.stages.k1.richText(
+        redNode: (text) => TextSpan(
+          text: text,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.red),
+        ),
+        greenNode: (text) => TextSpan(
+          text: text,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.green),
+        ),
+        blueNode: (text) => TextSpan(
+          text: text,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.blue),
+        ),
+      ),
+      graphModel: GraphModel.fromAdjacencyMatrix(
+        [
+          [0, 1, 1, 0],
+          [1, 0, 0, 1],
+          [1, 0, 0, 1],
+          [0, 1, 1, 0],
+        ],
+        nodeColor: (nodeIndex) => switch (nodeIndex) {
+          0 => Colors.blue,
+          1 => Colors.red,
+          2 => Colors.green,
+          _ => null,
+        },
+      ),
     ),
     _SubStage(
-      infoTitle: context.t.strings.levels.k2.stages.k2.title,
-      infoText: context.t.strings.levels.k2.stages.k2.text,
-      graphModel: GraphModel.fromAdjacencyMatrix([
-        [0, 1, 0, 0],
-        [1, 0, 0, 0],
-        [0, 0, 0, 1],
-        [0, 0, 1, 0],
-      ]),
+      title: context.t.strings.levels.k2.stages.k2.title,
+      richText: context.t.strings.levels.k2.stages.k2.richText(
+        redNode: (text) => TextSpan(
+          text: text,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.red),
+        ),
+        blueNode: (text) => TextSpan(
+          text: text,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.blue),
+        ),
+      ),
+      graphModel: GraphModel.fromAdjacencyMatrix(
+        [
+          [0, 1, 0, 0],
+          [1, 0, 0, 0],
+          [0, 0, 0, 1],
+          [0, 0, 1, 0],
+        ],
+        nodeColor: (nodeIndex) => switch (nodeIndex) {
+          1 => Colors.red,
+          2 => Colors.blue,
+          _ => null,
+        },
+      ),
     ),
     _SubStage(
-      infoTitle: context.t.strings.levels.k2.stages.k3.title,
-      infoText: context.t.strings.levels.k2.stages.k3.text,
+      title: context.t.strings.levels.k2.stages.k3.title,
+      text: context.t.strings.levels.k2.stages.k3.text,
       graphModel: GraphModel.fromAdjacencyMatrix([
         [0, 1, 0, 0, 0],
         [1, 0, 0, 0, 0],
@@ -67,8 +113,8 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
       ]),
     ),
     _SubStage(
-      infoTitle: context.t.strings.levels.k2.stages.k4.title,
-      infoText: context.t.strings.levels.k2.stages.k4.text,
+      title: context.t.strings.levels.k2.stages.k4.title,
+      text: context.t.strings.levels.k2.stages.k4.text,
       graphModel: GraphModel.fromAdjacencyMatrix([
         [0, 1, 0, 0, 0, 0, 0, 0],
         [1, 0, 0, 0, 0, 0, 0, 0],
@@ -81,23 +127,6 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
       ]),
     ),
   ];
-
-  void _previousStage() {
-    if (_currentStageIndex > 0) {
-      _currentStageIndex--;
-      setState(() {});
-    }
-  }
-
-  void _nextStage() {
-    if (_currentStageIndex < _stages.length - 1) {
-      _currentStageIndex++;
-      setState(() {});
-      return;
-    }
-
-    AppNavigator.openLevels();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,75 +166,19 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
             top: 0,
             right: 16,
             bottom: 0,
-            child: SingleChildScrollView(
-              primary: false,
-              padding: EdgeInsets.symmetric(vertical: 16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                spacing: 8,
-                children: [
-                  InfoCardWidget(
-                    title: _stages[_currentStageIndex].infoTitle,
-                    text: _stages[_currentStageIndex].infoText,
-                  ),
-                  StepButton(
-                    currentStage: _currentStageIndex,
-                    totalStages: _stages.length,
-                    onBack: _currentStageIndex == 0 ? null : _previousStage,
-                    onNext: switch (_currentStageIndex) {
-                      3 =>
-                        _enteredConnectivityComponents == null
-                            ? null
-                            : _nextStage,
-                      _ => _nextStage,
-                    },
-                  ),
-                  if (_currentStageIndex == 3)
-                    ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxWidth: GSettings.maxDialogWidth,
-                      ),
-                      child: Card(
-                        margin: EdgeInsets.zero,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            top: 16,
-                            left: 8,
-                            right: 8,
-                            bottom: 8,
-                          ),
-                          child: TextField(
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                RegExp(r'[0-9]'),
-                              ),
-                            ],
-                            onChanged: (value) {
-                              if (value.isEmpty) {
-                                _enteredConnectivityComponents = null;
-
-                                return;
-                              }
-                              _enteredConnectivityComponents = int.tryParse(
-                                value,
-                              );
-                              setState(() {});
-                            },
-                            decoration: InputDecoration(
-                              labelText: context
-                                  .t
-                                  .strings
-                                  .enterNumberOfConnectivityComponents,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
+            child: SecondLevelInfo(
+              title: currentStageData.title,
+              text: currentStageData.text,
+              richText: currentStageData.richText,
+              initialStageIndex: _currentStageIndex,
+              totalStages: _stages.length,
+              onStageChanged: (stageIndex) => setState(() {
+                _currentStageIndex = stageIndex;
+                setState(() {});
+              }),
+              onComplete: () {
+                showFinishLevelDialog(context, 3);
+              },
             ),
           ),
         ],

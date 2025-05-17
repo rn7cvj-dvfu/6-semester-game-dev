@@ -1,14 +1,26 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
+import '../../.gen/i18n/strings.g.dart';
 import '../../features/graph/bloc/model.dart';
 import '../../features/graph/ui/info_card.dart';
 import '../../features/graph/ui/widget.dart';
+import '../../features/settings.dart';
 import '../../features/ui/back_button.dart';
 import '../../navigation/navigator.dart';
 
-class DemoLevelPage extends StatelessWidget {
+class DemoLevelPage extends StatefulWidget {
   const DemoLevelPage({super.key});
+
+  @override
+  State<DemoLevelPage> createState() => _DemoLevelPageState();
+}
+
+class _DemoLevelPageState extends State<DemoLevelPage> {
+  bool _movable = false;
+  bool _clickable = false;
+  bool _edgeColorLerp = false;
+  bool _possibleEdgeClickable = false;
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +59,11 @@ class DemoLevelPage extends StatelessWidget {
                       preferredColor: Theme.of(context).colorScheme.tertiary,
                     ),
                   ],
-                  movable: true,
-                  clickable: false,
+                  movable: _movable,
+                  clickable: _clickable,
+                  edgeColorLerp: _edgeColorLerp,
+                  possibleEdgeClickable: _possibleEdgeClickable,
+                  
                 ),
                 onNodeClick: (nodeId) {},
                 onEdgeClick: (edgeId) {},
@@ -61,11 +76,72 @@ class DemoLevelPage extends StatelessWidget {
             child: GBackButton(onTap: AppNavigator.openLevels),
           ),
           Positioned(
-            bottom: 16,
+            top: 0,
             right: 16,
-            child: InfoCardWidget(
-              title: "Информация о уровне",
-              text: "Это демонстрационный уровень с отобрженим графа ",
+            bottom: 0,
+            child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              primary: false,
+              child: Column(
+                spacing: 8,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  InfoCardWidget(
+                    title: context.t.strings.levels.k0.title,
+                    text: context.t.strings.levels.k0.text,
+                  ),
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: GSettings.maxDialogWidth,
+                    ),
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      margin: EdgeInsets.zero,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SwitchListTile(
+                            value: _movable,
+                            onChanged: (movable) {
+                              setState(() {
+                                _movable = movable;
+                              });
+                            },
+                            title: const Text("Movable"),
+                          ),
+                          SwitchListTile(
+                            value: _clickable,
+                            onChanged: (clickable) {
+                              setState(() {
+                                _clickable = clickable;
+                              });
+                            },
+                            title: const Text("Clickable"),
+                          ),
+                          SwitchListTile(
+                            value: _edgeColorLerp,
+                            onChanged: (edgeColorLerp) {
+                              setState(() {
+                                _edgeColorLerp = edgeColorLerp;
+                              });
+                            },
+                            title: const Text("Edge Color Lerp"),
+                          ),
+                          SwitchListTile(
+                            value: _possibleEdgeClickable,
+                            onChanged: (possibleEdgeClickable) {
+                              setState(() {
+                                _possibleEdgeClickable = possibleEdgeClickable;
+                              });
+                            },
+                            title: const Text("Possible Edge Clickable"),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
