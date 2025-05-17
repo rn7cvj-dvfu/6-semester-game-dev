@@ -34,7 +34,7 @@ Future<void> showFinishLevelDialog(
             child: Text(context.t.strings.common.toMainMenu),
             onPressed: () {
               Navigator.of(context).pop();
-              AppNavigator.openLevels();
+              AppNavigator.openHome();
             },
           ),
           if (nextLevel != null)
