@@ -6,6 +6,7 @@ import '../pages/levels.dart';
 import '../pages/levels/1.dart';
 import '../pages/levels/2.dart';
 import '../pages/levels/3.dart';
+import '../pages/levels/4.dart';
 import '../pages/levels/demo.dart';
 import '../pages/settings.dart';
 import '../pages/statistic.dart';
@@ -22,6 +23,7 @@ final _levels = {
   1: FirstLevelPage(),
   2: SecondLevelPage(),
   3: ThirdLevelPage(),
+  4: FourthLevelPage(),
 };
 
 GoRouter router = GoRouter(

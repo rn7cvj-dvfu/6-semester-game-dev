@@ -35,16 +35,6 @@ class FirstLevelPage extends StatefulWidget {
 class _FirstLevelPageState extends State<FirstLevelPage> {
   int _currentStageIndex = 0;
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   late final List<_SubStage> _stages = [
     _SubStage(
       infoTitle: context.t.strings.levels.k1.stages.k1.title,

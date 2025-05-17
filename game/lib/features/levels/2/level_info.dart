@@ -104,12 +104,7 @@ class _SecondLevelInfoState extends State<SecondLevelInfo> {
               child: Card(
                 margin: EdgeInsets.zero,
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 16,
-                    left: 8,
-                    right: 8,
-                    bottom: 8,
-                  ),
+                  padding: const EdgeInsets.all(8),
                   child: TextFormField(
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
