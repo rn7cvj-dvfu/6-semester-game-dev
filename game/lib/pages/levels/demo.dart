@@ -70,8 +70,12 @@ class _DemoLevelPageState extends State<DemoLevelPage> {
                     edgeColorLerp: _edgeColorLerp,
                     possibleEdgeClickable: _possibleEdgeClickable,
                   ),
-                  onNodeClick: (nodeId) {},
-                  onEdgeClick: (edgeId) {},
+                  onNodeClick: (nodeId) {
+                    debugPrint("Node clicked: $nodeId");
+                  },
+                  onEdgeClick: (edgeId) {
+                    debugPrint("Edge clicked: $edgeId");
+                  },
                 ),
               ),
             ),

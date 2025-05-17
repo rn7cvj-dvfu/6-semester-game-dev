@@ -54,7 +54,7 @@ levels:
         title: "Stage 4: How many connected components?"
         text: "Here is a graph with several connected components. How many are there?"
   3:
-    name: "Find the Path"
+    name: "Path"
     stages:
       1:
         title: "Stage 1: The Path"
@@ -65,6 +65,8 @@ levels:
       3:
         title: "Stage 3: What’s the Length?"
         richText(rich): "What is the length of the path from the ${redNode(red)} vertex to the ${blueNode(blue)} vertex?"
+  5:
+    name: "Find the Path"
 
 noNodesToEdit: "Graph has no nodes to edit."
 addNode: "Add Node"

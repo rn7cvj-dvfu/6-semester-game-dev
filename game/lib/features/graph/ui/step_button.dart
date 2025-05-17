@@ -46,6 +46,7 @@ class StepButton extends StatelessWidget {
                   vertical: 6,
                   horizontal: 16,
                 ),
+                alignment: Alignment.center,
                 child: Text('${currentStage + 1} / $totalStages'),
               ),
             ),

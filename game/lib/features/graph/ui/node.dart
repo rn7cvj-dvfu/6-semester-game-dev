@@ -112,7 +112,7 @@ class NodeComponent extends PositionComponent
 
   @override
   void onTapDown(TapDownEvent event) {
-    super.onTapDown(event);
     onClick?.call();
+    super.onTapDown(event);
   }
 }
