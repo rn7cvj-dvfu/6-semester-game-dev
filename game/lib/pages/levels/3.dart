@@ -64,18 +64,23 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
       nodeColorValue: Theme.of(context).colorScheme.primary,
       edgeColorValue: Theme.of(context).colorScheme.primaryContainer,
       onNodeClick: (nodeId) {
+        if (selectedNodeId == nodeId) {
+          selectedNodeId = null;
+        } else {
+          selectedNodeId = nodeId;
+        }
+
         displayGraphModel = displayGraphModel.copyWith(
           nodes: displayGraphModel.nodes.map((node) {
-            if (node.id == nodeId) {
-              return node.copyWith(
-                preferredColor: Theme.of(context).colorScheme.primary,
-              );
+            if (node.id == selectedNodeId) {
+              return node.copyWith(preferredColor: Colors.red);
+            } else if (node.id == nodeId) {
+              return node.copyWith(preferredColor: null);
             }
             return node;
           }).toList(),
         );
 
-        selectedNodeId = nodeId;
         updateGameState();
       },
       onEdgeClick: (edgeId) {},
