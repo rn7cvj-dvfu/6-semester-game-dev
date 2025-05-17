@@ -7,6 +7,6 @@ class StatisticPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(child: StatisticsScreen.blocProvider(context));
+    return Material(child: StatisticsScreen());
   }
 }

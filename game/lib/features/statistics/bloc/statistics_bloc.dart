@@ -1,3 +1,5 @@
+import 'dart:async'; // Added import for StreamSubscription
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../application/statistics_service.dart';
 import '../data/models/game_stats.dart';
@@ -7,14 +9,23 @@ part 'statistics_state.dart';
 
 class StatisticsBloc extends Bloc<StatisticsEvent, StatisticsState> {
   final StatisticsService _statisticsService;
+  StreamSubscription? _statsSubscription; // Changed to nullable
 
   StatisticsBloc({required StatisticsService statisticsService})
     : _statisticsService = statisticsService,
       super(const StatisticsInitial()) {
     on<LoadStatistics>(_onLoadStatistics);
-    on<IncrementSession>(_onIncrementSession);
-    on<AddPlayTime>(_onAddPlayTime);
-    on<RecordLevelTime>(_onRecordLevelTime);
+    on<_InternalStatsUpdated>(
+      _onInternalStatsUpdated,
+    ); // Handler for internal event
+
+    // Subscribe to stats updates from the service
+    _statsSubscription = _statisticsService.statsStream.listen((gameStats) {
+      if (!isClosed) {
+        // Check if BLoC is closed before adding an event
+        add(_InternalStatsUpdated(gameStats));
+      }
+    });
   }
 
   Future<void> _onLoadStatistics(
@@ -30,43 +41,17 @@ class StatisticsBloc extends Bloc<StatisticsEvent, StatisticsState> {
     }
   }
 
-  Future<void> _onIncrementSession(
-    IncrementSession event,
+  // Handler for stats updates received from StatisticsService stream
+  void _onInternalStatsUpdated(
+    _InternalStatsUpdated event,
     Emitter<StatisticsState> emit,
-  ) async {
-    try {
-      await _statisticsService.incrementSessionCount();
-      // Reload stats to reflect the change, or update in-memory state if preferred
-      final stats = await _statisticsService.loadStats();
-      emit(StatisticsLoaded(stats));
-    } catch (e) {
-      emit(StatisticsError(e.toString()));
-    }
+  ) {
+    emit(StatisticsLoaded(event.stats));
   }
 
-  Future<void> _onAddPlayTime(
-    AddPlayTime event,
-    Emitter<StatisticsState> emit,
-  ) async {
-    try {
-      await _statisticsService.addTotalGameTime(event.duration);
-      final stats = await _statisticsService.loadStats();
-      emit(StatisticsLoaded(stats));
-    } catch (e) {
-      emit(StatisticsError(e.toString()));
-    }
-  }
-
-  Future<void> _onRecordLevelTime(
-    RecordLevelTime event,
-    Emitter<StatisticsState> emit,
-  ) async {
-    try {
-      await _statisticsService.recordLevelTime(event.levelId, event.timeSpent);
-      final stats = await _statisticsService.loadStats();
-      emit(StatisticsLoaded(stats));
-    } catch (e) {
-      emit(StatisticsError(e.toString()));
-    }
+  @override
+  Future<void> close() {
+    _statsSubscription?.cancel(); // Cancel subscription when BLoC is closed
+    return super.close();
   }
 }

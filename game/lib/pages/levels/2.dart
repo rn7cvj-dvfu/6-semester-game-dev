@@ -33,6 +33,16 @@ class SecondLevelPage extends StatefulWidget {
 class _SecondLevelPageState extends State<SecondLevelPage> {
   int _currentStageIndex = 0;
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   late final List<_SubStage> _stages = [
     _SubStage(
       title: context.t.strings.levels.k2.stages.k1.title,
@@ -174,7 +184,6 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
               totalStages: _stages.length,
               onStageChanged: (stageIndex) => setState(() {
                 _currentStageIndex = stageIndex;
-                setState(() {});
               }),
               onComplete: () {
                 showFinishLevelDialog(context, 3);

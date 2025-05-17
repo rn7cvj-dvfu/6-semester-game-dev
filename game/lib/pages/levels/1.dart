@@ -25,8 +25,6 @@ class _SubStage {
   });
 }
 
-
-
 class FirstLevelPage extends StatefulWidget {
   const FirstLevelPage({super.key});
 
@@ -36,6 +34,16 @@ class FirstLevelPage extends StatefulWidget {
 
 class _FirstLevelPageState extends State<FirstLevelPage> {
   int _currentStageIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   late final List<_SubStage> _stages = [
     _SubStage(

@@ -11,7 +11,7 @@ part of 'statistics_bloc.dart';
 // The @freezed and its part file will be in statistics_bloc.dart.
 // This file will define the abstract class/sealed class for events.
 
-sealed class StatisticsEvent {
+abstract class StatisticsEvent {
   const StatisticsEvent();
 }
 
@@ -19,17 +19,23 @@ class LoadStatistics extends StatisticsEvent {
   const LoadStatistics();
 }
 
-class IncrementSession extends StatisticsEvent {
-  const IncrementSession();
+// IncrementSession is now handled by StatisticsService.init()
+// class IncrementSession extends StatisticsEvent {}
+
+// AddPlayTime is now handled by StatisticsService play time tracking methods
+// class AddPlayTime extends StatisticsEvent {
+//   final Duration duration;
+//   AddPlayTime(this.duration);
+// }
+
+// Internal event for BLoC to react to service updates
+class _InternalStatsUpdated extends StatisticsEvent {
+  final GameStats stats;
+  const _InternalStatsUpdated(this.stats);
 }
 
-class AddPlayTime extends StatisticsEvent {
-  const AddPlayTime({required this.duration});
-  final Duration duration;
-}
+// Optional: Event to explicitly save pending play time if needed from UI/Bloc trigger
+// class FlushPlayTime extends StatisticsEvent {}
 
-class RecordLevelTime extends StatisticsEvent {
-  const RecordLevelTime({required this.levelId, required this.timeSpent});
-  final String levelId;
-  final Duration timeSpent;
-}
+// Optional: Event to refresh stats from service if there's no immediate feedback loop
+// class RefreshStatistics extends StatisticsEvent {}
