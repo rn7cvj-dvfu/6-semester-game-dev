@@ -1,5 +1,19 @@
-settings: Настройки
-statistic: Статистика
+settings:
+  options: Звук
+  change_lang: Сменить язык
+  change_theme: Сменить тему
+  title: Настройки
+
+statistics:
+  title: Статистика
+  totalPlayTime: Общее время в игре
+  sessionCount: Количество сессий
+  totalLevelsCompleted: Пройдено уровней
+  levelsTitle: Статистика по уровням
+  level: 'Уровень $levelId'
+  timeSpent: 'Время $time'
+  avgLevelTime: Среднее время / уровень
+  noData: Данные пока отсутствуют
 
 useDarkTheme: Темная тема
 useSeedColor: Основной цвет

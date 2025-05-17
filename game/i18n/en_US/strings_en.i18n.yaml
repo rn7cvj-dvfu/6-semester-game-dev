@@ -1,5 +1,19 @@
-settings: Settings
-statistic: Statistics
+settings:
+  options: Sound
+  change_lang: Change language
+  change_theme: Change theme
+  title: Settings
+
+statistics:
+  title: Statistics
+  totalPlayTime: Total Play Time
+  sessionCount: Sessions
+  totalLevelsCompleted: Levels Completed
+  levelsTitle: Level Performance
+  level: 'Level $levelId'
+  timeSpent: 'Time $time'
+  avgLevelTime: Avg. Time / Level
+  noData: No data available yet
 
 useDarkTheme: Dark theme
 useSeedColor: Seed color

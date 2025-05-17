@@ -25,7 +25,7 @@ class SettingsPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        context.t.strings.settings,
+                        context.t.strings.settings.title,
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       IconButton(
