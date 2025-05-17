@@ -2,10 +2,10 @@
 a[b][c]=a[b][c]||[]
 a[b][c].push({p:"main.dart.js_1",e:"beginPart"})})(self,"$__dart_deferred_initializers__","eventLog")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,D,A={
-aID(d,e,f){var w=new B.CY(),v=new A.Sz(w)
-w.r=A.aX7(v)
+aIF(d,e,f){var w=new B.CY(),v=new A.Sz(w)
+w.r=A.aX9(v)
 return v},
-aX6(d,e){switch(e){case"strings.settings.options":return"\u0417\u0432\u0443\u043a"
+aX8(d,e){switch(e){case"strings.settings.options":return"\u0417\u0432\u0443\u043a"
 case"strings.settings.change_lang":return"\u0421\u043c\u0435\u043d\u0438\u0442\u044c \u044f\u0437\u044b\u043a"
 case"strings.settings.change_theme":return"\u0421\u043c\u0435\u043d\u0438\u0442\u044c \u0442\u0435\u043c\u0443"
 case"strings.settings.title":return"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438"
@@ -14,8 +14,8 @@ case"strings.statistics.totalPlayTime":return"\u041e\u0431\u0449\u0435\u0435 \u0
 case"strings.statistics.sessionCount":return"\u041a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0441\u0435\u0441\u0441\u0438\u0439"
 case"strings.statistics.totalLevelsCompleted":return"\u041f\u0440\u043e\u0439\u0434\u0435\u043d\u043e \u0443\u0440\u043e\u0432\u043d\u0435\u0439"
 case"strings.statistics.levelsTitle":return"\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0430 \u043f\u043e \u0443\u0440\u043e\u0432\u043d\u044f\u043c"
-case"strings.statistics.level":return new A.aya()
-case"strings.statistics.timeSpent":return new A.ayb()
+case"strings.statistics.level":return new A.ayc()
+case"strings.statistics.timeSpent":return new A.ayd()
 case"strings.statistics.avgLevelTime":return"\u0421\u0440\u0435\u0434\u043d\u0435\u0435 \u0432\u0440\u0435\u043c\u044f / \u0443\u0440\u043e\u0432\u0435\u043d\u044c"
 case"strings.statistics.noData":return"\u0414\u0430\u043d\u043d\u044b\u0435 \u043f\u043e\u043a\u0430 \u043e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u044e\u0442"
 case"strings.statistics.reset":return"\u0421\u0431\u0440\u043e\u0441\u0438\u0442\u044c \u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0443"
@@ -34,21 +34,22 @@ case"strings.levels.k1.stages.k3.text":return y.t
 case"strings.levels.k2.name":return"\u041a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b \u0441\u0432\u044f\u0437\u043d\u043e\u0441\u0442\u0438"
 case"strings.levels.k2.stages.k1.title":return"\u042d\u0442\u0430\u043f 1: \u0421\u0432\u044f\u0437\u043d\u044b\u0439 \u0433\u0440\u0430\u0444"
 case"strings.levels.k2.stages.k1.text":return"\u042d\u0442\u043e\u0442 \u0433\u0440\u0430\u0444 \u044f\u0432\u043b\u044f\u0435\u0442\u0441\u044f \u0441\u0432\u044f\u0437\u043d\u044b\u043c. \u042d\u0442\u043e \u043e\u0437\u043d\u0430\u0447\u0430\u0435\u0442, \u0447\u0442\u043e \u0438\u0437 \u043b\u044e\u0431\u043e\u0439 \u0432\u0435\u0440\u0448\u0438\u043d\u044b \u043c\u043e\u0436\u043d\u043e \u0434\u043e\u0441\u0442\u0438\u0447\u044c \u043b\u044e\u0431\u0443\u044e \u0434\u0440\u0443\u0433\u0443\u044e \u0432\u0435\u0440\u0448\u0438\u043d\u0443, \u0434\u0432\u0438\u0433\u0430\u044f\u0441\u044c \u043f\u043e \u0440\u0435\u0431\u0440\u0430\u043c."
-case"strings.levels.k2.stages.k1.richText":return new A.ayc()
+case"strings.levels.k2.stages.k1.richText":return new A.aye()
 case"strings.levels.k2.stages.k2.title":return"\u042d\u0442\u0430\u043f 2: \u041d\u0435\u0441\u0432\u044f\u0437\u043d\u044b\u0439 \u0433\u0440\u0430\u0444"
 case"strings.levels.k2.stages.k2.text":return"\u042d\u0442\u043e\u0442 \u0433\u0440\u0430\u0444 \u043d\u0435 \u044f\u0432\u043b\u044f\u0435\u0442\u0441\u044f \u0441\u0432\u044f\u0437\u043d\u044b\u043c. \u041e\u043d \u0441\u043e\u0441\u0442\u043e\u0438\u0442 \u0438\u0437 \u0434\u0432\u0443\u0445 \u043e\u0442\u0434\u0435\u043b\u044c\u043d\u044b\u0445 \u0447\u0430\u0441\u0442\u0435\u0439, \u043d\u0430\u0437\u044b\u0432\u0430\u0435\u043c\u044b\u0445 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u0430\u043c\u0438 \u0441\u0432\u044f\u0437\u043d\u043e\u0441\u0442\u0438. \u041d\u0435\u043b\u044c\u0437\u044f \u043f\u0435\u0440\u0435\u0439\u0442\u0438 \u0438\u0437 \u043e\u0434\u043d\u043e\u0439 \u0447\u0430\u0441\u0442\u0438 \u0432 \u0434\u0440\u0443\u0433\u0443\u044e."
-case"strings.levels.k2.stages.k2.richText":return new A.ayd()
+case"strings.levels.k2.stages.k2.richText":return new A.ayf()
 case"strings.levels.k2.stages.k3.title":return"\u042d\u0442\u0430\u043f 3: \u041a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b \u0441\u0432\u044f\u0437\u043d\u043e\u0441\u0442\u0438"
 case"strings.levels.k2.stages.k3.text":return y.w
 case"strings.levels.k2.stages.k4.title":return"\u042d\u0442\u0430\u043f 4: \u0421\u043a\u043e\u043b\u044c\u043a\u043e \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442 \u0441\u0432\u044f\u0437\u043d\u043e\u0441\u0442\u0438?"
 case"strings.levels.k2.stages.k4.text":return y.h
-case"strings.levels.k3.name":return"\u041f\u0443\u0442\u044c"
-case"strings.levels.k3.stages.k1.title":return"\u042d\u0442\u0430\u043f 1: \u041f\u0443\u0442\u044c"
-case"strings.levels.k3.stages.k1.richText":return new A.aye()
-case"strings.levels.k3.stages.k2.title":return"\u042d\u0442\u0430\u043f 2: \u0414\u043b\u0438\u043d\u0443 \u043f\u0443\u0442\u0438"
-case"strings.levels.k3.stages.k2.richText":return new A.ayf()
-case"strings.levels.k3.stages.k3.title":return"\u042d\u0442\u0430\u043f 3: \u041a\u0430\u043a\u0430\u044f \u0434\u043b\u0438\u043d\u0430?"
-case"strings.levels.k3.stages.k3.richText":return new A.ayg()
+case"strings.levels.k3.name":return"\u0421\u0432\u044f\u0437\u0430\u0442\u044c \u0433\u0440\u0430\u0444"
+case"strings.levels.k4.name":return"\u041f\u0443\u0442\u044c"
+case"strings.levels.k4.stages.k1.title":return"\u042d\u0442\u0430\u043f 1: \u041f\u0443\u0442\u044c"
+case"strings.levels.k4.stages.k1.richText":return new A.ayg()
+case"strings.levels.k4.stages.k2.title":return"\u042d\u0442\u0430\u043f 2: \u0414\u043b\u0438\u043d\u0443 \u043f\u0443\u0442\u0438"
+case"strings.levels.k4.stages.k2.richText":return new A.ayh()
+case"strings.levels.k4.stages.k3.title":return"\u042d\u0442\u0430\u043f 3: \u041a\u0430\u043a\u0430\u044f \u0434\u043b\u0438\u043d\u0430?"
+case"strings.levels.k4.stages.k3.richText":return new A.ayi()
 case"strings.levels.k5.name":return"\u041d\u0430\u0439\u0442\u0438 \u043f\u0443\u0442\u044c"
 case"strings.noNodesToEdit":return"\u0412 \u0433\u0440\u0430\u0444\u0435 \u043d\u0435\u0442 \u0432\u0435\u0440\u0448\u0438\u043d \u0434\u043b\u044f \u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f."
 case"strings.addNode":return"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0432\u0435\u0440\u0448\u0438\u043d\u0443"
@@ -65,231 +66,237 @@ case"strings.common.nextLevelPrompt":return"\u0412\u044b\u0431\u0435\u0440\u0438
 case"strings.common.toMainMenu":return"\u0412 \u0433\u043b\u0430\u0432\u043d\u043e\u0435 \u043c\u0435\u043d\u044e"
 case"strings.common.nextLevel":return"\u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0443\u0440\u043e\u0432\u0435\u043d\u044c"
 default:return null}},
-aX7(d){return new A.ayh(d)},
+aX9(d){return new A.ayj(d)},
 Sz:function Sz(d){this.a=d
 this.c=this.b=$},
-axn:function axn(d){var _=this
+axp:function axp(d){var _=this
 _.a=d
 _.e=_.d=_.c=_.b=$},
-axo:function axo(){},
-axp:function axp(){},
+axq:function axq(){},
+axr:function axr(){},
+axo:function axo(d){var _=this
+_.a=d
+_.r=_.f=_.e=_.d=_.c=_.b=$},
+ax4:function ax4(){},
+ax5:function ax5(){},
+ax6:function ax6(d){this.a=d
+this.b=$},
+axb:function axb(d){this.a=d
+this.b=$},
+axh:function axh(){},
+axi:function axi(d){this.a=d
+this.b=$},
+axn:function axn(){},
+axa:function axa(d){var _=this
+_.a=d
+_.d=_.c=_.b=$},
+axg:function axg(d){var _=this
+_.a=d
+_.e=_.d=_.c=_.b=$},
 axm:function axm(d){var _=this
 _.a=d
-_.f=_.e=_.d=_.c=_.b=$},
-ax3:function ax3(){},
-ax4:function ax4(){},
-ax5:function ax5(d){this.a=d
-this.b=$},
-axa:function axa(d){this.a=d
-this.b=$},
-axg:function axg(d){this.a=d
-this.b=$},
-axl:function axl(){},
-ax9:function ax9(d){var _=this
-_.a=d
 _.d=_.c=_.b=$},
-axf:function axf(d){var _=this
-_.a=d
-_.e=_.d=_.c=_.b=$},
-axk:function axk(d){var _=this
-_.a=d
-_.d=_.c=_.b=$},
-ax6:function ax6(){},
 ax7:function ax7(){},
 ax8:function ax8(){},
-axb:function axb(){},
+ax9:function ax9(){},
 axc:function axc(){},
 axd:function axd(){},
 axe:function axe(){},
-axh:function axh(){},
-axi:function axi(){},
+axf:function axf(){},
 axj:function axj(){},
-ayh:function ayh(d){this.a=d},
-aya:function aya(){},
-ayb:function ayb(){},
+axk:function axk(){},
+axl:function axl(){},
+ayj:function ayj(d){this.a=d},
 ayc:function ayc(){},
 ayd:function ayd(){},
 aye:function aye(){},
 ayf:function ayf(){},
-ayg:function ayg(){}},C
+ayg:function ayg(){},
+ayh:function ayh(){},
+ayi:function ayi(){}},C
 B=c[0]
 D=c[2]
 A=a.updateHolder(c[3],A)
 C=c[4]
 A.Sz.prototype={
 h(d,e){return this.a.Jr(e)},
-gbs(){var w,v=this,u=v.c
+gbm(){var w,v=this,u=v.c
 if(u===$){w=v.b
-if(w===$){w!==$&&B.K()
-w=v.b=v}u!==$&&B.K()
-u=v.c=new A.axn(w)}return u},
+if(w===$){w!==$&&B.J()
+w=v.b=v}u!==$&&B.J()
+u=v.c=new A.axp(w)}return u},
 $ihB:1,
 $ihM:1}
-A.axn.prototype={
+A.axp.prototype={
 gJR(){var w=this.b
-if(w===$){w!==$&&B.K()
-w=this.b=new A.axo()}return w},
-gro(){var w=this.c
-if(w===$){w!==$&&B.K()
-w=this.c=new A.axp()}return w},
+if(w===$){w!==$&&B.J()
+w=this.b=new A.axq()}return w},
+grp(){var w=this.c
+if(w===$){w!==$&&B.J()
+w=this.c=new A.axr()}return w},
 gXM(){return"\u0422\u0435\u043c\u043d\u0430\u044f \u0442\u0435\u043c\u0430"},
 gXO(){return"\u041e\u0441\u043d\u043e\u0432\u043d\u043e\u0439 \u0446\u0432\u0435\u0442"},
 gXN(){return"\u042f\u0437\u044b\u043a"},
-gdl(){var w=this.d
-if(w===$){w!==$&&B.K()
-w=this.d=new A.axm(this.a)}return w},
+gdd(){var w=this.d
+if(w===$){w!==$&&B.J()
+w=this.d=new A.axo(this.a)}return w},
 gW6(){return"\u0412 \u0433\u0440\u0430\u0444\u0435 \u043d\u0435\u0442 \u0432\u0435\u0440\u0448\u0438\u043d \u0434\u043b\u044f \u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f."},
 gSl(){return"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0432\u0435\u0440\u0448\u0438\u043d\u0443"},
 gX2(){return"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0432\u0435\u0440\u0448\u0438\u043d\u0443"},
 gU2(){return"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442 \u0441\u0432\u044f\u0437\u043d\u043e\u0441\u0442\u0438"},
 gU3(){return"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0434\u043b\u0438\u043d\u0443 \u043f\u0443\u0442\u0438"},
-gGv(){return"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0447\u0438\u0441\u043b\u043e"},
+gGw(){return"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0447\u0438\u0441\u043b\u043e"},
 gJ2(){return"\u041d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u044b\u0439 \u043e\u0442\u0432\u0435\u0442 :("},
-gl9(){var w=this.e
-if(w===$){w!==$&&B.K()
-w=this.e=new A.ax3()}return w}}
-A.axo.prototype={
-gbq(){return"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438"}}
-A.axp.prototype={
-gbq(){return"\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0430"},
+gla(){var w=this.e
+if(w===$){w!==$&&B.J()
+w=this.e=new A.ax4()}return w}}
+A.axq.prototype={
+gbr(){return"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438"}}
+A.axr.prototype={
+gbr(){return"\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0430"},
 gXA(){return"\u041e\u0431\u0449\u0435\u0435 \u0432\u0440\u0435\u043c\u044f \u0432 \u0438\u0433\u0440\u0435"},
-goR(){return"\u041a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0441\u0435\u0441\u0441\u0438\u0439"},
+goS(){return"\u041a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0441\u0435\u0441\u0441\u0438\u0439"},
 gXd(){return"\u0421\u0431\u0440\u043e\u0441\u0438\u0442\u044c \u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0443"}}
-A.axm.prototype={
-gHB(){var w=this.b
-if(w===$){w!==$&&B.K()
-w=this.b=new A.ax4()}return w},
+A.axo.prototype={
+gHC(){var w=this.b
+if(w===$){w!==$&&B.J()
+w=this.b=new A.ax5()}return w},
 geF(){var w=this.c
-if(w===$){w!==$&&B.K()
-w=this.c=new A.ax5(this.a)}return w},
+if(w===$){w!==$&&B.J()
+w=this.c=new A.ax6(this.a)}return w},
 gek(){var w=this.d
-if(w===$){w!==$&&B.K()
-w=this.d=new A.axa(this.a)}return w},
-geG(){var w=this.e
-if(w===$){w!==$&&B.K()
-w=this.e=new A.axg(this.a)}return w},
-gVK(){var w=this.f
-if(w===$){w!==$&&B.K()
-w=this.f=new A.axl()}return w}}
-A.ax3.prototype={
-gFi(){return"\u041d\u0430\u0437\u0430\u0434"},
-gku(){return"\u0414\u0430\u043b\u0435\u0435"},
+if(w===$){w!==$&&B.J()
+w=this.d=new A.axb(this.a)}return w},
+ghF(){var w=this.e
+if(w===$){w!==$&&B.J()
+w=this.e=new A.axh()}return w},
+gj2(){var w=this.f
+if(w===$){w!==$&&B.J()
+w=this.f=new A.axi(this.a)}return w},
+gVK(){var w=this.r
+if(w===$){w!==$&&B.J()
+w=this.r=new A.axn()}return w}}
+A.ax4.prototype={
+gFj(){return"\u041d\u0430\u0437\u0430\u0434"},
+gkv(){return"\u0414\u0430\u043b\u0435\u0435"},
 gUi(){return"\u0417\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044c"},
 gVN(){return"\u0423\u0440\u043e\u0432\u0435\u043d\u044c \u043f\u0440\u043e\u0439\u0434\u0435\u043d!"},
 gW5(){return"\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0441\u0432\u043e\u044e \u0441\u0443\u0434\u044c\u0431\u0443"},
 gXw(){return"\u0412 \u0433\u043b\u0430\u0432\u043d\u043e\u0435 \u043c\u0435\u043d\u044e"},
 gW4(){return"\u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0443\u0440\u043e\u0432\u0435\u043d\u044c"}}
-A.ax4.prototype={
-gbq(){return"\u0414\u0435\u043c\u043e \u0443\u0440\u043e\u0432\u0435\u043d\u044c"},
-gd3(){return y.f}}
 A.ax5.prototype={
-gjG(){return"\u041e\u0441\u043d\u043e\u0432\u044b"},
-gdC(){var w=this.b
-if(w===$){w!==$&&B.K()
-w=this.b=new A.ax9(this.a)}return w}}
-A.axa.prototype={
-gjG(){return"\u041a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b \u0441\u0432\u044f\u0437\u043d\u043e\u0441\u0442\u0438"},
-gdC(){var w=this.b
-if(w===$){w!==$&&B.K()
-w=this.b=new A.axf(this.a)}return w}}
-A.axg.prototype={
-gjG(){return"\u041f\u0443\u0442\u044c"},
-gdC(){var w=this.b
-if(w===$){w!==$&&B.K()
-w=this.b=new A.axk(this.a)}return w}}
-A.axl.prototype={
-gjG(){return"\u041d\u0430\u0439\u0442\u0438 \u043f\u0443\u0442\u044c"}}
-A.ax9.prototype={
-geF(){var w=this.b
-if(w===$){w!==$&&B.K()
-w=this.b=new A.ax6()}return w},
-gek(){var w=this.c
-if(w===$){w!==$&&B.K()
-w=this.c=new A.ax7()}return w},
-geG(){var w=this.d
-if(w===$){w!==$&&B.K()
-w=this.d=new A.ax8()}return w}}
-A.axf.prototype={
-geF(){var w=this.b
-if(w===$){w!==$&&B.K()
-w=this.b=new A.axb()}return w},
-gek(){var w=this.c
-if(w===$){w!==$&&B.K()
-w=this.c=new A.axc()}return w},
-geG(){var w=this.d
-if(w===$){w!==$&&B.K()
-w=this.d=new A.axd()}return w},
-gHC(){var w=this.e
-if(w===$){w!==$&&B.K()
-w=this.e=new A.axe()}return w}}
-A.axk.prototype={
-geF(){var w=this.b
-if(w===$){w!==$&&B.K()
-w=this.b=new A.axh()}return w},
-gek(){var w=this.c
-if(w===$){w!==$&&B.K()
-w=this.c=new A.axi()}return w},
-geG(){var w=this.d
-if(w===$){w!==$&&B.K()
-w=this.d=new A.axj()}return w}}
+gbr(){return"\u0414\u0435\u043c\u043e \u0443\u0440\u043e\u0432\u0435\u043d\u044c"},
+gd3(){return y.f}}
 A.ax6.prototype={
-gbq(){return"\u042d\u0442\u0430\u043f 1: \u0422\u043e\u0447\u043a\u0430"},
-gd3(){return y.n}}
-A.ax7.prototype={
-gbq(){return"\u042d\u0442\u0430\u043f 2: \u0420\u0435\u0431\u0440\u043e"},
-gd3(){return y.j}}
-A.ax8.prototype={
-gbq(){return"\u042d\u0442\u0430\u043f 3: \u0413\u0440\u0430\u0444"},
-gd3(){return y.t}}
+ghJ(){return"\u041e\u0441\u043d\u043e\u0432\u044b"},
+gdC(){var w=this.b
+if(w===$){w!==$&&B.J()
+w=this.b=new A.axa(this.a)}return w}}
 A.axb.prototype={
-gbq(){return"\u042d\u0442\u0430\u043f 1: \u0421\u0432\u044f\u0437\u043d\u044b\u0439 \u0433\u0440\u0430\u0444"},
-Xn(d,e,f){return B.b2(B.b([C.Gb,f.$1("\u043a\u0440\u0430\u0441\u043d\u043e\u0439"),C.Gc,d.$1("\u0441\u0438\u043d\u0435\u0439"),C.Gg,d.$1("\u0441\u0438\u043d\u0435\u0439"),C.Ge,e.$1("\u0437\u0435\u043b\u0451\u043d\u043e\u0439"),D.d2],x.d),null,null)}}
-A.axc.prototype={
-gbq(){return"\u042d\u0442\u0430\u043f 2: \u041d\u0435\u0441\u0432\u044f\u0437\u043d\u044b\u0439 \u0433\u0440\u0430\u0444"},
-mS(d,e){return B.b2(B.b([C.Gh,e.$1("\u043a\u0440\u0430\u0441\u043d\u043e\u0439"),C.d3,d.$1("\u0441\u0438\u043d\u0435\u0439"),D.d2],x.d),null,null)}}
-A.axd.prototype={
-gbq(){return"\u042d\u0442\u0430\u043f 3: \u041a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b \u0441\u0432\u044f\u0437\u043d\u043e\u0441\u0442\u0438"},
-gd3(){return y.w}}
-A.axe.prototype={
-gbq(){return"\u042d\u0442\u0430\u043f 4: \u0421\u043a\u043e\u043b\u044c\u043a\u043e \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442 \u0441\u0432\u044f\u0437\u043d\u043e\u0441\u0442\u0438?"},
-gd3(){return y.h}}
+ghJ(){return"\u041a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b \u0441\u0432\u044f\u0437\u043d\u043e\u0441\u0442\u0438"},
+gdC(){var w=this.b
+if(w===$){w!==$&&B.J()
+w=this.b=new A.axg(this.a)}return w}}
 A.axh.prototype={
-gbq(){return"\u042d\u0442\u0430\u043f 1: \u041f\u0443\u0442\u044c"},
-Xm(d,e){return B.b2(B.b([C.G9,e.$1("\u043a\u0440\u0430\u0441\u043d\u043e\u0439"),C.d3,d.$1("\u0441\u0438\u043d\u0435\u0439"),C.Gn],x.d),null,null)}}
+ghJ(){return"\u0421\u0432\u044f\u0437\u0430\u0442\u044c \u0433\u0440\u0430\u0444"}}
 A.axi.prototype={
-gbq(){return"\u042d\u0442\u0430\u043f 2: \u0414\u043b\u0438\u043d\u0443 \u043f\u0443\u0442\u0438"},
-mS(d,e){return B.b2(B.b([C.Gl,e.$1("\u043a\u0440\u0430\u0441\u043d\u043e\u0439"),C.d3,d.$1("\u0441\u0438\u043d\u0435\u0439"),C.Gi],x.d),null,null)}}
+ghJ(){return"\u041f\u0443\u0442\u044c"},
+gdC(){var w=this.b
+if(w===$){w!==$&&B.J()
+w=this.b=new A.axm(this.a)}return w}}
+A.axn.prototype={
+ghJ(){return"\u041d\u0430\u0439\u0442\u0438 \u043f\u0443\u0442\u044c"}}
+A.axa.prototype={
+geF(){var w=this.b
+if(w===$){w!==$&&B.J()
+w=this.b=new A.ax7()}return w},
+gek(){var w=this.c
+if(w===$){w!==$&&B.J()
+w=this.c=new A.ax8()}return w},
+ghF(){var w=this.d
+if(w===$){w!==$&&B.J()
+w=this.d=new A.ax9()}return w}}
+A.axg.prototype={
+geF(){var w=this.b
+if(w===$){w!==$&&B.J()
+w=this.b=new A.axc()}return w},
+gek(){var w=this.c
+if(w===$){w!==$&&B.J()
+w=this.c=new A.axd()}return w},
+ghF(){var w=this.d
+if(w===$){w!==$&&B.J()
+w=this.d=new A.axe()}return w},
+gj2(){var w=this.e
+if(w===$){w!==$&&B.J()
+w=this.e=new A.axf()}return w}}
+A.axm.prototype={
+geF(){var w=this.b
+if(w===$){w!==$&&B.J()
+w=this.b=new A.axj()}return w},
+gek(){var w=this.c
+if(w===$){w!==$&&B.J()
+w=this.c=new A.axk()}return w},
+ghF(){var w=this.d
+if(w===$){w!==$&&B.J()
+w=this.d=new A.axl()}return w}}
+A.ax7.prototype={
+gbr(){return"\u042d\u0442\u0430\u043f 1: \u0422\u043e\u0447\u043a\u0430"},
+gd3(){return y.n}}
+A.ax8.prototype={
+gbr(){return"\u042d\u0442\u0430\u043f 2: \u0420\u0435\u0431\u0440\u043e"},
+gd3(){return y.j}}
+A.ax9.prototype={
+gbr(){return"\u042d\u0442\u0430\u043f 3: \u0413\u0440\u0430\u0444"},
+gd3(){return y.t}}
+A.axc.prototype={
+gbr(){return"\u042d\u0442\u0430\u043f 1: \u0421\u0432\u044f\u0437\u043d\u044b\u0439 \u0433\u0440\u0430\u0444"},
+Xn(d,e,f){return B.b2(B.b([C.Gb,f.$1("\u043a\u0440\u0430\u0441\u043d\u043e\u0439"),C.Gc,d.$1("\u0441\u0438\u043d\u0435\u0439"),C.Gg,d.$1("\u0441\u0438\u043d\u0435\u0439"),C.Ge,e.$1("\u0437\u0435\u043b\u0451\u043d\u043e\u0439"),D.d2],x.d),null,null)}}
+A.axd.prototype={
+gbr(){return"\u042d\u0442\u0430\u043f 2: \u041d\u0435\u0441\u0432\u044f\u0437\u043d\u044b\u0439 \u0433\u0440\u0430\u0444"},
+mT(d,e){return B.b2(B.b([C.Gh,e.$1("\u043a\u0440\u0430\u0441\u043d\u043e\u0439"),C.d3,d.$1("\u0441\u0438\u043d\u0435\u0439"),D.d2],x.d),null,null)}}
+A.axe.prototype={
+gbr(){return"\u042d\u0442\u0430\u043f 3: \u041a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b \u0441\u0432\u044f\u0437\u043d\u043e\u0441\u0442\u0438"},
+gd3(){return y.w}}
+A.axf.prototype={
+gbr(){return"\u042d\u0442\u0430\u043f 4: \u0421\u043a\u043e\u043b\u044c\u043a\u043e \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442 \u0441\u0432\u044f\u0437\u043d\u043e\u0441\u0442\u0438?"},
+gd3(){return y.h}}
 A.axj.prototype={
-gbq(){return"\u042d\u0442\u0430\u043f 3: \u041a\u0430\u043a\u0430\u044f \u0434\u043b\u0438\u043d\u0430?"},
-mS(d,e){return B.b2(B.b([C.Gs,e.$1("\u043a\u0440\u0430\u0441\u043d\u043e\u0439"),C.d3,d.$1("\u0441\u0438\u043d\u0435\u0439"),C.Ga],x.d),null,null)}}
+gbr(){return"\u042d\u0442\u0430\u043f 1: \u041f\u0443\u0442\u044c"},
+Xm(d,e){return B.b2(B.b([C.G9,e.$1("\u043a\u0440\u0430\u0441\u043d\u043e\u0439"),C.d3,d.$1("\u0441\u0438\u043d\u0435\u0439"),C.Gn],x.d),null,null)}}
+A.axk.prototype={
+gbr(){return"\u042d\u0442\u0430\u043f 2: \u0414\u043b\u0438\u043d\u0443 \u043f\u0443\u0442\u0438"},
+mT(d,e){return B.b2(B.b([C.Gl,e.$1("\u043a\u0440\u0430\u0441\u043d\u043e\u0439"),C.d3,d.$1("\u0441\u0438\u043d\u0435\u0439"),C.Gi],x.d),null,null)}}
+A.axl.prototype={
+gbr(){return"\u042d\u0442\u0430\u043f 3: \u041a\u0430\u043a\u0430\u044f \u0434\u043b\u0438\u043d\u0430?"},
+mT(d,e){return B.b2(B.b([C.Gs,e.$1("\u043a\u0440\u0430\u0441\u043d\u043e\u0439"),C.d3,d.$1("\u0441\u0438\u043d\u0435\u0439"),C.Ga],x.d),null,null)}}
 var z=a.updateTypes([])
-A.ayh.prototype={
-$1(d){return A.aX6(this.a,d)},
+A.ayj.prototype={
+$1(d){return A.aX8(this.a,d)},
 $S:80}
-A.aya.prototype={
+A.ayc.prototype={
 $1$levelId(d){return"\u0423\u0440\u043e\u0432\u0435\u043d\u044c "+B.k(d)},
 $S:203}
-A.ayb.prototype={
+A.ayd.prototype={
 $1$time(d){return"\u0412\u0440\u0435\u043c\u044f "+B.k(d)},
 $S:204}
-A.ayc.prototype={
+A.aye.prototype={
 $3$blueNode$greenNode$redNode(d,e,f){return B.b2(B.b([C.Gb,f.$1("\u043a\u0440\u0430\u0441\u043d\u043e\u0439"),C.Gc,d.$1("\u0441\u0438\u043d\u0435\u0439"),C.Gg,d.$1("\u0441\u0438\u043d\u0435\u0439"),C.Ge,e.$1("\u0437\u0435\u043b\u0451\u043d\u043e\u0439"),D.d2],x.d),null,null)},
 $S:205}
-A.ayd.prototype={
+A.ayf.prototype={
 $2$blueNode$redNode(d,e){return B.b2(B.b([C.Gh,e.$1("\u043a\u0440\u0430\u0441\u043d\u043e\u0439"),C.d3,d.$1("\u0441\u0438\u043d\u0435\u0439"),D.d2],x.d),null,null)},
 $S:56}
-A.aye.prototype={
+A.ayg.prototype={
 $2$blue$redNode(d,e){return B.b2(B.b([C.G9,e.$1("\u043a\u0440\u0430\u0441\u043d\u043e\u0439"),C.d3,d.$1("\u0441\u0438\u043d\u0435\u0439"),C.Gn],x.d),null,null)},
 $S:206}
-A.ayf.prototype={
+A.ayh.prototype={
 $2$blueNode$redNode(d,e){return B.b2(B.b([C.Gl,e.$1("\u043a\u0440\u0430\u0441\u043d\u043e\u0439"),C.d3,d.$1("\u0441\u0438\u043d\u0435\u0439"),C.Gi],x.d),null,null)},
 $S:56}
-A.ayg.prototype={
+A.ayi.prototype={
 $2$blueNode$redNode(d,e){return B.b2(B.b([C.Gs,e.$1("\u043a\u0440\u0430\u0441\u043d\u043e\u0439"),C.d3,d.$1("\u0441\u0438\u043d\u0435\u0439"),C.Ga],x.d),null,null)},
 $S:56};(function inheritance(){var w=a.inheritMany
-w(B.H,[A.Sz,A.axn,A.axo,A.axp,A.axm,A.ax3,A.ax4,A.ax5,A.axa,A.axg,A.axl,A.ax9,A.axf,A.axk,A.ax6,A.ax7,A.ax8,A.axb,A.axc,A.axd,A.axe,A.axh,A.axi,A.axj])
-w(B.kn,[A.ayh,A.aya,A.ayb,A.ayc,A.ayd,A.aye,A.ayf,A.ayg])})()
-B.aJy(b.typeUniverse,JSON.parse('{"Sz":{"hB":[],"hM":["dp","hB"]}}'))
+w(B.H,[A.Sz,A.axp,A.axq,A.axr,A.axo,A.ax4,A.ax5,A.ax6,A.axb,A.axh,A.axi,A.axn,A.axa,A.axg,A.axm,A.ax7,A.ax8,A.ax9,A.axc,A.axd,A.axe,A.axf,A.axj,A.axk,A.axl])
+w(B.kn,[A.ayj,A.ayc,A.ayd,A.aye,A.ayf,A.ayg,A.ayh,A.ayi])})()
+B.aJA(b.typeUniverse,JSON.parse('{"Sz":{"hB":[],"hM":["dp","hB"]}}'))
 var y={w:"\u0417\u0434\u0435\u0441\u044c \u0442\u0440\u0438 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b \u0441\u0432\u044f\u0437\u043d\u043e\u0441\u0442\u0438. \u041a\u0430\u0436\u0434\u0430\u044f \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u0430 - \u044d\u0442\u043e \u043c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u044b\u0439 \u0441\u0432\u044f\u0437\u043d\u044b\u0439 \u043f\u043e\u0434\u0433\u0440\u0430\u0444. \u0422\u043e \u0435\u0441\u0442\u044c, \u0432\u043d\u0443\u0442\u0440\u0438 \u043a\u0430\u0436\u0434\u043e\u0439 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b \u0432\u0441\u0435 \u0432\u0435\u0440\u0448\u0438\u043d\u044b \u0441\u0432\u044f\u0437\u0430\u043d\u044b, \u043d\u043e \u043d\u0435\u0442 \u0441\u0432\u044f\u0437\u0435\u0439 \u043c\u0435\u0436\u0434\u0443 \u0440\u0430\u0437\u043d\u044b\u043c\u0438 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u0430\u043c\u0438.",t:"\u041a\u043e\u0433\u0434\u0430 \u0441\u043e\u0435\u0434\u0438\u043d\u0451\u043d\u043d\u044b\u0445 \u0442\u043e\u0447\u0435\u043a \u043c\u043d\u043e\u0433\u043e, \u043e\u043d\u0438 \u043e\u0431\u0440\u0430\u0437\u0443\u044e\u0442 \u0433\u0440\u0430\u0444.",h:"\u041f\u0435\u0440\u0435\u0434 \u0432\u0430\u043c\u0438 \u0433\u0440\u0430\u0444 \u0441 \u043d\u0435\u0441\u043a\u043e\u043b\u044c\u043a\u0438\u043c\u0438 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u0430\u043c\u0438 \u0441\u0432\u044f\u0437\u043d\u043e\u0441\u0442\u0438. \u0421\u043a\u043e\u043b\u044c\u043a\u043e \u0438\u0445?",j:"\u0422\u043e\u0447\u0435\u043a \u0441\u0442\u0430\u043b\u043e \u0431\u043e\u043b\u044c\u0448\u0435. \u0422\u0435\u043f\u0435\u0440\u044c \u043e\u043d\u0438 \u0441\u043e\u0435\u0434\u0438\u043d\u0435\u043d\u044b \u0440\u0435\u0431\u0440\u043e\u043c. \u0418\u0437 \u043d\u0435\u0433\u043e \u0410\u0434\u0430\u043c.. \u0442\u0430\u043a \u0441\u0442\u043e\u043f",n:"\u042d\u0442\u043e \u0442\u043e\u0447\u043a\u0430. \u041f\u0440\u043e\u0441\u0442\u043e \u043e\u0434\u0438\u043d\u043e\u043a\u0430\u044f \u0442\u043e\u0447\u043a\u0430 \u043d\u0430 \u0447\u0438\u0441\u0442\u043e\u043c \u0445\u043e\u043b\u0441\u0442\u0435. \u0418\u0434\u0438\u0442\u0435 \u0434\u0430\u043b\u044c\u0448\u0435.",f:"\u042d\u0442\u043e \u0443\u0440\u043e\u0432\u0435\u043d\u044c, \u043a\u043e\u0442\u043e\u0440\u044b\u0439 \u0432\u044b \u043c\u043e\u0436\u0435\u0442\u0435 \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c \u0434\u043b\u044f \u0442\u0435\u0441\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f. \u041e\u043d \u043d\u0435 \u0438\u043c\u0435\u0435\u0442 \u043d\u0438\u043a\u0430\u043a\u043e\u0433\u043e \u043e\u0442\u043d\u043e\u0448\u0435\u043d\u0438\u044f \u043a \u0438\u0433\u0440\u0435."}
 var x={d:B.ac("w<cD>")};(function constants(){C.G9=new B.bK("\u041f\u0443\u0442\u044c - \u044d\u0442\u043e \u043f\u043e\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u044c \u0432\u0435\u0440\u0448\u0438\u043d, \u0432 \u043a\u043e\u0442\u043e\u0440\u043e\u0439 \u043a\u0430\u0436\u0434\u0430\u044f \u043f\u0430\u0440\u0430 \u0441\u043e\u0441\u0435\u0434\u043d\u0438\u0445 \u0432\u0435\u0440\u0448\u0438\u043d \u0441\u043e\u0435\u0434\u0438\u043d\u0435\u043d\u0430 \u0440\u0435\u0431\u0440\u043e\u043c. \u041d\u0430\u043f\u0440\u0438\u043c\u0435\u0440, \u0432 \u044d\u0442\u043e\u043c \u0433\u0440\u0430\u0444\u0435 \u0435\u0441\u0442\u044c \u043f\u0443\u0442\u044c \u043e\u0442 ",null,D.P,null)
 C.Ga=new B.bK(" \u0432\u0435\u0440\u0448\u0438\u043d\u044b?",null,D.P,null)
@@ -304,4 +311,4 @@ C.Gl=new B.bK("\u0414\u043b\u0438\u043d\u0430 \u043f\u0443\u0442\u0438 - \u044d\
 C.Gn=new B.bK(" \u0432\u0435\u0440\u0448\u0438\u043d\u044b.",null,D.P,null)
 C.Gs=new B.bK("\u041a\u0430\u043a\u043e\u0432\u0430 \u0434\u043b\u0438\u043d\u0430 \u043f\u0443\u0442\u0438 \u043e\u0442 ",null,D.P,null)})()};
 ((a,b)=>{a[b]=a.current
-a.eventLog.push({p:"main.dart.js_1",e:"endPart",h:b})})($__dart_deferred_initializers__,"4GXbpLvUfa2vGIzDuMeZJh0MqLI=");
+a.eventLog.push({p:"main.dart.js_1",e:"endPart",h:b})})($__dart_deferred_initializers__,"ckKELw7fMlQnBs6QHiCZPfMiuGs=");
