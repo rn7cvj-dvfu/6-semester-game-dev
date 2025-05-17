@@ -96,7 +96,7 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
                             ),
                           ],
                         )
-                      : const SizedBox.shrink(),
+                      : const SizedBox(height: 16, width: double.infinity),
                 ),
               ),
             ],

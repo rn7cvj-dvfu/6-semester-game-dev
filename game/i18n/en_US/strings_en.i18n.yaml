@@ -9,7 +9,6 @@ statistics:
   totalPlayTime: Total Play Time
   sessionCount: Sessions
   reset: Reset statistics
-  
   totalLevelsCompleted: Levels Completed
   levelsTitle: Level Performance
   level: "Level $levelId"
@@ -72,6 +71,7 @@ addNode: "Add Node"
 removeLastNode: "Remove Node"
 
 enterNumberOfConnectivityComponents: Enter the number of connected components
+enterPathLength: "Enter the length of the path"
 enterNumber: "Enter a number"
 wrongAnswer: "Wrong answer :("
 common:

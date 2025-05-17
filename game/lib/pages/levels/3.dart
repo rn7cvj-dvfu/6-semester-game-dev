@@ -110,12 +110,18 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
       graphModel: GraphModel(
         nodes: [
           NodeModel(id: 'A', preferredColor: Colors.red),
-          NodeModel(id: 'B', preferredColor: Colors.blue),
+          NodeModel(id: 'B'),
           NodeModel(id: 'C'),
+          NodeModel(id: 'D'),
+          NodeModel(id: 'E'),
+          NodeModel(id: 'F', preferredColor: Colors.blue),
         ],
         edges: [
           EdgeModel(id: 'A-B', firstNodeId: 'A', secondNodeId: 'B'),
           EdgeModel(id: 'B-C', firstNodeId: 'B', secondNodeId: 'C'),
+          EdgeModel(id: 'C-D', firstNodeId: 'C', secondNodeId: 'D'),
+          EdgeModel(id: 'D-E', firstNodeId: 'D', secondNodeId: 'E'),
+          EdgeModel(id: 'E-F', firstNodeId: 'E', secondNodeId: 'F'),
         ],
         clickable: false,
         movable: false,
@@ -130,16 +136,24 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
       child: Stack(
         children: [
           Positioned.fill(
-            child: GameWidget(
-              key: ValueKey(_currentStageIndex),
-              game: GraphWidget(
-                graphModel: currentStage.graphModel,
-                onNodeClick: (_) {},
-                onEdgeClick: (_) {},
-                backgroundColorValue: Theme.of(context).scaffoldBackgroundColor,
-                nodeColorValue: Theme.of(context).colorScheme.primary,
-                edgeColorValue: Theme.of(context).colorScheme.primaryContainer,
-                onPossibleEdgeClick: null,
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              reverseDuration: const Duration(milliseconds: 500),
+              child: GameWidget(
+                key: ValueKey(_currentStageIndex),
+                game: GraphWidget(
+                  graphModel: currentStage.graphModel,
+                  onNodeClick: (_) {},
+                  onEdgeClick: (_) {},
+                  backgroundColorValue: Theme.of(
+                    context,
+                  ).scaffoldBackgroundColor,
+                  nodeColorValue: Theme.of(context).colorScheme.primary,
+                  edgeColorValue: Theme.of(
+                    context,
+                  ).colorScheme.primaryContainer,
+                  onPossibleEdgeClick: null,
+                ),
               ),
             ),
           ),

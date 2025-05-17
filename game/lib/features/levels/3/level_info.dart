@@ -59,7 +59,7 @@ class _ThirdLevelInfoState extends State<ThirdLevelInfo> {
     }
   }
 
-  void _finalStage() {
+  void _checkStage() {
     if (_enteredLenPath == null) {
       _errorText = context.t.strings.enterNumber;
       setState(() {});
@@ -72,7 +72,7 @@ class _ThirdLevelInfoState extends State<ThirdLevelInfo> {
       return;
     }
 
-    widget.onComplete();
+    _nextStage();
   }
 
   @override
@@ -94,7 +94,7 @@ class _ThirdLevelInfoState extends State<ThirdLevelInfo> {
             totalStages: widget.totalStages,
             onBack: _currentStageIndex == 0 ? null : _previousStage,
             onNext: switch (_currentStageIndex) {
-              3 => _enteredLenPath == null ? null : _finalStage,
+              2 => _enteredLenPath == null ? null : _checkStage,
               _ => _nextStage,
             },
           ),
@@ -126,8 +126,7 @@ class _ThirdLevelInfoState extends State<ThirdLevelInfo> {
                       setState(() {});
                     },
                     decoration: InputDecoration(
-                      labelText:
-                          context.t.strings.enterNumberOfConnectivityComponents,
+                      labelText: context.t.strings.enterPathLength,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
