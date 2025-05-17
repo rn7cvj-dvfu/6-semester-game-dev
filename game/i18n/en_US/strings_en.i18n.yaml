@@ -43,3 +43,7 @@ common:
   back: Back
   next: Next
   finish: Finish
+  levelComplete: 'Level Complete!'
+  nextLevelPrompt: 'Choose your fate'
+  toMainMenu: 'Main Menu'
+  nextLevel: 'Next Level'

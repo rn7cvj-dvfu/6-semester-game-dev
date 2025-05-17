@@ -7,6 +7,7 @@ import '../../features/graph/ui/info_card.dart';
 import '../../features/graph/ui/step_button.dart';
 import '../../features/graph/ui/widget.dart';
 import '../../features/levels/1/adjacency_matrix_editor.dart';
+import '../../features/levels/finish_level_dialog.dart';
 import '../../features/ui/back_button.dart';
 import '../../navigation/navigator.dart';
 
@@ -85,7 +86,7 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
         _currentStageIndex++;
       });
     } else {
-      AppNavigator.openLevels();
+      finishLevelDialog(context);
     }
   }
 

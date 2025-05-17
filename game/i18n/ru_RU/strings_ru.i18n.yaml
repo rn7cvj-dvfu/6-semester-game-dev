@@ -43,3 +43,7 @@ common:
   back: "Назад"
   next: "Далее"
   finish: "Завершить"
+  levelComplete: 'Уровень пройден!'
+  nextLevelPrompt: 'Выберите свою судьбу'
+  toMainMenu: 'В главное меню'
+  nextLevel: 'Следующий уровень'
