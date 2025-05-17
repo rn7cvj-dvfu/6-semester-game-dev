@@ -6,11 +6,11 @@ import '../../navigation/navigator.dart';
 // import '../statistics/bloc/statistics_bloc.dart'; // No longer needed
 
 Future<void> showFinishLevelDialog(
-  BuildContext context,
+  BuildContext context, [
   // String currentLevelId, // Removed
   // Duration timeSpent, // Removed
-  int nextLevel,
-) {
+  int? nextLevel,
+]) {
   // Removed level time recording
   /*
   try {
@@ -26,7 +26,9 @@ Future<void> showFinishLevelDialog(
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text(context.t.strings.common.levelComplete),
-        content: Text(context.t.strings.common.nextLevelPrompt),
+        content: nextLevel != null
+            ? Text(context.t.strings.common.nextLevelPrompt)
+            : null,
         actions: <Widget>[
           TextButton(
             child: Text(context.t.strings.common.toMainMenu),
@@ -35,13 +37,14 @@ Future<void> showFinishLevelDialog(
               AppNavigator.openLevels();
             },
           ),
-          FilledButton(
-            child: Text(context.t.strings.common.nextLevel),
-            onPressed: () {
-              Navigator.of(context).pop();
-              AppNavigator.openLevel(nextLevel);
-            },
-          ),
+          if (nextLevel != null)
+            FilledButton(
+              child: Text(context.t.strings.common.nextLevel),
+              onPressed: () {
+                Navigator.of(context).pop();
+                AppNavigator.openLevel(nextLevel);
+              },
+            ),
         ],
       );
     },
