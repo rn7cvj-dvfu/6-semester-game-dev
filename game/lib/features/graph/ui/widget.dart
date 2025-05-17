@@ -65,7 +65,7 @@ class GraphWidget extends FlameGame {
 
     final dotsCount = graphModel.nodes.length;
     final center = size / 2;
-    final radius = min(size.x, size.y) / 2 - 200;
+    final radius = min(size.x, size.y) / 3;
 
     final nodes = List<NodeComponent>.generate(dotsCount, (index) {
       final node = graphModel.nodes[index];
@@ -75,8 +75,8 @@ class GraphWidget extends FlameGame {
       double y = center.y + radius * sin(angle);
 
       if (node.preferredPosition != null) {
-        x = node.preferredPosition!.$1 * size.x + center.x;
-        y = node.preferredPosition!.$2 * size.y + center.y;
+        x = node.preferredPosition!.$1 * size.x / 2 + center.x;
+        y = node.preferredPosition!.$2 * size.y / 2 + center.y;
       }
 
       return NodeComponent(
