@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../.gen/i18n/strings.g.dart';
 import '../../features/graph/bloc/model.dart';
-import '../../features/graph/ui/adjacency_matrix_editor.dart';
+import '../../features/levels/1/adjacency_matrix_editor.dart';
 import '../../features/graph/ui/info_card.dart';
 import '../../features/graph/ui/step_button.dart';
 import '../../features/graph/ui/widget.dart';

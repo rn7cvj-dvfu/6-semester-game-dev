@@ -75,7 +75,6 @@ class GraphWidget extends FlameGame {
 
       if (node.preferredPosition != null) {
         x = node.preferredPosition!.$1 * size.x + center.x;
-        ;
         y = node.preferredPosition!.$2 * size.y + center.y;
       }
 

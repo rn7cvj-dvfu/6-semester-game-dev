@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../pages/levels/1.dart';
-import '../bloc/model.dart';
+import '../../graph/bloc/model.dart';
+import '../../../.gen/i18n/strings.g.dart';
 
 class AdjacencyMatrixEditor extends StatefulWidget {
   final GraphModel initialGraph;
@@ -70,7 +71,7 @@ class _AdjacencyMatrixEditorState extends State<AdjacencyMatrixEditor> {
             if (_size == 0)
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Text('Graph has no nodes to edit.'),
+                child: Text(context.t.strings.noNodesToEdit),
               )
             else
               Stack(
@@ -122,7 +123,7 @@ class _AdjacencyMatrixEditorState extends State<AdjacencyMatrixEditor> {
                         width: 32,
                         alignment: Alignment.center,
                         child: Checkbox(
-                          key: ValueKey('checkbox_${rowIndex}_${columnIndex}'),
+                          key: ValueKey('checkbox_${rowIndex}_$columnIndex'),
                           value: _matrix[rowIndex][columnIndex] == 1,
                           onChanged: rowIndex == columnIndex
                               ? null // Disable checkbox for diagonal elements
@@ -150,14 +151,14 @@ class _AdjacencyMatrixEditorState extends State<AdjacencyMatrixEditor> {
               children: [
                 TextButton.icon(
                   icon: const Icon(Icons.remove),
-                  label: const Text("Remove Last Node"),
+                  label: Text(context.t.strings.removeLastNode),
                   onPressed: _size > 3
                       ? _removeLastNode
                       : null, // Disable if no nodes
                 ),
                 TextButton.icon(
                   icon: const Icon(Icons.add),
-                  label: const Text("Add Node"),
+                  label: Text(context.t.strings.addNode),
                   onPressed: _size < 7 ? _addNode : null,
                 ),
               ],
