@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../.gen/i18n/strings.g.dart';
 import '../../features/graph/bloc/model.dart';
+import '../../features/graph/ui/colors.dart';
 import '../../features/graph/ui/info_card.dart';
 import '../../features/graph/ui/step_button.dart';
 import '../../features/graph/ui/widget.dart';
@@ -24,15 +25,7 @@ class _SubStage {
   });
 }
 
-final List<Color> nodeColors = [
-  Colors.red,
-  Colors.green,
-  Colors.blue,
-  Colors.yellow,
-  Colors.cyan,
-  Colors.purple,
-  Colors.orange,
-];
+
 
 class FirstLevelPage extends StatefulWidget {
   const FirstLevelPage({super.key});

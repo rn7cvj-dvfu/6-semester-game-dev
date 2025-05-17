@@ -5,12 +5,14 @@ import 'package:flame/events.dart';
 
 import 'widget.dart';
 
-class DotComponent extends PositionComponent
+class NodeComponent extends PositionComponent
     with
         DragCallbacks,
         HoverCallbacks,
         TapCallbacks,
         HasGameReference<GraphWidget> {
+  final String id;
+
   final Color color;
   final Color blendColor;
   final double radius;
@@ -21,7 +23,8 @@ class DotComponent extends PositionComponent
   final bool movable;
   final VoidCallback? onClick;
 
-  DotComponent({
+  NodeComponent({
+    required this.id,
     required this.color,
     required this.blendColor,
     required this.radius,

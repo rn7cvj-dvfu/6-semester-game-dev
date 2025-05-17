@@ -12,6 +12,7 @@ class GraphModel with _$GraphModel {
     @Default(false) bool edgeColorLerp,
     @Default(false) bool movable,
     @Default(false) bool clickable,
+    @Default(false) bool possibleEdgeClickable,
   }) = _GraphModel;
 
   factory GraphModel.fromAdjacencyMatrix(
@@ -19,8 +20,9 @@ class GraphModel with _$GraphModel {
     bool movable = false,
     bool clickable = false,
     bool edgeColorLerp = false,
-    Color Function(int nodeIndex)? nodeColor,
-    Color Function(int firstNodeIndex, int secondNodeIndex)? edgeColor,
+    bool possibleEdgeClickable = false,
+    Color? Function(int nodeIndex)? nodeColor,
+    Color? Function(int firstNodeIndex, int secondNodeIndex)? edgeColor,
   }) {
     final nodes = <NodeModel>[];
     final edges = <EdgeModel>[];
@@ -57,6 +59,7 @@ class GraphModel with _$GraphModel {
       edgeColorLerp: edgeColorLerp,
       movable: movable,
       clickable: clickable,
+      possibleEdgeClickable: possibleEdgeClickable,
     );
   }
 }

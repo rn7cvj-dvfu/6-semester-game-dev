@@ -10,13 +10,15 @@ import '../../features/ui/back_button.dart';
 import '../../navigation/navigator.dart';
 
 class _SubStage {
-  final String infoTitle;
-  final String infoText;
+  final String title;
+  final String? text;
+  final TextSpan? richText;
   final GraphModel graphModel;
 
   _SubStage({
-    required this.infoTitle,
-    required this.infoText,
+    required this.title,
+    this.text,
+    this.richText,
     required this.graphModel,
   });
 }
@@ -33,28 +35,75 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
 
   late final List<_SubStage> _stages = [
     _SubStage(
-      infoTitle: context.t.strings.levels.k2.stages.k1.title,
-      infoText: context.t.strings.levels.k2.stages.k1.text,
-      graphModel: GraphModel.fromAdjacencyMatrix([
-        [0, 1, 1, 0],
-        [1, 0, 0, 1],
-        [1, 0, 0, 1],
-        [0, 1, 1, 0],
-      ]),
+      title: context.t.strings.levels.k2.stages.k1.title,
+      richText: context.t.strings.levels.k2.stages.k1.richText(
+        redNode: (text) => TextSpan(
+          text: text,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.red),
+        ),
+        greenNode: (text) => TextSpan(
+          text: text,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.green),
+        ),
+        blueNode: (text) => TextSpan(
+          text: text,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.blue),
+        ),
+      ),
+      graphModel: GraphModel.fromAdjacencyMatrix(
+        [
+          [0, 1, 1, 0],
+          [1, 0, 0, 1],
+          [1, 0, 0, 1],
+          [0, 1, 1, 0],
+        ],
+        nodeColor: (nodeIndex) => switch (nodeIndex) {
+          0 => Colors.blue,
+          1 => Colors.red,
+          2 => Colors.green,
+          _ => null,
+        },
+      ),
     ),
     _SubStage(
-      infoTitle: context.t.strings.levels.k2.stages.k2.title,
-      infoText: context.t.strings.levels.k2.stages.k2.text,
-      graphModel: GraphModel.fromAdjacencyMatrix([
-        [0, 1, 0, 0],
-        [1, 0, 0, 0],
-        [0, 0, 0, 1],
-        [0, 0, 1, 0],
-      ]),
+      title: context.t.strings.levels.k2.stages.k2.title,
+      richText: context.t.strings.levels.k2.stages.k2.richText(
+        redNode: (text) => TextSpan(
+          text: text,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.red),
+        ),
+        blueNode: (text) => TextSpan(
+          text: text,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.blue),
+        ),
+      ),
+      graphModel: GraphModel.fromAdjacencyMatrix(
+        [
+          [0, 1, 0, 0],
+          [1, 0, 0, 0],
+          [0, 0, 0, 1],
+          [0, 0, 1, 0],
+        ],
+        nodeColor: (nodeIndex) => switch (nodeIndex) {
+          1 => Colors.red,
+          2 => Colors.blue,
+          _ => null,
+        },
+      ),
     ),
     _SubStage(
-      infoTitle: context.t.strings.levels.k2.stages.k3.title,
-      infoText: context.t.strings.levels.k2.stages.k3.text,
+      title: context.t.strings.levels.k2.stages.k3.title,
+      text: context.t.strings.levels.k2.stages.k3.text,
       graphModel: GraphModel.fromAdjacencyMatrix([
         [0, 1, 0, 0, 0],
         [1, 0, 0, 0, 0],
@@ -64,8 +113,8 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
       ]),
     ),
     _SubStage(
-      infoTitle: context.t.strings.levels.k2.stages.k4.title,
-      infoText: context.t.strings.levels.k2.stages.k4.text,
+      title: context.t.strings.levels.k2.stages.k4.title,
+      text: context.t.strings.levels.k2.stages.k4.text,
       graphModel: GraphModel.fromAdjacencyMatrix([
         [0, 1, 0, 0, 0, 0, 0, 0],
         [1, 0, 0, 0, 0, 0, 0, 0],
@@ -118,8 +167,9 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
             right: 16,
             bottom: 0,
             child: SecondLevelInfo(
-              title: currentStageData.infoTitle,
-              text: currentStageData.infoText,
+              title: currentStageData.title,
+              text: currentStageData.text,
+              richText: currentStageData.richText,
               initialStageIndex: _currentStageIndex,
               totalStages: _stages.length,
               onStageChanged: (stageIndex) => setState(() {

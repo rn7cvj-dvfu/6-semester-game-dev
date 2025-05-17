@@ -11,7 +11,8 @@ class SecondLevelInfo extends StatefulWidget {
   final int totalStages;
 
   final String title;
-  final String text;
+  final String? text;
+  final TextSpan? richText;
 
   final void Function(int stageIndex) onStageChanged;
   final void Function() onComplete;
@@ -19,7 +20,8 @@ class SecondLevelInfo extends StatefulWidget {
   const SecondLevelInfo({
     super.key,
     required this.title,
-    required this.text,
+    this.text,
+    this.richText,
     this.initialStageIndex = 0,
     required this.totalStages,
     required this.onStageChanged,
@@ -82,7 +84,11 @@ class _SecondLevelInfoState extends State<SecondLevelInfo> {
         mainAxisSize: MainAxisSize.min,
         spacing: 8,
         children: [
-          InfoCardWidget(title: widget.title, text: widget.text),
+          InfoCardWidget(
+            title: widget.title,
+            text: widget.text,
+            richText: widget.richText,
+          ),
           StepButton(
             currentStage: _currentStageIndex,
             totalStages: widget.totalStages,

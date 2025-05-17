@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../.gen/i18n/strings.g.dart';
-import '../../../pages/levels/1.dart';
 import '../../graph/bloc/model.dart';
+import '../../graph/ui/colors.dart';
 
 class AdjacencyMatrixEditor extends StatefulWidget {
   final GraphModel initialGraph;
