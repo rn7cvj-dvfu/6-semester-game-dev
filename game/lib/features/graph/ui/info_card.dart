@@ -52,6 +52,7 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
               Flexible(
                 child: AnimatedSize(
                   duration: const Duration(milliseconds: 300),
+                  alignment: Alignment.topCenter,
                   child: _isExpanded
                       ? Column(
                           mainAxisSize: MainAxisSize.min,

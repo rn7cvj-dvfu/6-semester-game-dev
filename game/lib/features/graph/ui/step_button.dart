@@ -22,46 +22,51 @@ class StepButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(maxWidth: GSettings.maxDialogWidth),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        spacing: 8,
-        children: [
-          Expanded(
-            child: ElevatedButton(
-              onPressed: onBack,
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12), // как у Card
+      child: IntrinsicHeight(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          spacing: 8,
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                onPressed: onBack,
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12), // как у Card
+                  ),
+                ),
+                child: Text(context.t.strings.common.back),
+              ),
+            ),
+
+            Card(
+              margin: EdgeInsets.zero,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 6,
+                  horizontal: 16,
+                ),
+                child: Text('${currentStage + 1} / $totalStages'),
+              ),
+            ),
+
+            Expanded(
+              child: ElevatedButton(
+                onPressed: onNext,
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12), // как у Card
+                  ),
+                ),
+                child: Text(
+                  currentStage == totalStages - 1
+                      ? context.t.strings.common.finish
+                      : context.t.strings.common.next,
                 ),
               ),
-              child: Text(context.t.strings.common.back),
             ),
-          ),
-
-          Card(
-            margin: EdgeInsets.zero,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
-              child: Text('${currentStage + 1} / $totalStages'),
-            ),
-          ),
-
-          Expanded(
-            child: ElevatedButton(
-              onPressed: onNext,
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12), // как у Card
-                ),
-              ),
-              child: Text(
-                currentStage == totalStages - 1
-                    ? context.t.strings.common.finish
-                    : context.t.strings.common.next,
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

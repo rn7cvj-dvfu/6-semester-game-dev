@@ -39,6 +39,8 @@ addNode: "Add Node"
 removeLastNode: "Remove Node"
 
 enterNumberOfConnectivityComponents: Enter the number of connected components
+enterNumber: "Enter a number"
+wrongAnswer: "Wrong answer :("
 common:
   back: Back
   next: Next

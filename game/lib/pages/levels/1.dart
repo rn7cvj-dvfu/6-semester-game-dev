@@ -85,9 +85,9 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
       setState(() {
         _currentStageIndex++;
       });
-    } else {
-      finishLevelDialog(context);
+      return;
     }
+    showFinishLevelDialog(context, 2);
   }
 
   @override
