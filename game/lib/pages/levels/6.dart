@@ -28,6 +28,7 @@ class _SixthLevelPageState extends State<SixthLevelPage> {
   List<String> _bfsOrder = [];
   int _bfsStep = -1;
   bool _isAnimating = false;
+  bool _shouldStopAnimation = false;
 
   GraphModel _buildGraphModel() {
     return GraphModel(
@@ -117,21 +118,33 @@ class _SixthLevelPageState extends State<SixthLevelPage> {
       _bfsOrder = _bfsOrderForTree();
       _bfsStep = -1;
       _isAnimating = true;
+      _shouldStopAnimation = false;
     });
     await _graphWidget.replaceGraphModel(_buildGraphModel());
     for (int i = 0; i < _bfsOrder.length; i++) {
+      if (_shouldStopAnimation) break;
       await Future.delayed(const Duration(milliseconds: 600));
+      if (_shouldStopAnimation) break;
       setState(() {
         _bfsStep = i;
       });
       await _graphWidget.replaceGraphModel(_buildGraphModel());
     }
-    await Future.delayed(const Duration(milliseconds: 600));
     setState(() {
       _bfsStep = -1;
       _isAnimating = false;
+      _shouldStopAnimation = false;
     });
     await _graphWidget.replaceGraphModel(_buildGraphModel());
+  }
+
+  void _stopBfsAnimation() {
+    setState(() {
+      _shouldStopAnimation = true;
+      _bfsStep = -1;
+      _isAnimating = false;
+    });
+    _graphWidget.replaceGraphModel(_buildGraphModel());
   }
 
   @override
@@ -163,13 +176,7 @@ class _SixthLevelPageState extends State<SixthLevelPage> {
               title: "context.t.strings.levels.k6.stages.k1.title",
               text: "context.t.strings.levels.k6.stages.k1.text",
               onAnimationStartClick: _startBfsAnimation,
-              onAnimationStopClick: () {
-                setState(() {
-                  _bfsStep = -1;
-                  _isAnimating = false;
-                });
-                _graphWidget.replaceGraphModel(_buildGraphModel());
-              },
+              onAnimationStopClick: _stopBfsAnimation,
               canStart: !_isAnimating,
               canStop: _isAnimating,
             ),
