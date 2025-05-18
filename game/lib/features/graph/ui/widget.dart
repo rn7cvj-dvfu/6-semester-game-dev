@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:flame/components.dart'; // Required for Component
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,7 @@ import 'edge.dart';
 import 'node.dart';
 
 class GraphWidget extends FlameGame {
-  final GraphModel graphModel;
+  GraphModel graphModel; // Made non-final
 
   final void Function(String nodeId) onNodeClick;
   final void Function(String edgeId) onEdgeClick;
@@ -29,12 +30,16 @@ class GraphWidget extends FlameGame {
     required this.nodeColorValue,
     required this.edgeColorValue,
   }) {
+    _validateGraphModel();
+  }
+
+  void _validateGraphModel() {
     final nodesIds = graphModel.nodes.map((e) => e.id).toList();
     final edgesIds = graphModel.edges.map((e) => e.id).toList();
 
     final edgesNodesIds = graphModel.edges
         .map((e) => [e.firstNodeId, e.secondNodeId])
-        .fold(<String>[], (previousValue, element) {
+        .fold<List<String>>([], (previousValue, element) {
           previousValue.addAll(element);
           return previousValue;
         })
@@ -62,10 +67,24 @@ class GraphWidget extends FlameGame {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
+    await _rebuildGraphVisuals();
+  }
 
-    final dotsCount = graphModel.nodes.length;
-    final center = size / 2;
-    final radius = min(size.x, size.y) / 3;
+  Future<void> replaceGraphModel(GraphModel newModel) async {
+    graphModel = newModel;
+    _validateGraphModel();
+
+    if (isLoaded) {
+      await _rebuildGraphVisuals();
+    }
+    // If not loaded, onLoad will use the new graphModel when it runs.
+  }
+
+  Future<void> _rebuildGraphVisuals() async {
+    // Clear all existing components managed by this widget
+    removeAll(
+      children.toList(),
+    ); // .toList() to avoid concurrent modification issues
 
     final nodes = await graphModel.placement.when(
       circle: (radius) =>
@@ -85,6 +104,13 @@ class GraphWidget extends FlameGame {
       final secondNodeIndex = graphModel.nodes.indexWhere(
         (element) => element.id == edge.secondNodeId,
       );
+
+      // Assertions in _validateGraphModel should cover invalid connections,
+      // but an extra check here can be useful for debugging if assertions are off.
+      if (firstNodeIndex == -1 || secondNodeIndex == -1) {
+        // This should ideally not happen if validation passes
+        continue;
+      }
 
       final firstDot = nodes[firstNodeIndex];
       final firstNode = graphModel.nodes[firstNodeIndex];
