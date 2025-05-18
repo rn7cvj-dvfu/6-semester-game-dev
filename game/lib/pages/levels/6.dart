@@ -1,6 +1,7 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
+import '../../.gen/i18n/strings.g.dart';
 import '../../features/graph/bloc/model.dart';
 import '../../features/graph/bloc/placement.dart';
 import '../../features/graph/ui/widget.dart';
@@ -173,8 +174,15 @@ class _SixthLevelPageState extends State<SixthLevelPage> {
             right: 16,
             bottom: 0,
             child: SixthLevelInfo(
-              title: "context.t.strings.levels.k6.stages.k1.title",
-              text: "context.t.strings.levels.k6.stages.k1.text",
+              title: context.t.strings.levels.k6.stages.k1.title,
+              richText: context.t.strings.levels.k6.stages.k1.richText(
+                greenNode: (text) => TextSpan(
+                  text: text,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(color: Colors.green),
+                ),
+              ),
               onAnimationStartClick: _startBfsAnimation,
               onAnimationStopClick: _stopBfsAnimation,
               canStart: !_isAnimating,

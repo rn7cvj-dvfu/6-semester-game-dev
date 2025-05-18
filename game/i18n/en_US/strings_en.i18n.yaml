@@ -81,7 +81,14 @@ levels:
         title: "Find the Path"
         richText(rich): "There is a path in this graph from the ${redNode(red)} node to the ${blueNode(blue)} node. Find it.\nHint: you are currently at the ${redNode2(red)} node, and the ${orangeNode(orange)} nodes show where you can move next."
   6:
-    name: Breadth-first search"
+    name: "Breadth-first search"
+    stages:
+      1:
+        title: "Breadth-First Search (BFS) Tree Traversal"
+        richText(rich): |
+          This animation demonstrates the order in which nodes are visited during a BFS traversal of a tree.
+          The current node being visited will be highlighted in ${greenNode(green)}.
+          
 noNodesToEdit: "Graph has no nodes to edit."
 addNode: "Add Node"
 removeLastNode: "Remove Node"
