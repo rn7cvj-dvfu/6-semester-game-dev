@@ -22,9 +22,9 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
   String? selectedNodeId;
 
   final _gameWidgetKey = GlobalKey();
-  late GraphWidget _graphGame;
+  GraphWidget? _graphGame;
 
-  void init() {
+  void initGraphModel() {
     displayGraphModel = GraphModel(
       nodes: [
         // Component 1
@@ -58,6 +58,9 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
       ],
       clickable: true,
     );
+  }
+
+  void initGame() {
     _graphGame = GraphWidget(
       graphModel: displayGraphModel,
       backgroundColorValue: Theme.of(context).scaffoldBackgroundColor,
@@ -93,15 +96,22 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
   }
 
   void updateGameState() {
-    _graphGame.replaceGraphModel(displayGraphModel);
-    setState(() {});
+    _graphGame!.replaceGraphModel(displayGraphModel);
+    Future.delayed(const Duration(milliseconds: 2000), () {
+      setState(() {});
+    });
   }
 
   @override
   void didChangeDependencies() {
-    init();
+    MediaQuery.sizeOf(context);
+    if (_graphGame == null) {
+      initGraphModel();
+      initGame();
+    } else {
+      updateGameState();
+    }
     super.didChangeDependencies();
-    // updateGameState();
   }
 
   @override
@@ -150,7 +160,7 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
-                              init();
+                              initGraphModel();
                               updateGameState();
                             },
                             child: const Text('Сбросить'),
