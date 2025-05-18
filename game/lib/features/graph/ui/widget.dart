@@ -141,6 +141,8 @@ class GraphWidget extends FlameGame {
     }
   }
 
+  // Future<List<NodeComponent>> _generateCirlePlacement
+
   Future<void> _addPossibleEdges(List<NodeComponent> nodes) async {
     final List<ConnectingEdgeComponent> possibleEdges = [];
 

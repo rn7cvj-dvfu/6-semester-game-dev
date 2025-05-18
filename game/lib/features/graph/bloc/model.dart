@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'placement.dart';
+
 part '../../../.gen/features/graph/bloc/model.freezed.dart';
 
 @freezed
@@ -9,6 +11,8 @@ class GraphModel with _$GraphModel {
   factory GraphModel({
     required List<NodeModel> nodes,
     required List<EdgeModel> edges,
+    @Default(GraphNodesPlacement.circle()) GraphNodesPlacement placement,
+
     @Default(false) bool edgeColorLerp,
     @Default(false) bool movable,
     @Default(false) bool clickable,
