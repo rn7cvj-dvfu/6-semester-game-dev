@@ -55,6 +55,12 @@ levels:
         text: "Here is a graph with several connected components. How many are there?"
   3:
     name: "Connect the graph"
+    taskNotCompleted: "Task not completed"
+    returnButton: "Return"
+    connectThemAllTitle: "Connect them all!"
+    connectThemAllDescription: "The current graph consists of several separate parts. Make the graph connected by connecting nodes with the mouse."
+    resetButton: "Reset"
+    checkButton: "Check"
 
   4:
     name: "Path"

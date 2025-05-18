@@ -56,6 +56,12 @@ levels:
         text: "Перед вами граф с несколькими компонентами связности. Сколько их?"
   3:
     name: "Связать граф"
+    taskNotCompleted: "Задача не выполнена"
+    returnButton: "Вернуться"
+    connectThemAllTitle: "Соедини их всех!"
+    connectThemAllDescription: "Текущий граф состоит из нескольких отдельных частей. Сделайте граф связным, соединяя узлы мышью."
+    resetButton: "Сбросить"
+    checkButton: "Проверить" # Assuming 'Не сбрасывать' meant 'Check'
   4:
     name: "Путь"
     stages:

@@ -131,14 +131,15 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
     showDialog(
       context: context,
       builder: (context) {
+        final t = Translations.of(context);
         return AlertDialog(
-          title: const Text('Всё хуйня'),
+          title: Text(t.strings.levels.k3.taskNotCompleted),
           actions: [
             FilledButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Давай по нововой'),
+              child: Text(t.strings.levels.k3.returnButton),
             ),
           ],
         );
@@ -148,7 +149,7 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
 
   @override
   Widget build(BuildContext context) {
-    Translations.of(context);
+    final t = Translations.of(context);
 
     return Material(
       child: Stack(
@@ -178,9 +179,8 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
                   spacing: 8,
                   children: [
                     InfoCardWidget(
-                      title: 'Соедини их всех!',
-                      text:
-                          'Сделайте граф связным, добавив минимальное количество новых ребер. Текущий граф состоит из нескольких отдельных частей.',
+                      title: t.strings.levels.k3.connectThemAllTitle,
+                      text: t.strings.levels.k3.connectThemAllDescription,
                     ),
                     Row(
                       spacing: 8,
@@ -192,13 +192,13 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
                               updateGameState();
                               selectedNodeId = null;
                             },
-                            child: const Text('Сбросить'),
+                            child: Text(t.strings.levels.k3.resetButton),
                           ),
                         ),
                         Expanded(
                           child: ElevatedButton(
                             onPressed: resolve,
-                            child: const Text('Не сбрасывать'),
+                            child: Text(t.strings.levels.k3.checkButton),
                           ),
                         ),
                       ],
