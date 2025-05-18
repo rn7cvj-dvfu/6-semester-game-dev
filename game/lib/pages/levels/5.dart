@@ -107,6 +107,7 @@ class _FifthLevelPageState extends State<FifthLevelPage> {
         final optimal = _findShortestPath(_startNodeId, _endNodeId);
         showFinishLevelDialog(
           context,
+          6
 
           // customContent: Column(
           //   mainAxisSize: MainAxisSize.min,

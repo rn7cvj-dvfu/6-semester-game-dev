@@ -222,36 +222,75 @@ class GraphWidget extends FlameGame {
     List<NodeModel> nodes, {
     required String topNodeId,
   }) async {
-    final topNodeIndex = nodes.indexWhere((node) => node.id == topNodeId);
+    final center = size / 2;
+    final verticalGap = size.y / (nodes.length + 1);
+    final horizontalGap = size.x / (nodes.length + 1);
 
-    if (topNodeIndex == -1) {
-      throw Exception('Top node not found in the graph model.');
+    // Построим карту связей для дерева
+    final Map<String, List<String>> children = {};
+    final Set<String> allChildren = {};
+
+    for (final edge in graphModel.edges) {
+      children.putIfAbsent(edge.firstNodeId, () => []).add(edge.secondNodeId);
+      allChildren.add(edge.secondNodeId);
     }
 
-    final topNode = nodes[topNodeIndex];
-    final center = size / 2;
+    // Найдём корень (topNodeId)
+    // Обеспечим порядок обхода (BFS)
+    final Map<String, Offset> positions = {};
+    final List<List<String>> levels = [];
+    List<String> currentLevel = [topNodeId];
+    Set<String> visited = {topNodeId};
 
-    return List<NodeComponent>.generate(nodes.length, (index) {
-      final node = nodes[index];
-
-      double x = center.x;
-      double y = center.y;
-
-      if (node.preferredPosition != null) {
-        x = node.preferredPosition!.$1 * size.x / 2 + center.x;
-        y = node.preferredPosition!.$2 * size.y / 2 + center.y;
+    while (currentLevel.isNotEmpty) {
+      levels.add(currentLevel);
+      final nextLevel = <String>[];
+      for (final nodeId in currentLevel) {
+        for (final child in children[nodeId] ?? []) {
+          if (!visited.contains(child)) {
+            nextLevel.add(child);
+            visited.add(child);
+          }
+        }
       }
+      currentLevel = nextLevel;
+    }
 
+    // Расположим узлы по уровням
+    final double levelGap = size.y / (levels.length + 1);
+    final Map<String, Vector2> nodePositions = {};
+
+    for (int level = 0; level < levels.length; level++) {
+      final nodesAtLevel = levels[level];
+      final double y = levelGap * (level + 1);
+      final double xGap = size.x / (nodesAtLevel.length + 1);
+      for (int i = 0; i < nodesAtLevel.length; i++) {
+        final double x = xGap * (i + 1);
+        nodePositions[nodesAtLevel[i]] = Vector2(x, y);
+      }
+    }
+
+    // Если у NodeModel задан preferredPosition, используем его
+    return nodes.map((node) {
+      Vector2 pos;
+      if (node.preferredPosition != null) {
+        pos = Vector2(
+          node.preferredPosition!.$1 * size.x / 2 + center.x,
+          node.preferredPosition!.$2 * size.y / 2 + center.y,
+        );
+      } else {
+        pos = nodePositions[node.id] ?? center;
+      }
       return NodeComponent(
         id: node.id,
         color: node.preferredColor ?? nodeColorValue,
         blendColor: edgeColorValue,
         radius: 20,
-        position: Vector2(x, y),
+        position: pos,
         movable: graphModel.movable,
         onClick: graphModel.clickable ? () => onNodeClick(node.id) : null,
       );
-    });
+    }).toList();
   }
 
   Future<void> _addPossibleEdges(List<NodeComponent> nodes) async {

@@ -74,7 +74,8 @@ levels:
       1:
         title: "Find the Path"
         richText(rich): "There is a path in this graph from the ${redNode(red)} node to the ${blueNode(blue)} node. Find it.\nHint: you are currently at the ${redNode2(red)} node, and the ${orangeNode(orange)} nodes show where you can move next."
-
+  6:
+    name: Breadth-first search"
 noNodesToEdit: "Graph has no nodes to edit."
 addNode: "Add Node"
 removeLastNode: "Remove Node"
@@ -91,3 +92,4 @@ common:
   nextLevelPrompt: "Choose your fate"
   toMainMenu: "Main Menu"
   nextLevel: "Next Level"
+  playAnimation: "Play Animation"
