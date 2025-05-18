@@ -94,3 +94,4 @@ common:
   toMainMenu: "В главное меню"
   nextLevel: "Следующий уровень"
   playAnimation: "Проиграть анимацию"
+  stopAnimation: "Остановить анимацию"

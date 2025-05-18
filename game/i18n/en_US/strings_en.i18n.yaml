@@ -93,3 +93,4 @@ common:
   toMainMenu: "Main Menu"
   nextLevel: "Next Level"
   playAnimation: "Play Animation"
+  stopAnimation: "Stop Animation"

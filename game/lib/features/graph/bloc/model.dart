@@ -10,7 +10,7 @@ part '../../../.gen/features/graph/bloc/model.freezed.dart';
 class GraphModel with _$GraphModel {
   factory GraphModel({
     required List<NodeModel> nodes,
-    required List<MicrosoftEdgeModel> edges,
+    required List<EdgeModel> edges,
     @Default(GraphNodesPlacement.circle()) GraphNodesPlacement placement,
 
     @Default(false) bool edgeColorLerp,
@@ -29,7 +29,7 @@ class GraphModel with _$GraphModel {
     Color? Function(int firstNodeIndex, int secondNodeIndex)? edgeColor,
   }) {
     final nodes = <NodeModel>[];
-    final edges = <MicrosoftEdgeModel>[];
+    final edges = <EdgeModel>[];
 
     for (int i = 0; i < matrix.length; i++) {
       nodes.add(NodeModel(id: 'node_$i', preferredColor: nodeColor?.call(i)));
@@ -48,7 +48,7 @@ class GraphModel with _$GraphModel {
         }
 
         edges.add(
-          MicrosoftEdgeModel(
+          EdgeModel(
             id: 'edge_${i}_$j',
             firstNodeId: 'node_$i',
             secondNodeId: 'node_$j',
@@ -79,11 +79,11 @@ class NodeModel with _$NodeModel {
 }
 
 @freezed
-class MicrosoftEdgeModel with _$MicrosoftEdgeModel {
-  factory MicrosoftEdgeModel({
+class EdgeModel with _$EdgeModel {
+  factory EdgeModel({
     required String id,
     required String firstNodeId,
     required String secondNodeId,
     Color? preferredColor,
-  }) = _MicrosoftEdgeModel;
+  }) = _EdgeModel;
 }

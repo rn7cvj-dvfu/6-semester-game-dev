@@ -1,16 +1,10 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
-import '../../.gen/i18n/strings.g.dart';
 import '../../features/graph/bloc/model.dart';
 import '../../features/graph/bloc/placement.dart';
-import '../../features/graph/ui/colors.dart';
-import '../../features/graph/ui/info_card.dart';
-import '../../features/graph/ui/step_button.dart';
 import '../../features/graph/ui/widget.dart';
-import '../../features/levels/1/adjacency_matrix_editor.dart';
 import '../../features/levels/6/level_info.dart';
-import '../../features/levels/finish_level_dialog.dart';
 import '../../features/settings.dart';
 import '../../features/ui/back_button.dart';
 import '../../navigation/navigator.dart';
@@ -23,10 +17,125 @@ class SixthLevelPage extends StatefulWidget {
 }
 
 class _SixthLevelPageState extends State<SixthLevelPage> {
+  late final GraphWidget _graphWidget = GraphWidget(
+    graphModel: _buildGraphModel(),
+    backgroundColorValue: Theme.of(context).scaffoldBackgroundColor,
+    nodeColorValue: Theme.of(context).colorScheme.primary,
+    edgeColorValue: Theme.of(context).colorScheme.primaryContainer,
+    onNodeClick: (nodeId) {},
+    onEdgeClick: (edgeId) {},
+  );
+  List<String> _bfsOrder = [];
+  int _bfsStep = -1;
+  bool _isAnimating = false;
+
+  GraphModel _buildGraphModel() {
+    return GraphModel(
+      nodes: [
+        for (final id in [
+          'A',
+          'B',
+          'C',
+          'D',
+          'E',
+          'F',
+          'G',
+          'H',
+          'I',
+          'J',
+          'K',
+          'L',
+          'M',
+        ])
+          NodeModel(
+            id: id,
+            preferredColor:
+                (_bfsStep >= 0 &&
+                    _bfsOrder.isNotEmpty &&
+                    _bfsOrder[_bfsStep] == id)
+                ? Colors.green
+                : null,
+          ),
+      ],
+      edges: [
+        EdgeModel(id: 'AB', firstNodeId: 'A', secondNodeId: 'B'),
+        EdgeModel(id: 'AC', firstNodeId: 'A', secondNodeId: 'C'),
+        EdgeModel(id: 'BD', firstNodeId: 'B', secondNodeId: 'D'),
+        EdgeModel(id: 'BE', firstNodeId: 'B', secondNodeId: 'E'),
+        EdgeModel(id: 'CF', firstNodeId: 'C', secondNodeId: 'F'),
+        EdgeModel(id: 'CG', firstNodeId: 'C', secondNodeId: 'G'),
+        EdgeModel(id: 'DH', firstNodeId: 'D', secondNodeId: 'H'),
+        EdgeModel(id: 'DI', firstNodeId: 'D', secondNodeId: 'I'),
+        EdgeModel(id: 'EJ', firstNodeId: 'E', secondNodeId: 'J'),
+        EdgeModel(id: 'EK', firstNodeId: 'E', secondNodeId: 'K'),
+        EdgeModel(id: 'FL', firstNodeId: 'F', secondNodeId: 'L'),
+        EdgeModel(id: 'FM', firstNodeId: 'F', secondNodeId: 'M'),
+      ],
+      placement: GraphNodesPlacement.tree(topNodeId: 'A'),
+    );
+  }
+
+  List<String> _bfsOrderForTree() {
+    // BFS для текущей структуры дерева
+    final edges = [
+      ['A', 'B'],
+      ['A', 'C'],
+      ['B', 'D'],
+      ['B', 'E'],
+      ['C', 'F'],
+      ['C', 'G'],
+      ['D', 'H'],
+      ['D', 'I'],
+      ['E', 'J'],
+      ['E', 'K'],
+      ['F', 'L'],
+      ['F', 'M'],
+    ];
+    final Map<String, List<String>> graph = {};
+    for (final e in edges) {
+      graph.putIfAbsent(e[0], () => []).add(e[1]);
+    }
+    final List<String> order = [];
+    final queue = <String>['A'];
+    final visited = <String>{'A'};
+    while (queue.isNotEmpty) {
+      final node = queue.removeAt(0);
+      order.add(node);
+      for (final child in graph[node] ?? []) {
+        if (!visited.contains(child)) {
+          visited.add(child);
+          queue.add(child);
+        }
+      }
+    }
+    return order;
+  }
+
+  Future<void> _startBfsAnimation() async {
+    if (_isAnimating) return;
+    setState(() {
+      _bfsOrder = _bfsOrderForTree();
+      _bfsStep = -1;
+      _isAnimating = true;
+    });
+    await _graphWidget.replaceGraphModel(_buildGraphModel());
+    for (int i = 0; i < _bfsOrder.length; i++) {
+      await Future.delayed(const Duration(milliseconds: 600));
+      setState(() {
+        _bfsStep = i;
+      });
+      await _graphWidget.replaceGraphModel(_buildGraphModel());
+    }
+    await Future.delayed(const Duration(milliseconds: 600));
+    setState(() {
+      _bfsStep = -1;
+      _isAnimating = false;
+    });
+    await _graphWidget.replaceGraphModel(_buildGraphModel());
+  }
+
   @override
   Widget build(BuildContext context) {
-    const transitionDuration = Duration(milliseconds: 500);
-
     return Material(
       child: Stack(
         children: [
@@ -38,106 +147,7 @@ class _SixthLevelPageState extends State<SixthLevelPage> {
                 right: 32 + GSettings.maxDialogWidth + 16,
                 bottom: 32,
               ),
-              child: AnimatedSwitcher(
-                duration: transitionDuration,
-                child: GameWidget(
-                  game: GraphWidget(
-                    graphModel: GraphModel(
-                      nodes: [
-                        NodeModel(id: 'A'),
-                        NodeModel(id: 'B'),
-                        NodeModel(id: 'C'),
-                        NodeModel(id: 'D'),
-                        NodeModel(id: 'E'),
-                        NodeModel(id: 'F'),
-                        NodeModel(id: 'G'),
-                        NodeModel(id: 'H'),
-                        NodeModel(id: 'I'),
-                        NodeModel(id: 'J'),
-                        NodeModel(id: 'K'),
-                        NodeModel(id: 'L'),
-                        NodeModel(id: 'M'),
-                      ],
-                      edges: [
-                        EdgeModel(
-                          id: 'AB',
-                          firstNodeId: 'A',
-                          secondNodeId: 'B',
-                        ),
-                        EdgeModel(
-                          id: 'AC',
-                          firstNodeId: 'A',
-                          secondNodeId: 'C',
-                        ),
-                        EdgeModel(
-                          id: 'BD',
-                          firstNodeId: 'B',
-                          secondNodeId: 'D',
-                        ),
-                        EdgeModel(
-                          id: 'BE',
-                          firstNodeId: 'B',
-                          secondNodeId: 'E',
-                        ),
-                        EdgeModel(
-                          id: 'CF',
-                          firstNodeId: 'C',
-                          secondNodeId: 'F',
-                        ),
-                        EdgeModel(
-                          id: 'CG',
-                          firstNodeId: 'C',
-                          secondNodeId: 'G',
-                        ),
-                        EdgeModel(
-                          id: 'DH',
-                          firstNodeId: 'D',
-                          secondNodeId: 'H',
-                        ),
-                        EdgeModel(
-                          id: 'DI',
-                          firstNodeId: 'D',
-                          secondNodeId: 'I',
-                        ),
-                        EdgeModel(
-                          id: 'EJ',
-                          firstNodeId: 'E',
-                          secondNodeId: 'J',
-                        ),
-                        EdgeModel(
-                          id: 'EK',
-                          firstNodeId: 'E',
-                          secondNodeId: 'K',
-                        ),
-                        EdgeModel(
-                          id: 'FL',
-                          firstNodeId: 'F',
-                          secondNodeId: 'L',
-                        ),
-                        EdgeModel(
-                          id: 'FM',
-                          firstNodeId: 'F',
-                          secondNodeId: 'M',
-                        ),
-                      ],
-                      placement: GraphNodesPlacement.tree(topNodeId: 'A'),
-                    ),
-                    backgroundColorValue: Theme.of(
-                      context,
-                    ).scaffoldBackgroundColor,
-                    nodeColorValue: Theme.of(context).colorScheme.primary,
-                    edgeColorValue: Theme.of(
-                      context,
-                    ).colorScheme.primaryContainer,
-                    onNodeClick: (nodeId) {
-                      // print('Node $nodeId clicked');
-                    },
-                    onEdgeClick: (edgeId) {
-                      // print('Edge $edgeId clicked');
-                    },
-                  ),
-                ),
-              ),
+              child: GameWidget(game: _graphWidget),
             ),
           ),
           Positioned(
@@ -145,7 +155,6 @@ class _SixthLevelPageState extends State<SixthLevelPage> {
             left: 16,
             child: GBackButton(onTap: AppNavigator.openLevels),
           ),
-
           Positioned(
             top: 0,
             right: 16,
@@ -153,49 +162,18 @@ class _SixthLevelPageState extends State<SixthLevelPage> {
             child: SixthLevelInfo(
               title: "context.t.strings.levels.k6.stages.k1.title",
               text: "context.t.strings.levels.k6.stages.k1.text",
-              onAnimationStartClick: () {},
+              onAnimationStartClick: _startBfsAnimation,
+              onAnimationStopClick: () {
+                setState(() {
+                  _bfsStep = -1;
+                  _isAnimating = false;
+                });
+                _graphWidget.replaceGraphModel(_buildGraphModel());
+              },
+              canStart: !_isAnimating,
+              canStop: _isAnimating,
             ),
           ),
-          //   child: SingleChildScrollView(
-          //     padding: EdgeInsets.symmetric(vertical: 16),
-          //     primary: false,
-          //     child: Column(
-          //       crossAxisAlignment: CrossAxisAlignment.end,
-          //       mainAxisSize: MainAxisSize.min,
-          //       spacing: 8,
-          //       children: [
-          //         InfoCardWidget(
-          //           title: currentStageData.infoTitle,
-          //           text: currentStageData.infoText,
-          //         ),
-          //         StepButton(
-          //           currentStage: _currentStageIndex,
-          //           totalStages: _stages.length,
-          //           onBack: _currentStageIndex > 0 ? _previousStage : null,
-          //           onNext: _nextStage,
-          //         ),
-
-          //         if (isLastStage)
-          //           AdjacencyMatrixEditor(
-          //             initialGraph: currentStageData.graphModel,
-          //             onMatrixChanged: (newMatrix) {
-          //               setState(() {
-          //                 _stages
-          //                     .last
-          //                     .graphModel = GraphModel.fromAdjacencyMatrix(
-          //                   newMatrix,
-          //                   clickable: currentStageData.graphModel.clickable,
-          //                   movable: currentStageData.graphModel.movable,
-          //                   nodeColor: (nodeIndex) =>
-          //                       nodeColors[nodeIndex % nodeColors.length],
-          //                 );
-          //               });
-          //             },
-          //           ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

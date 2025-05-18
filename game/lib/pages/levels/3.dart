@@ -48,15 +48,15 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
       ],
       edges: [
         // Edges for Component 1
-        MicrosoftEdgeModel(id: 'e1', firstNodeId: 'n1', secondNodeId: 'n2'),
-        MicrosoftEdgeModel(id: 'e2', firstNodeId: 'n1', secondNodeId: 'n3'),
+        EdgeModel(id: 'e1', firstNodeId: 'n1', secondNodeId: 'n2'),
+        EdgeModel(id: 'e2', firstNodeId: 'n1', secondNodeId: 'n3'),
         // Edges for Component 2 (forms a triangle)
-        MicrosoftEdgeModel(id: 'e3', firstNodeId: 'n4', secondNodeId: 'n5'),
-        MicrosoftEdgeModel(id: 'e4', firstNodeId: 'n4', secondNodeId: 'n6'),
-        MicrosoftEdgeModel(id: 'e5', firstNodeId: 'n5', secondNodeId: 'n6'),
+        EdgeModel(id: 'e3', firstNodeId: 'n4', secondNodeId: 'n5'),
+        EdgeModel(id: 'e4', firstNodeId: 'n4', secondNodeId: 'n6'),
+        EdgeModel(id: 'e5', firstNodeId: 'n5', secondNodeId: 'n6'),
         // Edges for Component 3
-        MicrosoftEdgeModel(id: 'e6', firstNodeId: 'n7', secondNodeId: 'n8'),
-        MicrosoftEdgeModel(id: 'e7', firstNodeId: 'n7', secondNodeId: 'n9'),
+        EdgeModel(id: 'e6', firstNodeId: 'n7', secondNodeId: 'n8'),
+        EdgeModel(id: 'e7', firstNodeId: 'n7', secondNodeId: 'n9'),
       ],
       clickable: true,
     );
@@ -69,14 +69,14 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
       nodeColorValue: Theme.of(context).colorScheme.primary,
       edgeColorValue: Theme.of(context).colorScheme.primaryContainer,
       onNodeClick: (nodeId) {
-        final MicrosoftEdgeModel? newEdge;
+        final EdgeModel? newEdge;
 
         if (selectedNodeId != null &&
             (nodeId != selectedNodeId && selectedNodeId != null) &&
             displayGraphModel.edges.every(
               (e) => e.id != nodeId + selectedNodeId!,
             )) {
-          newEdge = MicrosoftEdgeModel(
+          newEdge = EdgeModel(
             id: nodeId + selectedNodeId!,
             firstNodeId: selectedNodeId!,
             secondNodeId: nodeId,
