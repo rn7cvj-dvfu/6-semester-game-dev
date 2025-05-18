@@ -2,9 +2,11 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 import '../../.gen/i18n/strings.g.dart';
+import '../../features/graph/bloc/count_connected_components.dart';
 import '../../features/graph/bloc/model.dart';
 import '../../features/graph/ui/info_card.dart';
 import '../../features/graph/ui/widget.dart';
+import '../../features/levels/finish_level_dialog.dart';
 import '../../features/settings.dart';
 import '../../features/ui/back_button.dart';
 import '../../navigation/navigator.dart';
@@ -28,33 +30,33 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
     displayGraphModel = GraphModel(
       nodes: [
         // Component 1
-        NodeModel(id: 'n1', preferredPosition: (-0.8, 0.5)),
-        NodeModel(id: 'n2', preferredPosition: (-0.6, 0.75)),
-        NodeModel(id: 'n3', preferredPosition: (-1.0, 0.25)),
+        NodeModel(id: 'n1', preferredPosition: (-0.72, 0.45)),
+        NodeModel(id: 'n2', preferredPosition: (-0.54, 0.675)),
+        NodeModel(id: 'n3', preferredPosition: (-0.9, 0.225)),
         // Component 2
-        NodeModel(id: 'n4', preferredPosition: (0.0, -0.75)),
-        NodeModel(id: 'n5', preferredPosition: (0.2, -1.0)),
-        NodeModel(id: 'n6', preferredPosition: (-0.2, -1.0)),
+        NodeModel(id: 'n4', preferredPosition: (0.0, -0.675)),
+        NodeModel(id: 'n5', preferredPosition: (0.18, -0.9)),
+        NodeModel(id: 'n6', preferredPosition: (-0.18, -0.9)),
         // Component 3
-        NodeModel(id: 'n7', preferredPosition: (0.8, 0.0)),
-        NodeModel(id: 'n8', preferredPosition: (1.0, 0.25)),
-        NodeModel(id: 'n9', preferredPosition: (0.6, -0.25)),
+        NodeModel(id: 'n7', preferredPosition: (0.72, 0.0)),
+        NodeModel(id: 'n8', preferredPosition: (0.9, 0.225)),
+        NodeModel(id: 'n9', preferredPosition: (0.54, -0.225)),
         // Isolated Nodes
-        NodeModel(id: 'n10', preferredPosition: (-0.2, -0.25)),
-        NodeModel(id: 'n11', preferredPosition: (0.4, 0.75)),
-        NodeModel(id: 'n12', preferredPosition: (-0.6, -1.0)),
+        NodeModel(id: 'n10', preferredPosition: (-0.18, -0.225)),
+        NodeModel(id: 'n11', preferredPosition: (0.36, 0.675)),
+        NodeModel(id: 'n12', preferredPosition: (-0.54, -0.9)),
       ],
       edges: [
         // Edges for Component 1
-        EdgeModel(id: 'e1', firstNodeId: 'n1', secondNodeId: 'n2'),
-        EdgeModel(id: 'e2', firstNodeId: 'n1', secondNodeId: 'n3'),
+        MicrosoftEdgeModel(id: 'e1', firstNodeId: 'n1', secondNodeId: 'n2'),
+        MicrosoftEdgeModel(id: 'e2', firstNodeId: 'n1', secondNodeId: 'n3'),
         // Edges for Component 2 (forms a triangle)
-        EdgeModel(id: 'e3', firstNodeId: 'n4', secondNodeId: 'n5'),
-        EdgeModel(id: 'e4', firstNodeId: 'n4', secondNodeId: 'n6'),
-        EdgeModel(id: 'e5', firstNodeId: 'n5', secondNodeId: 'n6'),
+        MicrosoftEdgeModel(id: 'e3', firstNodeId: 'n4', secondNodeId: 'n5'),
+        MicrosoftEdgeModel(id: 'e4', firstNodeId: 'n4', secondNodeId: 'n6'),
+        MicrosoftEdgeModel(id: 'e5', firstNodeId: 'n5', secondNodeId: 'n6'),
         // Edges for Component 3
-        EdgeModel(id: 'e6', firstNodeId: 'n7', secondNodeId: 'n8'),
-        EdgeModel(id: 'e7', firstNodeId: 'n7', secondNodeId: 'n9'),
+        MicrosoftEdgeModel(id: 'e6', firstNodeId: 'n7', secondNodeId: 'n8'),
+        MicrosoftEdgeModel(id: 'e7', firstNodeId: 'n7', secondNodeId: 'n9'),
       ],
       clickable: true,
     );
@@ -67,6 +69,22 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
       nodeColorValue: Theme.of(context).colorScheme.primary,
       edgeColorValue: Theme.of(context).colorScheme.primaryContainer,
       onNodeClick: (nodeId) {
+        final MicrosoftEdgeModel? newEdge;
+
+        if (selectedNodeId != null &&
+            (nodeId != selectedNodeId && selectedNodeId != null) &&
+            displayGraphModel.edges.every(
+              (e) => e.id != nodeId + selectedNodeId!,
+            )) {
+          newEdge = MicrosoftEdgeModel(
+            id: nodeId + selectedNodeId!,
+            firstNodeId: selectedNodeId!,
+            secondNodeId: nodeId,
+          );
+        } else {
+          newEdge = null;
+        }
+
         displayGraphModel = displayGraphModel.copyWith(
           nodes: [
             for (final node in displayGraphModel.nodes)
@@ -76,15 +94,7 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
                     : null,
               ),
           ],
-          edges: [
-            for (final edge in displayGraphModel.edges) edge,
-            if (nodeId != selectedNodeId && selectedNodeId != null)
-              EdgeModel(
-                id: nodeId + selectedNodeId!,
-                firstNodeId: selectedNodeId!,
-                secondNodeId: nodeId,
-              ),
-          ],
+          edges: [...displayGraphModel.edges, ?newEdge],
         );
 
         selectedNodeId = selectedNodeId == null ? nodeId : null;
@@ -97,13 +107,11 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
 
   void updateGameState() {
     _graphGame!.replaceGraphModel(displayGraphModel);
-    Future.delayed(const Duration(milliseconds: 2000), () {
-      setState(() {});
-    });
   }
 
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
     MediaQuery.sizeOf(context);
     if (_graphGame == null) {
       initGraphModel();
@@ -111,7 +119,31 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
     } else {
       updateGameState();
     }
-    super.didChangeDependencies();
+  }
+
+  void resolve() {
+    final count = countConnectedComponentsInGraph(displayGraphModel);
+    if (count == 1) {
+      showFinishLevelDialog(context, 4);
+      return;
+    }
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Всё хуйня'),
+          actions: [
+            FilledButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Давай по нововой'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -121,11 +153,7 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
     return Material(
       child: Stack(
         children: [
-          Positioned(
-            top: 56 + 16 + 32,
-            bottom: 32,
-            left: 32,
-            right: GSettings.maxDialogWidth + 16,
+          Positioned.fill(
             child: GameWidget(key: _gameWidgetKey, game: _graphGame!),
           ),
           Positioned(
@@ -136,25 +164,25 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
           Positioned(
             top: 0,
             right: 16,
-            bottom: 0,
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              primary: false,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                spacing: 8,
-                children: [
-                  InfoCardWidget(
-                    title: 'Соедини их всех!',
-                    text:
-                        'Сделайте граф связным, добавив минимальное количество новых ребер. Текущий граф состоит из нескольких отдельных частей.',
-                  ),
-                  ConstrainedBox(
-                    constraints: BoxConstraints(
-                      maxWidth: GSettings.maxDialogWidth,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: GSettings.maxDialogWidth,
+                maxHeight: MediaQuery.sizeOf(context).height,
+              ),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                primary: false,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: 8,
+                  children: [
+                    InfoCardWidget(
+                      title: 'Соедини их всех!',
+                      text:
+                          'Сделайте граф связным, добавив минимальное количество новых ребер. Текущий граф состоит из нескольких отдельных частей.',
                     ),
-                    child: Row(
+                    Row(
                       spacing: 8,
                       children: [
                         Expanded(
@@ -162,20 +190,21 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
                             onPressed: () {
                               initGraphModel();
                               updateGameState();
+                              selectedNodeId = null;
                             },
                             child: const Text('Сбросить'),
                           ),
                         ),
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: resolve,
                             child: const Text('Не сбрасывать'),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

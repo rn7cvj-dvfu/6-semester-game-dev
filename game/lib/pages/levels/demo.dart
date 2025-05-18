@@ -52,13 +52,37 @@ class _DemoLevelPageState extends State<DemoLevelPage> {
                       NodeModel(id: "5"),
                     ],
                     edges: [
-                      EdgeModel(id: "1", firstNodeId: "1", secondNodeId: "2"),
-                      EdgeModel(id: "2", firstNodeId: "1", secondNodeId: "3"),
-                      EdgeModel(id: "3", firstNodeId: "1", secondNodeId: "4"),
-                      EdgeModel(id: "4", firstNodeId: "1", secondNodeId: "5"),
-                      EdgeModel(id: "5", firstNodeId: "2", secondNodeId: "3"),
-                      EdgeModel(id: "6", firstNodeId: "3", secondNodeId: "4"),
-                      EdgeModel(
+                      MicrosoftEdgeModel(
+                        id: "1",
+                        firstNodeId: "1",
+                        secondNodeId: "2",
+                      ),
+                      MicrosoftEdgeModel(
+                        id: "2",
+                        firstNodeId: "1",
+                        secondNodeId: "3",
+                      ),
+                      MicrosoftEdgeModel(
+                        id: "3",
+                        firstNodeId: "1",
+                        secondNodeId: "4",
+                      ),
+                      MicrosoftEdgeModel(
+                        id: "4",
+                        firstNodeId: "1",
+                        secondNodeId: "5",
+                      ),
+                      MicrosoftEdgeModel(
+                        id: "5",
+                        firstNodeId: "2",
+                        secondNodeId: "3",
+                      ),
+                      MicrosoftEdgeModel(
+                        id: "6",
+                        firstNodeId: "3",
+                        secondNodeId: "4",
+                      ),
+                      MicrosoftEdgeModel(
                         id: "7",
                         firstNodeId: "4",
                         secondNodeId: "5",
