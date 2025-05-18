@@ -94,7 +94,9 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
                     : null,
               ),
           ],
-          edges: [...displayGraphModel.edges, ?newEdge],
+          edges: newEdge != null
+              ? [...displayGraphModel.edges, newEdge]
+              : [...displayGraphModel.edges],
         );
 
         selectedNodeId = selectedNodeId == null ? nodeId : null;
