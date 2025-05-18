@@ -91,6 +91,8 @@ class GraphWidget extends FlameGame {
           _generateCirclePlacement(graphModel.nodes, preferredRadius: radius),
       random: (seed) =>
           _generateRandomPlacement(graphModel.nodes, preferredSeed: seed),
+      tree: (topNodeId) =>
+          _generateTreePlacement(graphModel.nodes, topNodeId: topNodeId),
     );
 
     final edgesCount = graphModel.edges.length;
@@ -198,6 +200,42 @@ class GraphWidget extends FlameGame {
 
       double x = random.nextDouble() * size.x;
       double y = random.nextDouble() * size.y;
+
+      if (node.preferredPosition != null) {
+        x = node.preferredPosition!.$1 * size.x / 2 + center.x;
+        y = node.preferredPosition!.$2 * size.y / 2 + center.y;
+      }
+
+      return NodeComponent(
+        id: node.id,
+        color: node.preferredColor ?? nodeColorValue,
+        blendColor: edgeColorValue,
+        radius: 20,
+        position: Vector2(x, y),
+        movable: graphModel.movable,
+        onClick: graphModel.clickable ? () => onNodeClick(node.id) : null,
+      );
+    });
+  }
+
+  Future<List<NodeComponent>> _generateTreePlacement(
+    List<NodeModel> nodes, {
+    required String topNodeId,
+  }) async {
+    final topNodeIndex = nodes.indexWhere((node) => node.id == topNodeId);
+
+    if (topNodeIndex == -1) {
+      throw Exception('Top node not found in the graph model.');
+    }
+
+    final topNode = nodes[topNodeIndex];
+    final center = size / 2;
+
+    return List<NodeComponent>.generate(nodes.length, (index) {
+      final node = nodes[index];
+
+      double x = center.x;
+      double y = center.y;
 
       if (node.preferredPosition != null) {
         x = node.preferredPosition!.$1 * size.x / 2 + center.x;

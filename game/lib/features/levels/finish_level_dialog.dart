@@ -22,6 +22,7 @@ Future<void> showFinishLevelDialog(
   */
 
   return showDialog(
+    barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(

@@ -70,6 +70,10 @@ levels:
         richText(rich): "What is the length of the path from the ${redNode(red)} vertex to the ${blueNode(blue)} vertex?"
   5:
     name: "Find the Path"
+    stages:
+      1:
+        title: "Find the Path"
+        richText(rich): "There is a path in this graph from the ${redNode(red)} node to the ${blueNode(blue)} node. Find it.\nHint: you are currently at the ${redNode2(red)} node, and the ${orangeNode(orange)} nodes show where you can move next."
 
 noNodesToEdit: "Graph has no nodes to edit."
 addNode: "Add Node"

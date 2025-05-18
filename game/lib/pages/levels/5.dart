@@ -1,9 +1,13 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
+import '../../.gen/i18n/strings.g.dart';
 import '../../features/graph/bloc/model.dart';
 import '../../features/graph/ui/widget.dart';
+import '../../features/levels/3/level_info.dart';
+import '../../features/levels/5/level_info.dart';
 import '../../features/levels/finish_level_dialog.dart';
+import '../../features/settings.dart';
 import '../../features/ui/back_button.dart';
 import '../../navigation/navigator.dart';
 
@@ -103,7 +107,7 @@ class _FifthLevelPageState extends State<FifthLevelPage> {
         final optimal = _findShortestPath(_startNodeId, _endNodeId);
         showFinishLevelDialog(
           context,
-          5,
+
           // customContent: Column(
           //   mainAxisSize: MainAxisSize.min,
           //   children: [
@@ -157,14 +161,14 @@ class _FifthLevelPageState extends State<FifthLevelPage> {
     return Material(
       child: Stack(
         children: [
-          Positioned(
-            top: 16,
-            left: 16,
-            child: GBackButton(onTap: AppNavigator.openLevels),
-          ),
           Positioned.fill(
             child: Padding(
-              padding: const EdgeInsets.all(32.0),
+              padding: const EdgeInsets.only(
+                top: 32,
+                left: 32 + 16,
+                right: 32 + GSettings.maxDialogWidth + 16,
+                bottom: 32,
+              ),
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 500),
                 reverseDuration: const Duration(milliseconds: 500),
@@ -186,6 +190,45 @@ class _FifthLevelPageState extends State<FifthLevelPage> {
                     onNodeClick: _onNodeClick,
                     onEdgeClick: (_) {},
                   ),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 16,
+            left: 16,
+            child: GBackButton(onTap: AppNavigator.openLevels),
+          ),
+          Positioned(
+            top: 0,
+            right: 16,
+            bottom: 0,
+            child: FifthLevelInfo(
+              title: context.t.strings.levels.k5.stages.k1.title,
+              richText: context.t.strings.levels.k5.stages.k1.richText(
+                redNode: (text) => TextSpan(
+                  text: text,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(color: Colors.red),
+                ),
+                blueNode: (text) => TextSpan(
+                  text: text,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(color: Colors.blue),
+                ),
+                redNode2: (text) => TextSpan(
+                  text: text,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(color: Colors.red),
+                ),
+                orangeNode: (text) => TextSpan(
+                  text: text,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(color: Colors.orange),
                 ),
               ),
             ),
