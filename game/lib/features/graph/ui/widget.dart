@@ -67,28 +67,11 @@ class GraphWidget extends FlameGame {
     final center = size / 2;
     final radius = min(size.x, size.y) / 3;
 
-    final nodes = List<NodeComponent>.generate(dotsCount, (index) {
-      final node = graphModel.nodes[index];
-
-      final angle = (2 * pi * index) / dotsCount;
-      double x = center.x + radius * cos(angle);
-      double y = center.y + radius * sin(angle);
-
-      if (node.preferredPosition != null) {
-        x = node.preferredPosition!.$1 * size.x / 2 + center.x;
-        y = node.preferredPosition!.$2 * size.y / 2 + center.y;
-      }
-
-      return NodeComponent(
-        id: node.id,
-        color: node.preferredColor ?? nodeColorValue,
-        blendColor: edgeColorValue,
-        radius: 20,
-        position: Vector2(x, y),
-        movable: graphModel.movable,
-        onClick: graphModel.clickable ? () => onNodeClick(node.id) : null,
-      );
-    });
+    final nodes = await graphModel.placement.when(
+      circle: (radius) =>
+          _generateCirclePlacement(graphModel.nodes, preferredRadius: radius),
+      random: () => _generateRandomPlacement(graphModel.nodes),
+    );
 
     final edgesCount = graphModel.edges.length;
     final edges = <ConnectingEdgeComponent>[];
@@ -141,7 +124,67 @@ class GraphWidget extends FlameGame {
     }
   }
 
-  // Future<List<NodeComponent>> _generateCirlePlacement
+  Future<List<NodeComponent>> _generateCirclePlacement(
+    List<NodeModel> nodes, {
+    double? preferredRadius,
+  }) async {
+    final dotsCount = nodes.length;
+    final center = size / 2;
+    final radius = preferredRadius ?? min(size.x, size.y) / 3;
+
+    return List<NodeComponent>.generate(dotsCount, (index) {
+      final node = nodes[index];
+
+      final angle = (2 * pi * index) / dotsCount;
+      double x = center.x + radius * cos(angle);
+      double y = center.y + radius * sin(angle);
+
+      if (node.preferredPosition != null) {
+        x = node.preferredPosition!.$1 * size.x / 2 + center.x;
+        y = node.preferredPosition!.$2 * size.y / 2 + center.y;
+      }
+
+      return NodeComponent(
+        id: node.id,
+        color: node.preferredColor ?? nodeColorValue,
+        blendColor: edgeColorValue,
+        radius: 20,
+        position: Vector2(x, y),
+        movable: graphModel.movable,
+        onClick: graphModel.clickable ? () => onNodeClick(node.id) : null,
+      );
+    });
+  }
+
+  Future<List<NodeComponent>> _generateRandomPlacement(
+    List<NodeModel> nodes,
+  ) async {
+    final dotsCount = nodes.length;
+    final center = size / 2;
+    final radius = min(size.x, size.y) / 3;
+
+    return List<NodeComponent>.generate(dotsCount, (index) {
+      final node = nodes[index];
+
+      double x = Random().nextDouble() * size.x;
+      double y = Random().nextDouble() * size.y;
+
+      if (node.preferredPosition != null) {
+        x = node.preferredPosition!.$1 * size.x / 2 + center.x;
+        y = node.preferredPosition!.$2 * size.y / 2 + center.y;
+      }
+
+      return NodeComponent(
+        id: node.id,
+        color: node.preferredColor ?? nodeColorValue,
+        blendColor: edgeColorValue,
+        radius: 20,
+        position: Vector2(x, y),
+        movable: graphModel.movable,
+        onClick: graphModel.clickable ? () => onNodeClick(node.id) : null,
+      );
+    });
+  }
 
   Future<void> _addPossibleEdges(List<NodeComponent> nodes) async {
     final List<ConnectingEdgeComponent> possibleEdges = [];
