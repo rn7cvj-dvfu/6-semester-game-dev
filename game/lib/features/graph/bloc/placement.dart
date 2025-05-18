@@ -5,5 +5,6 @@ part '../../../.gen/features/graph/bloc/placement.freezed.dart';
 @freezed
 class GraphNodesPlacement with _$GraphNodesPlacement {
   const factory GraphNodesPlacement.circle({double? radius}) = _Circle;
-  const factory GraphNodesPlacement.random() = _Random;
+  const factory GraphNodesPlacement.random({@Default(42.0) double seed}) =
+      _Random;
 }

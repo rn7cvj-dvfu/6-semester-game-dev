@@ -70,7 +70,8 @@ class GraphWidget extends FlameGame {
     final nodes = await graphModel.placement.when(
       circle: (radius) =>
           _generateCirclePlacement(graphModel.nodes, preferredRadius: radius),
-      random: () => _generateRandomPlacement(graphModel.nodes),
+      random: (seed) =>
+          _generateRandomPlacement(graphModel.nodes, preferredSeed: seed),
     );
 
     final edgesCount = graphModel.edges.length;
@@ -157,17 +158,20 @@ class GraphWidget extends FlameGame {
   }
 
   Future<List<NodeComponent>> _generateRandomPlacement(
-    List<NodeModel> nodes,
-  ) async {
+    List<NodeModel> nodes, {
+    double? preferredSeed,
+  }) async {
     final dotsCount = nodes.length;
     final center = size / 2;
     final radius = min(size.x, size.y) / 3;
 
+    final random = Random(preferredSeed?.toInt());
+
     return List<NodeComponent>.generate(dotsCount, (index) {
       final node = nodes[index];
 
-      double x = Random().nextDouble() * size.x;
-      double y = Random().nextDouble() * size.y;
+      double x = random.nextDouble() * size.x;
+      double y = random.nextDouble() * size.y;
 
       if (node.preferredPosition != null) {
         x = node.preferredPosition!.$1 * size.x / 2 + center.x;

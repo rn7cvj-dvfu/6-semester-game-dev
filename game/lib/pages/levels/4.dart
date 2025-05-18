@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 
 import '../../.gen/i18n/strings.g.dart';
 import '../../features/graph/bloc/model.dart';
+import '../../features/graph/bloc/placement.dart';
 import '../../features/graph/ui/widget.dart';
 import '../../features/levels/3/level_info.dart';
+import '../../features/levels/finish_level_dialog.dart';
+import '../../features/settings.dart';
 import '../../features/ui/back_button.dart';
 import '../../navigation/navigator.dart';
 
@@ -108,13 +111,18 @@ class _FourthLevelPageState extends State<FourthLevelPage> {
         ),
       ),
       graphModel: GraphModel(
+        placement: GraphNodesPlacement.random(seed: 69),
         nodes: [
           NodeModel(id: 'A', preferredColor: Colors.red),
           NodeModel(id: 'B'),
           NodeModel(id: 'C'),
           NodeModel(id: 'D'),
           NodeModel(id: 'E'),
-          NodeModel(id: 'F', preferredColor: Colors.blue),
+          NodeModel(
+            id: 'F',
+            preferredColor: Colors.blue,
+            preferredPosition: (0, 0),
+          ),
         ],
         edges: [
           EdgeModel(id: 'A-B', firstNodeId: 'A', secondNodeId: 'B'),
@@ -136,23 +144,31 @@ class _FourthLevelPageState extends State<FourthLevelPage> {
       child: Stack(
         children: [
           Positioned.fill(
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 500),
-              reverseDuration: const Duration(milliseconds: 500),
-              child: GameWidget(
-                key: ValueKey(_currentStageIndex),
-                game: GraphWidget(
-                  graphModel: currentStage.graphModel,
-                  onNodeClick: (_) {},
-                  onEdgeClick: (_) {},
-                  backgroundColorValue: Theme.of(
-                    context,
-                  ).scaffoldBackgroundColor,
-                  nodeColorValue: Theme.of(context).colorScheme.primary,
-                  edgeColorValue: Theme.of(
-                    context,
-                  ).colorScheme.primaryContainer,
-                  onPossibleEdgeClick: null,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 16 + 64,
+                right: GSettings.maxDialogWidth + 16 + 16,
+                bottom: 16,
+                left: 16,
+              ),
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 500),
+                reverseDuration: const Duration(milliseconds: 500),
+                child: GameWidget(
+                  key: ValueKey(_currentStageIndex),
+                  game: GraphWidget(
+                    graphModel: currentStage.graphModel,
+                    onNodeClick: (_) {},
+                    onEdgeClick: (_) {},
+                    backgroundColorValue: Theme.of(
+                      context,
+                    ).scaffoldBackgroundColor,
+                    nodeColorValue: Theme.of(context).colorScheme.primary,
+                    edgeColorValue: Theme.of(
+                      context,
+                    ).colorScheme.primaryContainer,
+                    onPossibleEdgeClick: null,
+                  ),
                 ),
               ),
             ),
@@ -175,7 +191,9 @@ class _FourthLevelPageState extends State<FourthLevelPage> {
                 });
               },
               totalStages: _stages.length,
-              onComplete: () {},
+              onComplete: () {
+                showFinishLevelDialog(context, 5);
+              },
             ),
           ),
         ],

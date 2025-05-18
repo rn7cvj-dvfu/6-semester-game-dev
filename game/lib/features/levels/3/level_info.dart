@@ -72,7 +72,8 @@ class _ThirdLevelInfoState extends State<ThirdLevelInfo> {
       return;
     }
 
-    _nextStage();
+    // _nextStage();
+    widget.onComplete();
   }
 
   @override
