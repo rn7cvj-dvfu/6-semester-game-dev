@@ -110,17 +110,29 @@ class _LevelWidgetState extends State<LevelWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.widthOf(context) <= GSettings.maxPhoneWidth;
+
+    final double sidePadding = isMobile ? 8.0 : 16.0;
+    final double topPadding = isMobile ? 8.0 : 16.0 + 64;
+    final double bottomPadding = isMobile ? 8.0 : 16.0 + 64;
+    final double rightPadding = isMobile
+        ? 8.0
+        : GSettings.maxDialogWidth + 16 + 16;
+    final double maxDialogWidth = isMobile
+        ? double.infinity
+        : GSettings.maxDialogWidth;
+
     return Material(
       child: Stack(
         children: [
           if (_graphWidget != null)
             Positioned.fill(
               child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 16 + 64,
-                  right: GSettings.maxDialogWidth + 16 + 16,
-                  bottom: 16,
-                  left: 16,
+                padding: EdgeInsets.only(
+                  top: topPadding,
+                  right: rightPadding,
+                  bottom: bottomPadding,
+                  left: sidePadding,
                 ),
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 500),
@@ -136,77 +148,129 @@ class _LevelWidgetState extends State<LevelWidget> {
               onTap: widget.onBackTap ?? AppNavigator.openLevels,
             ),
           ),
-          Positioned(
-            top: 0,
-            right: 16,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxWidth: GSettings.maxDialogWidth,
-                maxHeight: MediaQuery.sizeOf(context).height,
-              ),
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                primary: false,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisSize: MainAxisSize.min,
-                  spacing: 8,
-                  children: [
-                    _InfoCardWidget(
-                      title: widget.stages[_currentStageIndex].title,
-                      text: widget.stages[_currentStageIndex].text,
-                      richText: widget.stages[_currentStageIndex].richText,
-                    ),
-                    if (_totalStages > 1)
-                      _StepButtonWidget(
-                        currentStage: _currentStageIndex,
-                        totalStages: _totalStages,
-                        onBack: _currentStageIndex > 0 ? _previousStage : null,
-                        onNext: _currentStageIndex < _totalStages - 1
-                            ? _nextStage
-                            : widget.onFinish,
+          if (!isMobile)
+            Positioned(
+              top: 0,
+              right: 16,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: maxDialogWidth,
+                  maxHeight: MediaQuery.sizeOf(context).height,
+                ),
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  primary: false,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 8,
+                    children: [
+                      _InfoCardWidget(
+                        title: widget.stages[_currentStageIndex].title,
+                        text: widget.stages[_currentStageIndex].text,
+                        richText: widget.stages[_currentStageIndex].richText,
                       ),
-                    if (_currentStage != null)
-                      _currentStage?.mapOrNull(
-                            question: (data) => Card(
-                              margin: EdgeInsets.zero,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: TextFormField(
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                      RegExp(r'[0-9]'),
+                      if (_totalStages > 1)
+                        _StepButtonWidget(
+                          currentStage: _currentStageIndex,
+                          totalStages: _totalStages,
+                          onBack: _currentStageIndex > 0
+                              ? _previousStage
+                              : null,
+                          onNext: _currentStageIndex < _totalStages - 1
+                              ? _nextStage
+                              : widget.onFinish,
+                        ),
+                      if (_currentStage != null)
+                        _currentStage?.mapOrNull(
+                              question: (data) => Card(
+                                margin: EdgeInsets.zero,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: TextFormField(
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'[0-9]'),
+                                      ),
+                                    ],
+                                    onChanged: (value) {},
+                                    decoration: InputDecoration(
+                                      labelText: data.answerHint,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
                                     ),
-                                  ],
-                                  onChanged: (value) {
-                                    // _errorText = null;
-
-                                    // if (value.isEmpty) {
-                                    //   _enteredConnectivityComponents = null;
-                                    //   setState(() {});
-                                    //   return;
-                                    // }
-                                    // _enteredConnectivityComponents =
-                                    //     int.tryParse(value);
-                                    // setState(() {});
-                                  },
-                                  decoration: InputDecoration(
-                                    labelText: data.answerHint,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    // errorText: _errorText,
                                   ),
                                 ),
                               ),
-                            ),
-                          ) ??
-                          SizedBox.shrink(),
-                  ],
+                            ) ??
+                            SizedBox.shrink(),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
+          if (isMobile)
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: SafeArea(
+                top: false,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 8,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      _InfoCardWidget(
+                        title: widget.stages[_currentStageIndex].title,
+                        text: widget.stages[_currentStageIndex].text,
+                        richText: widget.stages[_currentStageIndex].richText,
+                      ),
+                      if (_totalStages > 1)
+                        _StepButtonWidget(
+                          currentStage: _currentStageIndex,
+                          totalStages: _totalStages,
+                          onBack: _currentStageIndex > 0
+                              ? _previousStage
+                              : null,
+                          onNext: _currentStageIndex < _totalStages - 1
+                              ? _nextStage
+                              : widget.onFinish,
+                        ),
+                      if (_currentStage != null)
+                        _currentStage?.mapOrNull(
+                              question: (data) => Card(
+                                margin: EdgeInsets.zero,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: TextFormField(
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'[0-9]'),
+                                      ),
+                                    ],
+                                    onChanged: (value) {},
+                                    decoration: InputDecoration(
+                                      labelText: data.answerHint,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ) ??
+                            SizedBox.shrink(),
+                    ],
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );
