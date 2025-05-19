@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'placement.dart';
 
-part '../../../.gen/features/graph/bloc/model.freezed.dart';
+part '../../../.gen/features/graph/models/model.freezed.dart';
 
 @freezed
 class GraphModel with _$GraphModel {

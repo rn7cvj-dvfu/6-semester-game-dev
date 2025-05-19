@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../.gen/i18n/strings.g.dart';
-import '../../graph/ui/info_card.dart';
 import '../../settings.dart';
+import '../widgets/info_card.dart';
 
 class SixthLevelInfo extends StatefulWidget {
   final int initialStageIndex;

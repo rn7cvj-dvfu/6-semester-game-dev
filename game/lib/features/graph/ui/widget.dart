@@ -1,12 +1,15 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
-import '../bloc/model.dart';
-import 'edge.dart';
-import 'node.dart';
+import '../models/model.dart';
+
+part 'widgets/edge.dart';
+part 'widgets/node.dart';
 
 class GraphWidget extends FlameGame {
   GraphModel graphModel; // Made non-final

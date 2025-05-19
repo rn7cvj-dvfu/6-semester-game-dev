@@ -2,11 +2,11 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 import '../../.gen/i18n/strings.g.dart';
-import '../../features/graph/bloc/count_connected_components.dart';
-import '../../features/graph/bloc/model.dart';
-import '../../features/graph/ui/info_card.dart';
+import '../../features/graph/models/model.dart';
 import '../../features/graph/ui/widget.dart';
+import '../../features/graph/utils/count_connected_components.dart';
 import '../../features/levels/finish_level_dialog.dart';
+import '../../features/levels/widgets/info_card.dart';
 import '../../features/settings.dart';
 import '../../features/ui/back_button.dart';
 import '../../navigation/navigator.dart';
@@ -157,7 +157,15 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
       child: Stack(
         children: [
           Positioned.fill(
-            child: GameWidget(key: _gameWidgetKey, game: _graphGame!),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 16 + 64,
+                right: GSettings.maxDialogWidth + 16 + 16,
+                bottom: 16,
+                left: 16,
+              ),
+              child: GameWidget(key: _gameWidgetKey, game: _graphGame!),
+            ),
           ),
           Positioned(
             top: 16,

@@ -1,9 +1,4 @@
-import 'dart:ui';
-
-import 'package:flame/components.dart';
-import 'package:flame/events.dart';
-
-import 'widget.dart';
+part of '../widget.dart';
 
 class NodeComponent extends PositionComponent
     with

@@ -1,4 +1,4 @@
-import 'model.dart';
+import '../models/model.dart';
 
 int countConnectedComponentsInGraph(GraphModel graph) {
   if (graph.nodes.isEmpty) {

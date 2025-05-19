@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part '../../../.gen/features/graph/bloc/placement.freezed.dart';
+part '../../../.gen/features/graph/models/placement.freezed.dart';
 
 @freezed
 class GraphNodesPlacement with _$GraphNodesPlacement {

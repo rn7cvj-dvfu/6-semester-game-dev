@@ -2,8 +2,8 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 import '../../.gen/i18n/strings.g.dart';
-import '../../features/graph/bloc/model.dart';
-import '../../features/graph/bloc/placement.dart';
+import '../../features/graph/models/model.dart';
+import '../../features/graph/models/placement.dart';
 import '../../features/graph/ui/widget.dart';
 import '../../features/levels/6/level_info.dart';
 import '../../features/settings.dart';

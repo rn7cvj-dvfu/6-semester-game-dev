@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../graph/ui/info_card.dart';
+import '../widgets/info_card.dart';
 
 class FifthLevelInfo extends StatefulWidget {
   final String title;

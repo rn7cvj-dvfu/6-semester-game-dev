@@ -2,7 +2,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 import '../../.gen/i18n/strings.g.dart';
-import '../../features/graph/bloc/model.dart';
+import '../../features/graph/models/model.dart';
 import '../../features/graph/ui/widget.dart';
 import '../../features/levels/5/level_info.dart';
 import '../../features/levels/finish_level_dialog.dart';

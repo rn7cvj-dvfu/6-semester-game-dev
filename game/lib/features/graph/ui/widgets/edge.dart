@@ -1,10 +1,4 @@
-
-import 'package:flame/components.dart';
-import 'package:flame/events.dart';
-import 'package:flutter/material.dart';
-
-import 'node.dart';
-import 'widget.dart';
+part of '../widget.dart';
 
 class ConnectingEdgeComponent extends Component
     with TapCallbacks, HoverCallbacks, HasGameReference<GraphWidget> {

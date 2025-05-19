@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../.gen/i18n/strings.g.dart';
-import '../../graph/bloc/model.dart';
+import '../../graph/models/model.dart';
 import '../../graph/ui/colors.dart';
 
 class AdjacencyMatrixEditor extends StatefulWidget {

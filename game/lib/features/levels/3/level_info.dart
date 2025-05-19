@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../.gen/i18n/strings.g.dart';
-import '../../graph/ui/info_card.dart';
-import '../../graph/ui/step_button.dart';
+
 import '../../settings.dart';
+import '../widgets/info_card.dart';
+import '../widgets/step_button.dart';
 
 class ThirdLevelInfo extends StatefulWidget {
   final int initialStageIndex;
