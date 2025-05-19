@@ -27,9 +27,9 @@ Future<void> showFinishLevelDialog(
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text(context.t.strings.common.levelComplete),
-        content: nextLevel != null
-            ? Text(context.t.strings.common.nextLevelPrompt)
-            : null,
+        // content: nextLevel != null
+        //     ? Text(context.t.strings.common.nextLevelPrompt)
+        //     : null,
         actions: <Widget>[
           TextButton(
             child: Text(context.t.strings.common.toMainMenu),

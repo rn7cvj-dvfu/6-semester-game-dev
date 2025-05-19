@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:flame/components.dart'; // Required for Component
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
@@ -191,7 +190,6 @@ class GraphWidget extends FlameGame {
   }) async {
     final dotsCount = nodes.length;
     final center = size / 2;
-    final radius = min(size.x, size.y) / 3;
 
     final random = Random(preferredSeed?.toInt());
 
@@ -223,8 +221,6 @@ class GraphWidget extends FlameGame {
     required String topNodeId,
   }) async {
     final center = size / 2;
-    final verticalGap = size.y / (nodes.length + 1);
-    final horizontalGap = size.x / (nodes.length + 1);
 
     // Построим карту связей для дерева
     final Map<String, List<String>> children = {};
@@ -237,7 +233,7 @@ class GraphWidget extends FlameGame {
 
     // Найдём корень (topNodeId)
     // Обеспечим порядок обхода (BFS)
-    final Map<String, Offset> positions = {};
+    // final Map<String, Offset> positions = {};
     final List<List<String>> levels = [];
     List<String> currentLevel = [topNodeId];
     Set<String> visited = {topNodeId};

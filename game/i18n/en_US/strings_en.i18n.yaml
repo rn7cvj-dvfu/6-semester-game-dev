@@ -28,14 +28,15 @@ levels:
     name: "Basics"
     stages:
       1:
-        title: "Stage 1: Dot"
-        text: "This is a dot. It's just a single dot on a blank canvas. Move on."
+        title: "Stage 1: Vertex"
+        text: "You see a single dot. This is a basic element. In graphs, such dots are called vertices."
       2:
         title: "Stage 2: Edge"
-        text: "There are more dots now. They are connected by an edge. From it Adam.. stop"
+        text: "Now, two vertices are connected by a line. This line is called an edge. An edge links two vertices together."
       3:
         title: "Stage 3: Graph"
-        text: "When there are many connected dots, they form a graph."
+        text: "When multiple vertices are connected by edges, they form a graph — a structure that represents relationships between elements."
+
   2:
     name: "Connectivity components"
     stages:
@@ -88,7 +89,7 @@ levels:
         richText(rich): |
           This animation demonstrates the order in which nodes are visited during a BFS traversal of a tree.
           The current node being visited will be highlighted in ${greenNode(green)}.
-          
+
 noNodesToEdit: "Graph has no nodes to edit."
 addNode: "Add Node"
 removeLastNode: "Remove Node"

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../.gen/i18n/strings.g.dart';
 import '../../features/graph/bloc/model.dart';
 import '../../features/graph/ui/widget.dart';
-import '../../features/levels/3/level_info.dart';
 import '../../features/levels/5/level_info.dart';
 import '../../features/levels/finish_level_dialog.dart';
 import '../../features/settings.dart';
@@ -104,10 +103,10 @@ class _FifthLevelPageState extends State<FifthLevelPage> {
         _userPath.add(nodeId);
       });
       if (nodeId == _endNodeId) {
-        final optimal = _findShortestPath(_startNodeId, _endNodeId);
+        _findShortestPath(_startNodeId, _endNodeId);
         showFinishLevelDialog(
           context,
-          6
+          6,
 
           // customContent: Column(
           //   mainAxisSize: MainAxisSize.min,
