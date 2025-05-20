@@ -83,13 +83,31 @@ class SecondLevelPage extends StatelessWidget {
         LevelStageModel.info(
           title: context.t.strings.levels.k2.stages.k3.title,
           text: context.t.strings.levels.k2.stages.k3.text,
-          graphModel: GraphModel.fromAdjacencyMatrix([
-            [0, 1, 0, 0, 0],
-            [1, 0, 0, 0, 0],
-            [0, 0, 0, 1, 0],
-            [0, 0, 1, 0, 0],
-            [0, 0, 0, 0, 0],
-          ]),
+          graphModel: GraphModel.fromAdjacencyMatrix(
+            [
+              [0, 1, 0, 0, 0],
+              [1, 0, 0, 0, 0],
+              [0, 0, 0, 1, 0],
+              [0, 0, 1, 0, 0],
+              [0, 0, 0, 0, 0],
+            ],
+            nodeColor: (nodeIndex) => switch (nodeIndex) {
+              0 => Colors.blue,
+              1 => Colors.blue,
+              2 => Colors.red,
+              3 => Colors.red,
+              4 => Colors.green,
+              _ => null,
+            },
+            edgeColor: (firstNodeIndex, secondNodeIndex) =>
+                switch (firstNodeIndex) {
+                  0 => Colors.blue,
+                  1 => Colors.blue,
+                  2 => Colors.red,
+                  3 => Colors.red,
+                  _ => null,
+                },
+          ),
         ),
         LevelStageModel.question(
           title: context.t.strings.levels.k2.stages.k4.title,

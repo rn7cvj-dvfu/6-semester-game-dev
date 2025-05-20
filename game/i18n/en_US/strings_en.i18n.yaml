@@ -50,7 +50,7 @@ levels:
         richText(rich): "This graph is not connected. It consists of two separate parts, called connected components. You cannot move from one part to another. For example, you cannot reach the ${redNode(red)} vertex from the ${blueNode(blue)}."
       3:
         title: "Stage 3: Connected components"
-        text: "Here are three connected components. Each component is a maximal connected subgraph. Inside each component, all vertices are connected, but there are no connections between different components."
+        text: "Here are three connected components. Each component is a maximal connected subgraph. Inside each component, all vertices are connected, but there are no connections between different components. The connected components are highlighted in color."
       4:
         title: "Stage 4: How many connected components?"
         text: "Here is a graph with several connected components. How many are there?"
