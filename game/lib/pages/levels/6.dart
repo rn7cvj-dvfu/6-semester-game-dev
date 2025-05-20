@@ -210,16 +210,41 @@ class _SixthLevelPageState extends State<SixthLevelPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.widthOf(context) <= GSettings.maxPhoneWidth;
+    final sidePadding = isMobile ? 8.0 : 16.0;
+    final topPadding = isMobile ? 8.0 : 16.0 + 64;
+    final bottomPadding = isMobile ? 8.0 : 16.0;
+    final rightPadding = isMobile ? 8.0 : GSettings.maxDialogWidth + 16 + 16;
+    final maxDialogWidth = isMobile ? double.infinity : GSettings.maxDialogWidth;
+
+    final infoCard = SixthLevelInfo(
+      title: context.t.strings.levels.k6.stages.k1.title,
+      richText: context.t.strings.levels.k6.stages.k1.richText(
+        greenNode: (text) => TextSpan(
+          text: text,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.green),
+        ),
+        orangeNode: (text) => TextSpan(
+          text: text,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.orange),
+        ),
+      ),
+      onAnimationStartClick: _startBfsAnimation,
+      onAnimationStopClick: _stopBfsAnimation,
+      canStart: !_isAnimating,
+      canStop: _isAnimating,
+    );
+
     return Material(
       child: Stack(
         children: [
           Positioned.fill(
             child: Padding(
-              padding: const EdgeInsets.only(
-                top: 32,
-                left: 32 + 16,
-                right: 32 + GSettings.maxDialogWidth + 16,
-                bottom: 32,
+              padding: EdgeInsets.only(
+                top: topPadding,
+                left: sidePadding,
+                right: rightPadding,
+                bottom: bottomPadding,
               ),
               child: GameWidget(game: _graphWidget),
             ),
@@ -229,32 +254,39 @@ class _SixthLevelPageState extends State<SixthLevelPage> {
             left: 16,
             child: GBackButton(onTap: AppNavigator.openLevels),
           ),
-          Positioned(
-            top: 0,
-            right: 16,
-            bottom: 0,
-            child: SixthLevelInfo(
-              title: context.t.strings.levels.k6.stages.k1.title,
-              richText: context.t.strings.levels.k6.stages.k1.richText(
-                greenNode: (text) => TextSpan(
-                  text: text,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium?.copyWith(color: Colors.green),
+          if (!isMobile)
+            Positioned(
+              top: 0,
+              right: 16,
+              bottom: 0,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: maxDialogWidth,
+                  maxHeight: MediaQuery.sizeOf(context).height,
                 ),
-                orangeNode: (text) => TextSpan(
-                  text: text,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium?.copyWith(color: Colors.orange),
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  primary: false,
+                  child: infoCard,
                 ),
               ),
-              onAnimationStartClick: _startBfsAnimation,
-              onAnimationStopClick: _stopBfsAnimation,
-              canStart: !_isAnimating,
-              canStop: _isAnimating,
             ),
-          ),
+          if (isMobile)
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: SafeArea(
+                top: false,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 8,
+                  ),
+                  child: infoCard,
+                ),
+              ),
+            ),
         ],
       ),
     );

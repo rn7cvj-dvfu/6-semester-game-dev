@@ -64,8 +64,8 @@ class FourthLevelPage extends StatelessWidget {
           graphModel: GraphModel(
             nodes: [
               NodeModel(id: 'A', preferredColor: Colors.red),
-              NodeModel(id: 'B', preferredColor: Colors.blue),
-              NodeModel(id: 'C'),
+              NodeModel(id: 'B'),
+              NodeModel(id: 'C', preferredColor: Colors.blue),
             ],
             edges: [
               EdgeModel(id: 'A-B', firstNodeId: 'A', secondNodeId: 'B'),

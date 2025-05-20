@@ -18,8 +18,9 @@ class LevelStageModel with _$LevelStageModel {
     String? text,
     TextSpan? richText,
     required GraphModel graphModel,
-    required List<String> animationSteps,
-    int? animationDurationMs,
+    // Each step is a map of nodeId to color
+    required List<Map<String, Color>> animationSteps,
+    @Default(Duration(milliseconds: 300)) Duration animationDurationMs,
   }) = _Animation;
 
   const factory LevelStageModel.question({

@@ -11,6 +11,7 @@ import '../models/stage.dart';
 
 part 'widgets/info_card.dart';
 part 'widgets/step_button.dart';
+part 'widgets/animation_button.dart';
 
 class LevelWidget extends StatefulWidget {
   final List<LevelStageModel> stages;
