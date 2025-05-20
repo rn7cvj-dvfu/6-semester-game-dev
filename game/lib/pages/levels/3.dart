@@ -135,6 +135,7 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
       builder: (context) {
         final t = Translations.of(context);
         return AlertDialog(
+          insetPadding: EdgeInsets.all(16),
           title: Text(t.strings.levels.k3.taskNotCompleted),
           actions: [
             FilledButton(
@@ -152,72 +153,101 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
   @override
   Widget build(BuildContext context) {
     final t = Translations.of(context);
+    final isMobile = MediaQuery.widthOf(context) <= GSettings.maxPhoneWidth;
+
+    final sidePadding = isMobile ? 8.0 : 16.0;
+    final topPadding = isMobile ? 8.0 : 16.0 + 64;
+    final bottomPadding = isMobile ? 8.0 : 16.0;
+    final rightPadding = isMobile ? 8.0 : GSettings.maxDialogWidth + 16 + 16;
+    final maxDialogWidth = isMobile
+        ? double.infinity
+        : GSettings.maxDialogWidth;
+
+    Widget infoAndControls = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      spacing: 8,
+      children: [
+        InfoCardWidget(
+          title: t.strings.levels.k3.connectThemAllTitle,
+          text: t.strings.levels.k3.connectThemAllDescription,
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () {
+                  initGraphModel();
+                  updateGameState();
+                  selectedNodeId = null;
+                },
+                child: Text(t.strings.levels.k3.resetButton),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: ElevatedButton(
+                onPressed: resolve,
+                child: Text(t.strings.levels.k3.checkButton),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
 
     return Material(
       child: Stack(
         children: [
-          Positioned.fill(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                top: 16 + 64,
-                right: GSettings.maxDialogWidth + 16 + 16,
-                bottom: 16,
-                left: 16,
+          if (_graphGame != null)
+            Positioned.fill(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: topPadding,
+                  right: rightPadding,
+                  bottom: bottomPadding,
+                  left: sidePadding,
+                ),
+                child: GameWidget(key: _gameWidgetKey, game: _graphGame!),
               ),
-              child: GameWidget(key: _gameWidgetKey, game: _graphGame!),
             ),
-          ),
           Positioned(
             top: 16,
             left: 16,
             child: GBackButton(onTap: AppNavigator.openLevels),
           ),
-          Positioned(
-            top: 0,
-            right: 16,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxWidth: GSettings.maxDialogWidth,
-                maxHeight: MediaQuery.sizeOf(context).height,
-              ),
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                primary: false,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisSize: MainAxisSize.min,
-                  spacing: 8,
-                  children: [
-                    InfoCardWidget(
-                      title: t.strings.levels.k3.connectThemAllTitle,
-                      text: t.strings.levels.k3.connectThemAllDescription,
-                    ),
-                    Row(
-                      spacing: 8,
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              initGraphModel();
-                              updateGameState();
-                              selectedNodeId = null;
-                            },
-                            child: Text(t.strings.levels.k3.resetButton),
-                          ),
-                        ),
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: resolve,
-                            child: Text(t.strings.levels.k3.checkButton),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+          if (!isMobile)
+            Positioned(
+              top: 0,
+              right: 16,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: maxDialogWidth,
+                  maxHeight: MediaQuery.sizeOf(context).height,
+                ),
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  primary: false,
+                  child: infoAndControls,
                 ),
               ),
             ),
-          ),
+          if (isMobile)
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: SafeArea(
+                top: false,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 8,
+                  ),
+                  child: infoAndControls,
+                ),
+              ),
+            ),
         ],
       ),
     );

@@ -111,6 +111,15 @@ class _FifthLevelPageState extends State<FifthLevelPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.widthOf(context) <= GSettings.maxPhoneWidth;
+    final sidePadding = isMobile ? 16.0 : 16.0;
+    final topPadding = isMobile ? 16.0 : 16.0 + 64;
+    final bottomPadding = isMobile ? 16.0 : 16.0;
+    final rightPadding = isMobile ? 16.0 : GSettings.maxDialogWidth + 16 + 16;
+    final maxDialogWidth = isMobile
+        ? double.infinity
+        : GSettings.maxDialogWidth;
+
     final nodes = _nodes.map((node) {
       Color? color;
       if (node.id == _currentNodeId) {
@@ -137,16 +146,46 @@ class _FifthLevelPageState extends State<FifthLevelPage> {
       return node.copyWith(preferredColor: color);
     }).toList();
 
+    final infoCard = FifthLevelInfo(
+      title: context.t.strings.levels.k5.stages.k1.title,
+      richText: context.t.strings.levels.k5.stages.k1.richText(
+        redNode: (text) => TextSpan(
+          text: text,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.red),
+        ),
+        blueNode: (text) => TextSpan(
+          text: text,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.blue),
+        ),
+        redNode2: (text) => TextSpan(
+          text: text,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.red),
+        ),
+        orangeNode: (text) => TextSpan(
+          text: text,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.orange),
+        ),
+      ),
+    );
+
     return Material(
       child: Stack(
         children: [
           Positioned.fill(
             child: Padding(
-              padding: const EdgeInsets.only(
-                top: 32,
-                left: 32 + 16,
-                right: 32 + GSettings.maxDialogWidth + 16,
-                bottom: 32,
+              padding: EdgeInsets.only(
+                top: topPadding,
+                left: sidePadding,
+                right: rightPadding,
+                bottom: bottomPadding,
               ),
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 500),
@@ -178,40 +217,39 @@ class _FifthLevelPageState extends State<FifthLevelPage> {
             left: 16,
             child: GBackButton(onTap: AppNavigator.openLevels),
           ),
-          Positioned(
-            top: 0,
-            right: 16,
-            bottom: 0,
-            child: FifthLevelInfo(
-              title: context.t.strings.levels.k5.stages.k1.title,
-              richText: context.t.strings.levels.k5.stages.k1.richText(
-                redNode: (text) => TextSpan(
-                  text: text,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium?.copyWith(color: Colors.red),
+          if (!isMobile)
+            Positioned(
+              top: 0,
+              right: 16,
+              bottom: 0,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: maxDialogWidth,
+                  maxHeight: MediaQuery.sizeOf(context).height,
                 ),
-                blueNode: (text) => TextSpan(
-                  text: text,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium?.copyWith(color: Colors.blue),
-                ),
-                redNode2: (text) => TextSpan(
-                  text: text,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium?.copyWith(color: Colors.red),
-                ),
-                orangeNode: (text) => TextSpan(
-                  text: text,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium?.copyWith(color: Colors.orange),
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  primary: false,
+                  child: infoCard,
                 ),
               ),
             ),
-          ),
+          if (isMobile)
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: SafeArea(
+                top: false,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 8,
+                  ),
+                  child: infoCard,
+                ),
+              ),
+            ),
         ],
       ),
     );
