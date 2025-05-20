@@ -174,8 +174,8 @@ class _LevelWidgetState extends State<LevelWidget> {
     final isMobile = MediaQuery.widthOf(context) <= GSettings.maxPhoneWidth;
 
     final sidePadding = isMobile ? 8.0 : 16.0;
-    final topPadding = isMobile ? 8.0 : 16.0 + 64;
-    final bottomPadding = isMobile ? 8.0 : 16.0 + 64;
+    final topPadding = isMobile ? 8.0 : 16.0;
+    final bottomPadding = isMobile ? 8.0 + 128 : 16.0;
     final rightPadding = isMobile ? 8.0 : GSettings.maxDialogWidth + 16 + 16;
     final maxDialogWidth = isMobile
         ? double.infinity
@@ -249,10 +249,12 @@ class _LevelWidgetState extends State<LevelWidget> {
                   bottom: bottomPadding,
                   left: sidePadding,
                 ),
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 500),
-                  reverseDuration: const Duration(milliseconds: 500),
-                  child: GameWidget(game: _graphWidget!),
+                child: Center(
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 500),
+                    reverseDuration: const Duration(milliseconds: 500),
+                    child: GameWidget(game: _graphWidget!),
+                  ),
                 ),
               ),
             ),
@@ -287,11 +289,28 @@ class _LevelWidgetState extends State<LevelWidget> {
               child: SafeArea(
                 top: false,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 8,
+                  margin: const EdgeInsets.only(top: 8),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(16),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(context).shadowColor,
+                        blurRadius: 1024,
+                        offset: const Offset(0, -2),
+                      ),
+                    ],
                   ),
-                  child: infoCard,
+                  child: SingleChildScrollView(
+                    primary: false,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 8,
+                    ),
+                    child: infoCard,
+                  ),
                 ),
               ),
             ),
