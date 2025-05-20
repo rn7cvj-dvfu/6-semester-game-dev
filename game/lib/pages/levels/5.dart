@@ -59,7 +59,7 @@ class _FifthLevelPageState extends State<FifthLevelPage> {
 
   final String _startNodeId = 'A';
   final String _endNodeId = 'G';
-  late List<String> _userPath = [_startNodeId];
+  late final List<String> _userPath = [_startNodeId];
   late String _currentNodeId = _startNodeId;
 
   List<String> _findShortestPath(String from, String to) {
@@ -104,28 +104,7 @@ class _FifthLevelPageState extends State<FifthLevelPage> {
       });
       if (nodeId == _endNodeId) {
         _findShortestPath(_startNodeId, _endNodeId);
-        showFinishLevelDialog(
-          context,
-          6,
-
-          // customContent: Column(
-          //   mainAxisSize: MainAxisSize.min,
-          //   children: [
-          //     Text('Ваш маршрут: ${_userPath.join(" → ")}'),
-          //     Text('Оптимальный маршрут: ${optimal.join(" → ")}'),
-          //     if (_userPath.length == optimal.length)
-          //       const Text(
-          //         'Вы нашли кратчайший путь! 🎉',
-          //         style: TextStyle(color: Colors.green),
-          //       ),
-          //     if (_userPath.length > optimal.length)
-          //       Text(
-          //         'Ваш путь длиннее оптимального на ${_userPath.length - optimal.length} шаг(ов).',
-          //         style: const TextStyle(color: Colors.red),
-          //       ),
-          //   ],
-          // ),
-        );
+        showFinishLevelDialog(context, 6);
       }
     }
   }

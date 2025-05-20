@@ -35,6 +35,9 @@ class _LevelWidgetState extends State<LevelWidget> {
   int _totalStages = 0;
   LevelStageModel? _currentStage;
 
+  int? _questionInput;
+  String? _errorText;
+
   @override
   void initState() {
     super.initState();
@@ -70,6 +73,24 @@ class _LevelWidgetState extends State<LevelWidget> {
       onEdgeClick: (edgeId) {},
       onNodeClick: (nodeId) {},
     );
+  }
+
+  bool _validate(int correctAnswer) {
+    if (_questionInput == null) {
+      _errorText = context.t.strings.enterNumber;
+      setState(() {});
+      return false;
+    }
+
+    if (_questionInput != correctAnswer) {
+      _errorText = context.t.strings.wrongAnswer;
+      setState(() {});
+      return false;
+    }
+
+    _errorText = null;
+    setState(() {});
+    return true;
   }
 
   void _previousStage() {
@@ -112,15 +133,29 @@ class _LevelWidgetState extends State<LevelWidget> {
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.widthOf(context) <= GSettings.maxPhoneWidth;
 
-    final double sidePadding = isMobile ? 8.0 : 16.0;
-    final double topPadding = isMobile ? 8.0 : 16.0 + 64;
-    final double bottomPadding = isMobile ? 8.0 : 16.0 + 64;
-    final double rightPadding = isMobile
-        ? 8.0
-        : GSettings.maxDialogWidth + 16 + 16;
-    final double maxDialogWidth = isMobile
+    final sidePadding = isMobile ? 8.0 : 16.0;
+    final topPadding = isMobile ? 8.0 : 16.0 + 64;
+    final bottomPadding = isMobile ? 8.0 : 16.0 + 64;
+    final rightPadding = isMobile ? 8.0 : GSettings.maxDialogWidth + 16 + 16;
+    final maxDialogWidth = isMobile
         ? double.infinity
         : GSettings.maxDialogWidth;
+
+    final onBack = _currentStageIndex > 0 ? _previousStage : null;
+
+    final onNext = _currentStage?.maybeMap(
+      question: (value) => () {
+        if (!_validate(value.correctAnswer)) {
+          return;
+        }
+
+        return _currentStageIndex < _totalStages - 1
+            ? _nextStage()
+            : widget.onFinish();
+      },
+      orElse: () =>
+          _currentStageIndex < _totalStages - 1 ? _nextStage : widget.onFinish,
+    );
 
     return Material(
       child: Stack(
@@ -174,34 +209,18 @@ class _LevelWidgetState extends State<LevelWidget> {
                         _StepButtonWidget(
                           currentStage: _currentStageIndex,
                           totalStages: _totalStages,
-                          onBack: _currentStageIndex > 0
-                              ? _previousStage
-                              : null,
-                          onNext: _currentStageIndex < _totalStages - 1
-                              ? _nextStage
-                              : widget.onFinish,
+                          onBack: onBack,
+                          onNext: onNext,
                         ),
                       if (_currentStage != null)
                         _currentStage?.mapOrNull(
-                              question: (data) => Card(
-                                margin: EdgeInsets.zero,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: TextFormField(
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.allow(
-                                        RegExp(r'[0-9]'),
-                                      ),
-                                    ],
-                                    onChanged: (value) {},
-                                    decoration: InputDecoration(
-                                      labelText: data.answerHint,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                              question: (data) => _QuestionStageWidget(
+                                answerHint: data.answerHint ?? '',
+                                correctAnswer: data.correctAnswer,
+                                onChanged: (value) => setState(() {
+                                  _questionInput = int.tryParse(value);
+                                }),
+                                errorText: _errorText,
                               ),
                             ) ??
                             SizedBox.shrink(),
@@ -235,34 +254,18 @@ class _LevelWidgetState extends State<LevelWidget> {
                         _StepButtonWidget(
                           currentStage: _currentStageIndex,
                           totalStages: _totalStages,
-                          onBack: _currentStageIndex > 0
-                              ? _previousStage
-                              : null,
-                          onNext: _currentStageIndex < _totalStages - 1
-                              ? _nextStage
-                              : widget.onFinish,
+                          onBack: onBack,
+                          onNext: onNext,
                         ),
                       if (_currentStage != null)
                         _currentStage?.mapOrNull(
-                              question: (data) => Card(
-                                margin: EdgeInsets.zero,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: TextFormField(
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.allow(
-                                        RegExp(r'[0-9]'),
-                                      ),
-                                    ],
-                                    onChanged: (value) {},
-                                    decoration: InputDecoration(
-                                      labelText: data.answerHint,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                              question: (data) => _QuestionStageWidget(
+                                answerHint: data.answerHint ?? '',
+                                correctAnswer: data.correctAnswer,
+                                onChanged: (value) => setState(() {
+                                  _questionInput = int.tryParse(value);
+                                }),
+                                errorText: _errorText,
                               ),
                             ) ??
                             SizedBox.shrink(),
@@ -272,6 +275,41 @@ class _LevelWidgetState extends State<LevelWidget> {
               ),
             ),
         ],
+      ),
+    );
+  }
+}
+
+class _QuestionStageWidget extends StatelessWidget {
+  final String answerHint;
+  final int correctAnswer;
+  final void Function(String) onChanged;
+  final String? errorText;
+
+  const _QuestionStageWidget({
+    required this.answerHint,
+    required this.correctAnswer,
+    required this.onChanged,
+    this.errorText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.zero,
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+          ],
+          onChanged: onChanged,
+          decoration: InputDecoration(
+            labelText: answerHint,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+            errorText: errorText,
+          ),
+        ),
       ),
     );
   }
