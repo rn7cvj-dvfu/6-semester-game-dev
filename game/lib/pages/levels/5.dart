@@ -1,5 +1,6 @@
-import 'package:flame/game.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flame/game.dart';
 
 import '../../.gen/i18n/strings.g.dart';
 import '../../features/graph/models/model.dart';
@@ -61,71 +62,37 @@ class _FifthLevelPageState extends State<FifthLevelPage> {
   final String _endNodeId = 'G';
   late final List<String> _userPath = [_startNodeId];
   late String _currentNodeId = _startNodeId;
-
-  List<String> _findShortestPath(String from, String to) {
-    final queue = <List<String>>[
-      [from],
-    ];
-    final visited = <String>{from};
-    while (queue.isNotEmpty) {
-      final path = queue.removeAt(0);
-      final last = path.last;
-      if (last == to) return path;
-      for (final e in _edges) {
-        if (e.firstNodeId == last && !visited.contains(e.secondNodeId)) {
-          visited.add(e.secondNodeId);
-          queue.add([...path, e.secondNodeId]);
-        } else if (e.secondNodeId == last && !visited.contains(e.firstNodeId)) {
-          visited.add(e.firstNodeId);
-          queue.add([...path, e.firstNodeId]);
-        }
-      }
-    }
-    return [];
-  }
-
-  void _onNodeClick(String nodeId) {
-    final neighbors = _edges
-        .where(
-          (e) =>
-              e.firstNodeId == _currentNodeId ||
-              e.secondNodeId == _currentNodeId,
-        )
-        .map(
-          (e) =>
-              e.firstNodeId == _currentNodeId ? e.secondNodeId : e.firstNodeId,
-        )
-        .toSet();
-
-    if (neighbors.contains(nodeId) && !_userPath.contains(nodeId)) {
-      setState(() {
-        _currentNodeId = nodeId;
-        _userPath.add(nodeId);
-      });
-      if (nodeId == _endNodeId) {
-        _findShortestPath(_startNodeId, _endNodeId);
-        showFinishLevelDialog(context, 6);
-      }
-    }
-  }
+  GraphWidget? _graphWidget;
 
   @override
-  Widget build(BuildContext context) {
-    final isMobile = MediaQuery.widthOf(context) <= GSettings.maxPhoneWidth;
-    final sidePadding = isMobile ? 16.0 : 16.0;
-    final topPadding = isMobile ? 16.0 : 16.0 + 64;
-    final bottomPadding = isMobile ? 16.0 : 16.0;
-    final rightPadding = isMobile ? 16.0 : GSettings.maxDialogWidth + 16 + 16;
-    final maxDialogWidth = isMobile
-        ? double.infinity
-        : GSettings.maxDialogWidth;
+  void initState() {
+    super.initState();
+    // Цвета будут заданы в build
+  }
 
+  void _ensureGraphWidget(BuildContext context) {
+    if (_graphWidget == null) {
+      _graphWidget = GraphWidget(
+        graphModel: _buildGraphModel(),
+        backgroundColorValue: Theme.of(context).scaffoldBackgroundColor,
+        nodeColorValue: Theme.of(context).colorScheme.primary,
+        edgeColorValue: Theme.of(context).colorScheme.primaryContainer,
+        onNodeClick: _onNodeClick,
+        onEdgeClick: (_) {},
+      );
+    }
+  }
+
+  GraphModel _buildGraphModel() {
+    // 1. Подсветка вершин пути
     final nodes = _nodes.map((node) {
       Color? color;
       if (node.id == _currentNodeId) {
         color = Colors.red;
       } else if (node.id == _endNodeId) {
         color = Colors.blue;
+      } else if (_userPath.contains(node.id)) {
+        color = Colors.green.shade200;
       } else {
         final neighbors = _edges
             .where(
@@ -146,34 +113,141 @@ class _FifthLevelPageState extends State<FifthLevelPage> {
       return node.copyWith(preferredColor: color);
     }).toList();
 
-    final infoCard = FifthLevelInfo(
-      title: context.t.strings.levels.k5.stages.k1.title,
-      richText: context.t.strings.levels.k5.stages.k1.richText(
-        redNode: (text) => TextSpan(
-          text: text,
-          style: Theme.of(
-            context,
-          ).textTheme.bodyMedium?.copyWith(color: Colors.red),
+    // 2. Подсветка рёбер пути
+    final pathEdges = <String>{};
+    for (int i = 0; i < _userPath.length - 1; i++) {
+      final from = _userPath[i];
+      final to = _userPath[i + 1];
+      final edge = _edges.firstWhereOrNull(
+        (e) =>
+            (e.firstNodeId == from && e.secondNodeId == to) ||
+            (e.firstNodeId == to && e.secondNodeId == from),
+      );
+      if (edge != null) pathEdges.add(edge.id);
+    }
+    final edges = _edges.map((e) {
+      if (pathEdges.contains(e.id)) {
+        return e.copyWith(preferredColor: Colors.green);
+      }
+      return e;
+    }).toList();
+
+    return GraphModel(nodes: nodes, edges: edges, clickable: true);
+  }
+
+  void _updateGraph(BuildContext context) {
+    if (_graphWidget != null) {
+      _graphWidget!.replaceGraphModel(_buildGraphModel());
+    }
+  }
+
+  void _onNodeClick(String nodeId) {
+    final neighbors = _edges
+        .where(
+          (e) =>
+              e.firstNodeId == _currentNodeId ||
+              e.secondNodeId == _currentNodeId,
+        )
+        .map(
+          (e) =>
+              e.firstNodeId == _currentNodeId ? e.secondNodeId : e.firstNodeId,
+        )
+        .toSet();
+
+    final prevIndex = _userPath.length > 1 ? _userPath.length - 2 : null;
+
+    // Если клик по предыдущей вершине — откатиться назад
+    if (prevIndex != null && _userPath[prevIndex] == nodeId) {
+      setState(() {
+        _userPath.removeLast();
+        _currentNodeId = nodeId;
+        _updateGraph(context);
+      });
+      return;
+    }
+
+    // Если клик по соседу, которого ещё нет в пути — добавить
+    if (neighbors.contains(nodeId) && !_userPath.contains(nodeId)) {
+      setState(() {
+        _currentNodeId = nodeId;
+        _userPath.add(nodeId);
+        _updateGraph(context);
+      });
+
+      if (nodeId == _endNodeId) {
+        showFinishLevelDialog(context, 6);
+      }
+    }
+  }
+
+  void _onBackStep(BuildContext context) {
+    if (_userPath.length > 1) {
+      setState(() {
+        _userPath.removeLast();
+        _currentNodeId = _userPath.last;
+        _updateGraph(context);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _ensureGraphWidget(context);
+    final isMobile = MediaQuery.widthOf(context) <= GSettings.maxPhoneWidth;
+    final sidePadding = isMobile ? 32.0 : 32.0;
+    final topPadding = isMobile ? 16.0 : 16.0 + 64;
+    final bottomPadding = isMobile ? 16.0 : 16.0;
+    final rightPadding = isMobile ? 32.0 : GSettings.maxDialogWidth + 16 + 16;
+    final maxDialogWidth = isMobile
+        ? double.infinity
+        : GSettings.maxDialogWidth;
+
+    final infoCard = Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        FifthLevelInfo(
+          title: context.t.strings.levels.k5.stages.k1.title,
+          richText: context.t.strings.levels.k5.stages.k1.richText(
+            redNode: (text) => TextSpan(
+              text: text,
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(color: Colors.red),
+            ),
+            blueNode: (text) => TextSpan(
+              text: text,
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(color: Colors.blue),
+            ),
+            redNode2: (text) => TextSpan(
+              text: text,
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(color: Colors.red),
+            ),
+            orangeNode: (text) => TextSpan(
+              text: text,
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(color: Colors.orange),
+            ),
+          ),
         ),
-        blueNode: (text) => TextSpan(
-          text: text,
-          style: Theme.of(
-            context,
-          ).textTheme.bodyMedium?.copyWith(color: Colors.blue),
+        const SizedBox(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ElevatedButton(
+              onPressed: _userPath.length > 1
+                  ? () => _onBackStep(context)
+                  : null,
+              child: const Text('Назад'),
+            ),
+          ],
         ),
-        redNode2: (text) => TextSpan(
-          text: text,
-          style: Theme.of(
-            context,
-          ).textTheme.bodyMedium?.copyWith(color: Colors.red),
-        ),
-        orangeNode: (text) => TextSpan(
-          text: text,
-          style: Theme.of(
-            context,
-          ).textTheme.bodyMedium?.copyWith(color: Colors.orange),
-        ),
-      ),
+      ],
     );
 
     return Material(
@@ -190,25 +264,9 @@ class _FifthLevelPageState extends State<FifthLevelPage> {
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 500),
                 reverseDuration: const Duration(milliseconds: 500),
-                child: GameWidget(
-                  key: ValueKey(_userPath.length),
-                  game: GraphWidget(
-                    graphModel: GraphModel(
-                      nodes: nodes,
-                      edges: _edges,
-                      clickable: true,
-                    ),
-                    backgroundColorValue: Theme.of(
-                      context,
-                    ).scaffoldBackgroundColor,
-                    nodeColorValue: Theme.of(context).colorScheme.primary,
-                    edgeColorValue: Theme.of(
-                      context,
-                    ).colorScheme.primaryContainer,
-                    onNodeClick: _onNodeClick,
-                    onEdgeClick: (_) {},
-                  ),
-                ),
+                child: _graphWidget != null
+                    ? GameWidget(game: _graphWidget!)
+                    : const SizedBox.shrink(),
               ),
             ),
           ),

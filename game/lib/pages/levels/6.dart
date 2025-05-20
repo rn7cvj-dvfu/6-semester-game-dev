@@ -30,8 +30,22 @@ class _SixthLevelPageState extends State<SixthLevelPage> {
   int _bfsStep = -1;
   bool _isAnimating = false;
   bool _shouldStopAnimation = false;
+  List<Set<String>> _bfsVisitedHistory = [];
+  List<String> _bfsJustAdded = [];
 
   GraphModel _buildGraphModel() {
+    // Определяем цвета для каждой вершины
+    Set<String> visited = {};
+    List<String> justAdded = [];
+    String? current;
+    if (_bfsStep >= 0 && _bfsStep < _bfsOrder.length) {
+      current = _bfsOrder[_bfsStep];
+      if (_bfsVisitedHistory.isNotEmpty &&
+          _bfsStep < _bfsVisitedHistory.length) {
+        visited = _bfsVisitedHistory[_bfsStep].toSet();
+      }
+      justAdded = _bfsJustAdded;
+    }
     return GraphModel(
       nodes: [
         for (final id in [
@@ -51,12 +65,11 @@ class _SixthLevelPageState extends State<SixthLevelPage> {
         ])
           NodeModel(
             id: id,
-            preferredColor:
-                (_bfsStep >= 0 &&
-                    _bfsOrder.isNotEmpty &&
-                    _bfsOrder[_bfsStep] == id)
+            preferredColor: current == id
                 ? Colors.green
-                : null,
+                : justAdded.contains(id)
+                ? Colors.orange
+                : (visited.contains(id) ? Colors.black : null),
           ),
       ],
       edges: [
@@ -120,14 +133,59 @@ class _SixthLevelPageState extends State<SixthLevelPage> {
       _bfsStep = -1;
       _isAnimating = true;
       _shouldStopAnimation = false;
+      _bfsVisitedHistory = [];
+      _bfsJustAdded = [];
     });
     await _graphWidget.replaceGraphModel(_buildGraphModel());
-    for (int i = 0; i < _bfsOrder.length; i++) {
+
+    // BFS с историей посещённых
+    final edges = [
+      ['A', 'B'],
+      ['A', 'C'],
+      ['B', 'D'],
+      ['B', 'E'],
+      ['C', 'F'],
+      ['C', 'G'],
+      ['D', 'H'],
+      ['D', 'I'],
+      ['E', 'J'],
+      ['E', 'K'],
+      ['F', 'L'],
+      ['F', 'M'],
+    ];
+    final Map<String, List<String>> graph = {};
+    for (final e in edges) {
+      graph.putIfAbsent(e[0], () => []).add(e[1]);
+    }
+    final List<String> order = [];
+    final queue = <String>['A'];
+    final visited = <String>{'A'};
+    final visitedHistory = <Set<String>>{...[]};
+    final justAddedHistory = <List<String>>[];
+    while (queue.isNotEmpty) {
+      final node = queue.removeAt(0);
+      order.add(node);
+      final justAdded = <String>[];
+      for (final child in graph[node] ?? []) {
+        if (!visited.contains(child)) {
+          visited.add(child);
+          queue.add(child);
+          justAdded.add(child);
+        }
+      }
+      visitedHistory.add(Set<String>.from(order));
+      justAddedHistory.add(justAdded);
+    }
+    // Анимация по шагам
+    for (int i = 0; i < order.length; i++) {
       if (_shouldStopAnimation) break;
       await Future.delayed(const Duration(milliseconds: 600));
       if (_shouldStopAnimation) break;
       setState(() {
+        _bfsOrder = order;
         _bfsStep = i;
+        _bfsVisitedHistory = visitedHistory.toList();
+        _bfsJustAdded = justAddedHistory[i];
       });
       await _graphWidget.replaceGraphModel(_buildGraphModel());
     }
@@ -135,6 +193,7 @@ class _SixthLevelPageState extends State<SixthLevelPage> {
       _bfsStep = -1;
       _isAnimating = false;
       _shouldStopAnimation = false;
+      _bfsJustAdded = [];
     });
     await _graphWidget.replaceGraphModel(_buildGraphModel());
   }
@@ -144,6 +203,7 @@ class _SixthLevelPageState extends State<SixthLevelPage> {
       _shouldStopAnimation = true;
       _bfsStep = -1;
       _isAnimating = false;
+      _bfsJustAdded = [];
     });
     _graphWidget.replaceGraphModel(_buildGraphModel());
   }
@@ -181,6 +241,12 @@ class _SixthLevelPageState extends State<SixthLevelPage> {
                   style: Theme.of(
                     context,
                   ).textTheme.bodyMedium?.copyWith(color: Colors.green),
+                ),
+                orangeNode: (text) => TextSpan(
+                  text: text,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(color: Colors.orange),
                 ),
               ),
               onAnimationStartClick: _startBfsAnimation,

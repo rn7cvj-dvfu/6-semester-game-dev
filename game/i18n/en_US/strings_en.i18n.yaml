@@ -89,6 +89,7 @@ levels:
         richText(rich): |
           This animation demonstrates the order in which nodes are visited during a BFS traversal of a tree.
           The current node being visited will be highlighted in ${greenNode(green)}.
+          ${orangeNode(Orange)} will highlight the nodes that have been added to the queue for visiting.
 
 noNodesToEdit: "Graph has no nodes to edit."
 addNode: "Add Node"
