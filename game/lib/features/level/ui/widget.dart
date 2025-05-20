@@ -39,6 +39,45 @@ class _LevelWidgetState extends State<LevelWidget> {
   int? _questionInput;
   String? _errorText;
 
+  // Animation state
+  bool _isAnimating = false;
+
+  void _startAnimation(LevelStageModel anim) async {
+    final animation = anim.mapOrNull(animation: (a) => a);
+    if (animation == null || _isAnimating) return;
+    setState(() {
+      _isAnimating = true;
+    });
+    for (int i = 0; i < animation.animationSteps.length; i++) {
+      if (!_isAnimating) break;
+      _graphWidget?.replaceGraphModel(
+        animation.graphModel.copyWith(
+          nodes: [
+            for (final node in animation.graphModel.nodes)
+              node.copyWith(
+                preferredColor:
+                    animation.animationSteps[i][node.id] ?? node.preferredColor,
+              ),
+          ],
+        ),
+      );
+      await Future.delayed(animation.animationDurationMs);
+    }
+    setState(() {
+      _isAnimating = false;
+    });
+    _graphWidget?.replaceGraphModel(animation.graphModel);
+  }
+
+  void _stopAnimation(LevelStageModel anim) {
+    final animation = anim.mapOrNull(animation: (a) => a);
+    if (animation == null) return;
+    setState(() {
+      _isAnimating = false;
+    });
+    _graphWidget?.replaceGraphModel(animation.graphModel);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -158,6 +197,46 @@ class _LevelWidgetState extends State<LevelWidget> {
           _currentStageIndex < _totalStages - 1 ? _nextStage : widget.onFinish,
     );
 
+    final infoCard = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      spacing: 8,
+      children: [
+        _InfoCardWidget(
+          title: widget.stages[_currentStageIndex].title,
+          text: widget.stages[_currentStageIndex].text,
+          richText: widget.stages[_currentStageIndex].richText,
+        ),
+        if (_currentStage != null)
+          _currentStage?.mapOrNull(
+                animation: (anim) => _AnimationButtonWidget(
+                  onPlay: !_isAnimating ? () => _startAnimation(anim) : null,
+                  onPause: _isAnimating ? () => _stopAnimation(anim) : null,
+                ),
+              ) ??
+              SizedBox.shrink(),
+        if (_totalStages > 1)
+          _StepButtonWidget(
+            currentStage: _currentStageIndex,
+            totalStages: _totalStages,
+            onBack: onBack,
+            onNext: onNext,
+          ),
+        if (_currentStage != null)
+          _currentStage?.mapOrNull(
+                question: (data) => _QuestionStageWidget(
+                  answerHint: data.answerHint ?? '',
+                  correctAnswer: data.correctAnswer,
+                  onChanged: (value) => setState(() {
+                    _questionInput = int.tryParse(value);
+                  }),
+                  errorText: _errorText,
+                ),
+              ) ??
+              SizedBox.shrink(),
+      ],
+    );
+
     return Material(
       child: Stack(
         children: [
@@ -196,37 +275,7 @@ class _LevelWidgetState extends State<LevelWidget> {
                 child: SingleChildScrollView(
                   padding: EdgeInsets.symmetric(vertical: 16),
                   primary: false,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.min,
-                    spacing: 8,
-                    children: [
-                      _InfoCardWidget(
-                        title: widget.stages[_currentStageIndex].title,
-                        text: widget.stages[_currentStageIndex].text,
-                        richText: widget.stages[_currentStageIndex].richText,
-                      ),
-                      if (_totalStages > 1)
-                        _StepButtonWidget(
-                          currentStage: _currentStageIndex,
-                          totalStages: _totalStages,
-                          onBack: onBack,
-                          onNext: onNext,
-                        ),
-                      if (_currentStage != null)
-                        _currentStage?.mapOrNull(
-                              question: (data) => _QuestionStageWidget(
-                                answerHint: data.answerHint ?? '',
-                                correctAnswer: data.correctAnswer,
-                                onChanged: (value) => setState(() {
-                                  _questionInput = int.tryParse(value);
-                                }),
-                                errorText: _errorText,
-                              ),
-                            ) ??
-                            SizedBox.shrink(),
-                    ],
-                  ),
+                  child: infoCard,
                 ),
               ),
             ),
@@ -242,36 +291,7 @@ class _LevelWidgetState extends State<LevelWidget> {
                     horizontal: 8,
                     vertical: 8,
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      _InfoCardWidget(
-                        title: widget.stages[_currentStageIndex].title,
-                        text: widget.stages[_currentStageIndex].text,
-                        richText: widget.stages[_currentStageIndex].richText,
-                      ),
-                      if (_totalStages > 1)
-                        _StepButtonWidget(
-                          currentStage: _currentStageIndex,
-                          totalStages: _totalStages,
-                          onBack: onBack,
-                          onNext: onNext,
-                        ),
-                      if (_currentStage != null)
-                        _currentStage?.mapOrNull(
-                              question: (data) => _QuestionStageWidget(
-                                answerHint: data.answerHint ?? '',
-                                correctAnswer: data.correctAnswer,
-                                onChanged: (value) => setState(() {
-                                  _questionInput = int.tryParse(value);
-                                }),
-                                errorText: _errorText,
-                              ),
-                            ) ??
-                            SizedBox.shrink(),
-                    ],
-                  ),
+                  child: infoCard,
                 ),
               ),
             ),
