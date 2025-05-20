@@ -5,6 +5,8 @@ import 'package:flame/game.dart';
 import '../../.gen/i18n/strings.g.dart';
 import '../../features/graph/models/model.dart';
 import '../../features/graph/ui/widget.dart';
+import '../../features/level/ui/layouts/desktop.dart';
+import '../../features/level/ui/layouts/mobile.dart';
 import '../../features/levels/5/level_info.dart';
 import '../../features/levels/finish_level_dialog.dart';
 import '../../features/settings.dart';
@@ -194,122 +196,56 @@ class _FifthLevelPageState extends State<FifthLevelPage> {
   Widget build(BuildContext context) {
     _ensureGraphWidget(context);
     final isMobile = MediaQuery.widthOf(context) <= GSettings.maxPhoneWidth;
-    final sidePadding = isMobile ? 32.0 : 32.0;
-    final topPadding = isMobile ? 16.0 : 16.0 + 64;
-    final bottomPadding = isMobile ? 16.0 : 16.0;
-    final rightPadding = isMobile ? 32.0 : GSettings.maxDialogWidth + 16 + 16;
-    final maxDialogWidth = isMobile
-        ? double.infinity
-        : GSettings.maxDialogWidth;
 
-    final infoCard = Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        FifthLevelInfo(
-          title: context.t.strings.levels.k5.stages.k1.title,
-          richText: context.t.strings.levels.k5.stages.k1.richText(
-            redNode: (text) => TextSpan(
-              text: text,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: Colors.red),
-            ),
-            blueNode: (text) => TextSpan(
-              text: text,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: Colors.blue),
-            ),
-            redNode2: (text) => TextSpan(
-              text: text,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: Colors.red),
-            ),
-            orangeNode: (text) => TextSpan(
-              text: text,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: Colors.orange),
-            ),
-          ),
+    final infoCard = FifthLevelInfo(
+      title: context.t.strings.levels.k5.stages.k1.title,
+      richText: context.t.strings.levels.k5.stages.k1.richText(
+        redNode: (text) => TextSpan(
+          text: text,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.red),
         ),
-        const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            ElevatedButton(
-              onPressed: _userPath.length > 1
-                  ? () => _onBackStep(context)
-                  : null,
-              child: const Text('Назад'),
-            ),
-          ],
+        blueNode: (text) => TextSpan(
+          text: text,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.blue),
         ),
-      ],
-    );
-
-    return Material(
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: Padding(
-              padding: EdgeInsets.only(
-                top: topPadding,
-                left: sidePadding,
-                right: rightPadding,
-                bottom: bottomPadding,
-              ),
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 500),
-                reverseDuration: const Duration(milliseconds: 500),
-                child: _graphWidget != null
-                    ? GameWidget(game: _graphWidget!)
-                    : const SizedBox.shrink(),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 16,
-            left: 16,
-            child: GBackButton(onTap: AppNavigator.openLevels),
-          ),
-          if (!isMobile)
-            Positioned(
-              top: 0,
-              right: 16,
-              bottom: 0,
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxWidth: maxDialogWidth,
-                  maxHeight: MediaQuery.sizeOf(context).height,
-                ),
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  primary: false,
-                  child: infoCard,
-                ),
-              ),
-            ),
-          if (isMobile)
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: SafeArea(
-                top: false,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 8,
-                  ),
-                  child: infoCard,
-                ),
-              ),
-            ),
-        ],
+        redNode2: (text) => TextSpan(
+          text: text,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.red),
+        ),
+        orangeNode: (text) => TextSpan(
+          text: text,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.orange),
+        ),
       ),
     );
+
+    final backButton = GBackButton(onTap: AppNavigator.openLevels);
+
+    return switch (isMobile) {
+      true => MobileLayout(
+        graphWidget: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: GameWidget(game: _graphWidget!),
+        ),
+        infoCard: infoCard,
+        backButton: backButton,
+      ),
+      false => DesktopLayout(
+        graphWidget: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: GameWidget(game: _graphWidget!),
+        ),
+        infoCard: infoCard,
+        backButton: backButton,
+      ),
+    };
   }
 }

@@ -5,6 +5,8 @@ import '../../.gen/i18n/strings.g.dart';
 import '../../features/graph/models/model.dart';
 import '../../features/graph/ui/widget.dart';
 import '../../features/graph/utils/count_connected_components.dart';
+import '../../features/level/ui/layouts/desktop.dart';
+import '../../features/level/ui/layouts/mobile.dart';
 import '../../features/levels/finish_level_dialog.dart';
 import '../../features/levels/widgets/info_card.dart';
 import '../../features/settings.dart';
@@ -152,25 +154,16 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
 
   @override
   Widget build(BuildContext context) {
-    final t = Translations.of(context);
     final isMobile = MediaQuery.widthOf(context) <= GSettings.maxPhoneWidth;
 
-    final sidePadding = isMobile ? 8.0 : 16.0;
-    final topPadding = isMobile ? 8.0 : 16.0 + 64;
-    final bottomPadding = isMobile ? 8.0 : 16.0;
-    final rightPadding = isMobile ? 8.0 : GSettings.maxDialogWidth + 16 + 16;
-    final maxDialogWidth = isMobile
-        ? double.infinity
-        : GSettings.maxDialogWidth;
-
-    Widget infoAndControls = Column(
+    final infoAndControls = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       spacing: 8,
       children: [
         InfoCardWidget(
-          title: t.strings.levels.k3.connectThemAllTitle,
-          text: t.strings.levels.k3.connectThemAllDescription,
+          title: context.t.strings.levels.k3.connectThemAllTitle,
+          text: context.t.strings.levels.k3.connectThemAllDescription,
         ),
         Row(
           children: [
@@ -181,14 +174,14 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
                   updateGameState();
                   selectedNodeId = null;
                 },
-                child: Text(t.strings.levels.k3.resetButton),
+                child: Text(context.t.strings.levels.k3.resetButton),
               ),
             ),
             const SizedBox(width: 8),
             Expanded(
               child: ElevatedButton(
                 onPressed: resolve,
-                child: Text(t.strings.levels.k3.checkButton),
+                child: Text(context.t.strings.levels.k3.checkButton),
               ),
             ),
           ],
@@ -196,60 +189,19 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
       ],
     );
 
-    return Material(
-      child: Stack(
-        children: [
-          if (_graphGame != null)
-            Positioned.fill(
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: topPadding,
-                  right: rightPadding,
-                  bottom: bottomPadding,
-                  left: sidePadding,
-                ),
-                child: GameWidget(key: _gameWidgetKey, game: _graphGame!),
-              ),
-            ),
-          Positioned(
-            top: 16,
-            left: 16,
-            child: GBackButton(onTap: AppNavigator.openLevels),
-          ),
-          if (!isMobile)
-            Positioned(
-              top: 0,
-              right: 16,
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxWidth: maxDialogWidth,
-                  maxHeight: MediaQuery.sizeOf(context).height,
-                ),
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  primary: false,
-                  child: infoAndControls,
-                ),
-              ),
-            ),
-          if (isMobile)
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: SafeArea(
-                top: false,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 8,
-                  ),
-                  child: infoAndControls,
-                ),
-              ),
-            ),
-        ],
+    final backButton = GBackButton(onTap: AppNavigator.openLevels);
+
+    return switch (isMobile) {
+      true => MobileLayout(
+        graphWidget: GameWidget(key: _gameWidgetKey, game: _graphGame!),
+        infoCard: infoAndControls,
+        backButton: backButton,
       ),
-    );
+      false => DesktopLayout(
+        graphWidget: GameWidget(key: _gameWidgetKey, game: _graphGame!),
+        infoCard: infoAndControls,
+        backButton: backButton,
+      ),
+    };
   }
 }

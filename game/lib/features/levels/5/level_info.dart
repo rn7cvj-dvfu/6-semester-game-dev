@@ -21,20 +21,16 @@ class FifthLevelInfo extends StatefulWidget {
 class _FifthLevelInfoState extends State<FifthLevelInfo> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      primary: false,
-      padding: EdgeInsets.symmetric(vertical: 16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        spacing: 8,
-        children: [
-          InfoCardWidget(
-            title: widget.title,
-            text: widget.text,
-            richText: widget.richText,
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      spacing: 8,
+      children: [
+        InfoCardWidget(
+          title: widget.title,
+          text: widget.text,
+          richText: widget.richText,
+        ),
+      ],
     );
   }
 }

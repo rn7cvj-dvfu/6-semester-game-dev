@@ -8,10 +8,13 @@ import '../../graph/ui/widget.dart';
 import '../../settings.dart';
 import '../../ui/back_button.dart';
 import '../models/stage.dart';
+import 'layouts/desktop.dart';
+import 'layouts/mobile.dart';
 
 part 'widgets/info_card.dart';
 part 'widgets/step_button.dart';
 part 'widgets/animation_button.dart';
+part 'widgets/answer_field.dart';
 
 class LevelWidget extends StatefulWidget {
   final List<LevelStageModel> stages;
@@ -39,8 +42,21 @@ class _LevelWidgetState extends State<LevelWidget> {
   int? _questionInput;
   String? _errorText;
 
-  // Animation state
   bool _isAnimating = false;
+
+  @override
+  void initState() {
+    super.initState();
+    assert(widget.stages.isNotEmpty, 'Stages cannot be empty');
+    _totalStages = widget.stages.length;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _initGraphWidget();
+    _initStages();
+  }
 
   void _startAnimation(LevelStageModel anim) async {
     final animation = anim.mapOrNull(animation: (a) => a);
@@ -76,20 +92,6 @@ class _LevelWidgetState extends State<LevelWidget> {
       _isAnimating = false;
     });
     _graphWidget?.replaceGraphModel(animation.graphModel);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    assert(widget.stages.isNotEmpty, 'Stages cannot be empty');
-    _totalStages = widget.stages.length;
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _initGraphWidget();
-    _initStages();
   }
 
   void _initStages() {
@@ -173,22 +175,12 @@ class _LevelWidgetState extends State<LevelWidget> {
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.widthOf(context) <= GSettings.maxPhoneWidth;
 
-    final sidePadding = isMobile ? 8.0 : 16.0;
-    final topPadding = isMobile ? 8.0 : 16.0;
-    final bottomPadding = isMobile ? 8.0 + 128 : 16.0;
-    final rightPadding = isMobile ? 8.0 : GSettings.maxDialogWidth + 16 + 16;
-    final maxDialogWidth = isMobile
-        ? double.infinity
-        : GSettings.maxDialogWidth;
-
     final onBack = _currentStageIndex > 0 ? _previousStage : null;
-
     final onNext = _currentStage?.maybeMap(
       question: (value) => () {
         if (!_validate(value.correctAnswer)) {
           return;
         }
-
         return _currentStageIndex < _totalStages - 1
             ? _nextStage()
             : widget.onFinish();
@@ -207,14 +199,6 @@ class _LevelWidgetState extends State<LevelWidget> {
           text: widget.stages[_currentStageIndex].text,
           richText: widget.stages[_currentStageIndex].richText,
         ),
-        if (_currentStage != null)
-          _currentStage?.mapOrNull(
-                animation: (anim) => _AnimationButtonWidget(
-                  onPlay: !_isAnimating ? () => _startAnimation(anim) : null,
-                  onPause: _isAnimating ? () => _stopAnimation(anim) : null,
-                ),
-              ) ??
-              SizedBox.shrink(),
         if (_totalStages > 1)
           _StepButtonWidget(
             currentStage: _currentStageIndex,
@@ -224,7 +208,11 @@ class _LevelWidgetState extends State<LevelWidget> {
           ),
         if (_currentStage != null)
           _currentStage?.mapOrNull(
-                question: (data) => _QuestionStageWidget(
+                animation: (anim) => _AnimationButtonWidget(
+                  onPlay: !_isAnimating ? () => _startAnimation(anim) : null,
+                  onPause: _isAnimating ? () => _stopAnimation(anim) : null,
+                ),
+                question: (data) => _AnswerFieldWidget(
                   answerHint: data.answerHint ?? '',
                   correctAnswer: data.correctAnswer,
                   onChanged: (value) => setState(() {
@@ -237,120 +225,29 @@ class _LevelWidgetState extends State<LevelWidget> {
       ],
     );
 
-    return Material(
-      child: Stack(
-        children: [
-          if (_graphWidget != null)
-            Positioned.fill(
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: topPadding,
-                  right: rightPadding,
-                  bottom: bottomPadding,
-                  left: sidePadding,
-                ),
-                child: Center(
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 500),
-                    reverseDuration: const Duration(milliseconds: 500),
-                    child: GameWidget(game: _graphWidget!),
-                  ),
-                ),
-              ),
-            ),
-          Positioned(
-            top: 16,
-            left: 16,
-            child: GBackButton(
-              onTap: widget.onBackTap ?? AppNavigator.openLevels,
-            ),
-          ),
-          if (!isMobile)
-            Positioned(
-              top: 0,
-              right: 16,
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxWidth: maxDialogWidth,
-                  maxHeight: MediaQuery.sizeOf(context).height,
-                ),
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  primary: false,
-                  child: infoCard,
-                ),
-              ),
-            ),
-          if (isMobile)
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: SafeArea(
-                top: false,
-                child: Container(
-                  margin: const EdgeInsets.only(top: 8),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).cardColor,
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(16),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Theme.of(context).shadowColor,
-                        blurRadius: 1024,
-                        offset: const Offset(0, -2),
-                      ),
-                    ],
-                  ),
-                  child: SingleChildScrollView(
-                    primary: false,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 8,
-                    ),
-                    child: infoCard,
-                  ),
-                ),
-              ),
-            ),
-        ],
-      ),
+    final graphWidget = _graphWidget != null
+        ? AnimatedSwitcher(
+            duration: const Duration(milliseconds: 500),
+            reverseDuration: const Duration(milliseconds: 500),
+            child: GameWidget(game: _graphWidget!),
+          )
+        : const SizedBox.shrink();
+
+    final backButton = GBackButton(
+      onTap: widget.onBackTap ?? AppNavigator.openLevels,
     );
-  }
-}
 
-class _QuestionStageWidget extends StatelessWidget {
-  final String answerHint;
-  final int correctAnswer;
-  final void Function(String) onChanged;
-  final String? errorText;
-
-  const _QuestionStageWidget({
-    required this.answerHint,
-    required this.correctAnswer,
-    required this.onChanged,
-    this.errorText,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.zero,
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: TextFormField(
-          inputFormatters: [
-            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-          ],
-          onChanged: onChanged,
-          decoration: InputDecoration(
-            labelText: answerHint,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-            errorText: errorText,
-          ),
-        ),
+    return switch (isMobile) {
+      true => MobileLayout(
+        graphWidget: graphWidget,
+        infoCard: infoCard,
+        backButton: backButton,
       ),
-    );
+      false => DesktopLayout(
+        graphWidget: graphWidget,
+        infoCard: infoCard,
+        backButton: backButton,
+      ),
+    };
   }
 }
